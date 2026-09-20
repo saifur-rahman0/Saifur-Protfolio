@@ -1,1 +1,722 @@
-/* Section-specific layouts */
+/* ============================================================
+   SECTIONS.CSS — Section-Specific Layout Styles
+   Layout and spacing unique to each portfolio section.
+   Mobile-first. NO hard-coded color/font values — use variables.
+   ============================================================ */
+
+/* ============================================================
+   5.1 — HERO SECTION  (#hero)
+   ============================================================ */
+
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* Full-bleed canvas behind everything */
+#neural-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+/* Radial vignette over canvas so text stays readable */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--bg-primary) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content wrapper — sits above canvas */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 var(--space-6);
+  margin-top: var(--nav-height);
+  /* Horizontal auto-margin left-aligned by default */
+  margin-left: max(var(--space-6), calc((100vw - var(--max-width-content)) / 2));
+}
+
+/* Hero name */
+#hero-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-4);
+}
+
+/* "I am a …" subtitle row */
+.hero-role {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  margin: var(--space-4) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Animated role word */
+#role-switcher {
+  color: var(--accent-primary);
+  font-style: italic;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  position: relative;
+  display: inline-block;
+  min-width: 280px; /* prevent layout shift during typewriter */
+}
+
+/* Blinking cursor after role word */
+#role-switcher::after {
+  content: '|';
+  color: var(--accent-primary);
+  font-style: normal;
+  animation: blink-cursor 0.8s ease infinite;
+  margin-left: 2px;
+}
+
+/* When cursor is manually rendered by JS, hide CSS one */
+#role-switcher.cursor-js-controlled::after {
+  display: none;
+}
+
+/* Tagline paragraph */
+.hero-tagline {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  max-width: 580px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+/* CTA button group */
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Scroll indicator — bottom center */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--space-10);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0.6;
+  transition: opacity var(--transition-base);
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-text {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  writing-mode: horizontal-tb;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--accent-primary), transparent);
+  margin: 0 auto;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-primary);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   5.2 — ABOUT SECTION  (#about)
+   ============================================================ */
+
+#about {
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+/* Two-column grid: avatar (left) + text (right) */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+/* ── Left column — Avatar ── */
+.about-avatar-col {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Wrapper provides the glowing ring effect */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Spinning conic gradient ring behind avatar */
+.avatar-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-tertiary),
+    var(--accent-primary)
+  );
+  animation: spin-ring 4s linear infinite;
+  z-index: 0;
+}
+
+/* White gap between ring and avatar */
+.avatar-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  z-index: 1;
+}
+
+/* Profile photo */
+.avatar-img {
+  position: relative;
+  z-index: 2;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── Right column — Text ── */
+.about-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Bio paragraph */
+.about-bio {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 540px;
+  line-height: var(--leading-relaxed);
+}
+
+.about-bio strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* About section social links row */
+.about-text-col .social-links {
+  margin-top: var(--space-2);
+}
+
+/* ============================================================
+   5.3 — EXPERIENCE & EDUCATION TIMELINE (#journey)
+   ============================================================ */
+
+#journey {
+  background: var(--bg-primary);
+  position: relative;
+}
+
+/* Timeline container — vertical line on desktop */
+.timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px; /* aligns with node center */
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-primary),
+    transparent
+  );
+}
+
+/* Single timeline item */
+.timeline-item {
+  position: relative;
+  padding-left: 72px; /* space for node + gap */
+  padding-bottom: var(--space-10);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Timeline node — glowing circle */
+.timeline-node {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent-primary);
+  z-index: 1;
+  animation: node-pulse 2.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-node::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+/* Node variants */
+.timeline-node--education {
+  border-color: var(--accent-secondary);
+  animation-delay: 0.5s;
+}
+
+.timeline-node--education::after {
+  background: var(--accent-secondary);
+}
+
+.timeline-node--achievement {
+  border-color: var(--accent-success);
+  animation-delay: 1s;
+}
+
+.timeline-node--achievement::after {
+  background: var(--accent-success);
+}
+
+/* Timeline card */
+.timeline-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow   var(--transition-fast);
+}
+
+.timeline-card:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-glow-sm), var(--shadow-card);
+}
+
+/* Date / period badge */
+.timeline-period {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--accent-primary);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-2);
+}
+
+.timeline-period--education {
+  color: var(--accent-secondary);
+}
+
+.timeline-period--achievement {
+  color: var(--accent-success);
+}
+
+/* Role / degree title */
+.timeline-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+  line-height: var(--leading-snug);
+}
+
+/* Organization name */
+.timeline-org {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+/* Bullet highlights */
+.timeline-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+  list-style: none;
+}
+
+.timeline-highlights li {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  line-height: var(--leading-normal);
+}
+
+.timeline-highlights li::before {
+  content: '→';
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+
+/* Achievement tags row */
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* ============================================================
+   5.4 — PROJECTS SECTION  (#projects)
+   ============================================================ */
+
+#projects {
+  background: var(--bg-primary);
+  position: relative;
+}
+
+/* Flagship 3-column card grid — JS renders cards here */
+#flagship-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 col */
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+/* Equal-height cards inside grid */
+#flagship-grid .project-card {
+  height: 100%;
+}
+
+/* Cards hidden by filter */
+.project-card.is-filtered,
+.compact-card.is-filtered {
+  display: none;
+}
+
+/* Tier 2/3 heading */
+.compact-projects-heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Compact card grid — smaller, 4-col on desktop */
+#compact-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 col */
+  gap: var(--space-4);
+}
+
+/* GitHub more-projects CTA */
+.github-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+
+/* ============================================================
+   5.5 — SKILLS SECTION  (#skills)
+   ============================================================ */
+
+#skills {
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+/* 2-column grid of skill categories */
+.skills-categories {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 col */
+  gap: var(--space-10);
+}
+
+/* Individual category block */
+.skill-category {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Category sub-heading */
+.skill-category__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-top: var(--space-1);
+}
+
+/* Tag cloud */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ============================================================
+   5.6 — PROFILES SECTION  (#profiles)
+   ============================================================ */
+
+#profiles {
+  background: var(--bg-primary);
+  position: relative;
+}
+
+/* ============================================================
+   5.7 — CONTACT SECTION  (#contact)
+   ============================================================ */
+
+#contact {
+  background: var(--bg-secondary);
+  position: relative;
+  text-align: center;
+}
+
+/* Centered content stack */
+.contact-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Contact section section-subtitle override — full width inside centered block */
+#contact .section-subtitle {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* Email CTA — larger than standard btn-primary */
+.email-link {
+  font-size: var(--text-lg);
+  padding: 18px 48px;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Social icon row in contact */
+.contact-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Divider "or connect via" */
+.contact-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 300px;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.contact-divider::before,
+.contact-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+/* ============================================================
+   5.8 — FOOTER  (#footer)
+   ============================================================ */
+
+#footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-8) 0;
+}
+
+.footer-container {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+/* Footer logo */
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  /* gradient-text applied in HTML */
+  text-decoration: none;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Footer brand copy */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer-tagline {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  max-width: 280px;
+  text-align: center;
+}
+
+/* Footer nav links */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-6);
+  list-style: none;
+}
+
+.footer-nav a {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-nav a:hover {
+  color: var(--accent-primary);
+}
+
+/* Footer social icons */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Copyright */
+.footer-copyright {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+.footer-copyright a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.footer-copyright a:hover {
+  text-decoration: underline;
+}
+
+/* Footer divider line */
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+/* ============================================================
+   GLOBAL SECTION TRANSITIONS — for filter animations
+   ============================================================ */
+
+/* Smooth filter transitions on project cards */
+.project-card,
+.compact-card {
+  transition:
+    opacity      0.3s ease,
+    transform    0.3s var(--transition-spring),
+    box-shadow   var(--transition-spring),
+    border-color var(--transition-spring);
+}
+
+/* Visible but will be hidden after animation ends */
+.project-card.is-hiding,
+.compact-card.is-hiding {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* Appearing from filtered state */
+.project-card.is-showing,
+.compact-card.is-showing {
+  animation: fade-in-up 0.4s var(--transition-spring) both;
+}

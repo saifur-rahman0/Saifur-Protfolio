@@ -1,1 +1,256 @@
-/* Keyframe animations and scroll reveal initial states */
+/* ============================================================
+   ANIMATIONS.CSS — @keyframes & Scroll Reveal States
+   All animation definitions and initial states for reveal elements.
+   ONLY transform and opacity are animated (GPU-accelerated).
+   ============================================================ */
+
+/* ============================================================
+   @KEYFRAMES DEFINITIONS
+   ============================================================ */
+
+/* Gradient text shift — for hero name, stat numbers, gradient-text class */
+@keyframes gradient-shift {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+
+/* Avatar glow ring rotation — conic-gradient border spin */
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Pulsing glow — for back-to-top button, floating elements */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: var(--shadow-glow-sm); }
+  50%       { box-shadow: var(--shadow-glow-lg), 0 0 0 4px rgba(0, 212, 255, 0.1); }
+}
+
+/* Fade-in upward — default scroll reveal motion */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in only — simple opacity transition */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide down from top — nav bar entrance on page load */
+@keyframes slide-down-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide up from bottom — hero content entrance */
+@keyframes slide-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating bob — scroll indicator arrow, subtle vertical float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(8px); }
+}
+
+/* Blinking cursor — role-switcher typewriter caret */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Counter pop — stat numbers bounce in when revealed */
+@keyframes counter-pop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Shimmer — loading placeholder sweep effect */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* Rotate gradient border — animated card border on hover */
+@keyframes rotate-border {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Progress bar entrance — top scroll progress bar */
+@keyframes progress-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Scale in — modal panel entrance */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Stagger fade for timeline nodes */
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 212, 255, 0); }
+}
+
+/* ============================================================
+   PAGE LOAD ANIMATION SEQUENCE
+   Hero elements animate in with staggered delays
+   ============================================================ */
+
+/* Nav bar */
+.nav-animate {
+  animation: slide-down-in 0.6s ease 0.2s both;
+}
+
+/* Hero element sequence — classes applied by js/animations.js */
+.hero-animate-1 {
+  animation: slide-up-in 0.6s var(--transition-spring) 0.3s both;
+}
+.hero-animate-2 {
+  animation: slide-up-in 0.7s var(--transition-spring) 0.6s both;
+}
+.hero-animate-3 {
+  animation: slide-up-in 0.6s var(--transition-spring) 1.2s both;
+}
+.hero-animate-4 {
+  animation: fade-in 0.6s ease 1.4s both;
+}
+.hero-animate-5 {
+  animation: slide-up-in 0.5s var(--transition-spring) 1.6s both;
+}
+.hero-animate-6 {
+  animation: fade-in 0.6s ease 1.8s both;
+}
+
+/* ============================================================
+   SCROLL REVEAL STATES
+   Initial "hidden" states — JS adds .is-visible to trigger reveal.
+   Uses only transform + opacity for GPU-accelerated transitions.
+   ============================================================ */
+
+/* Default: fade + slide up */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity  0.6s var(--transition-spring),
+    transform 0.6s var(--transition-spring);
+}
+
+/* Revealed state */
+.reveal-element.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Left slide — used for about section avatar, left-side content */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition:
+    opacity  0.6s var(--transition-spring),
+    transform 0.6s var(--transition-spring);
+}
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Right slide — used for about section text, right-side content */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition:
+    opacity  0.6s var(--transition-spring),
+    transform 0.6s var(--transition-spring);
+}
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale up — used for stat numbers, pillar card icons */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity  0.6s var(--transition-spring),
+    transform 0.6s var(--transition-spring);
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ============================================================
+   STAGGER DELAY UTILITIES
+   Applied by JS to nth-child elements in grids (cards, tags).
+   Max delay caps at 0.64s to avoid feeling sluggish.
+   ============================================================ */
+
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+.stagger-5 { transition-delay: 0.40s; }
+.stagger-6 { transition-delay: 0.48s; }
+.stagger-7 { transition-delay: 0.56s; }
+.stagger-8 { transition-delay: 0.64s; }
+
+/* ============================================================
+   REDUCED MOTION — Accessibility Override
+   Respects user OS preference for reduced animations.
+   All animations become instant; canvas JS also checks this.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:          auto   !important;
+  }
+
+  /* Force reveal elements visible immediately */
+  .reveal-element,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

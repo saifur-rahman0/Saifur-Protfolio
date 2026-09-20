@@ -1,1 +1,458 @@
-/* Responsive media queries */
+/* ============================================================
+   RESPONSIVE.CSS — Media Queries (Mobile → Desktop)
+   Mobile-first: base styles are mobile in sections.css.
+   This file ONLY adds layout changes at larger viewports.
+   Order: sm(640) → md(768) → lg(1024) → xl(1280) → mobile-fixes
+   ============================================================ */
+
+/* ============================================================
+   6.1 — MOBILE BASE (< 640px) — Already defined in sections.css
+   Included here as explicit overrides and fixes.
+   ============================================================ */
+
+/* Hero name shrinks on smallest screens */
+@media (max-width: 480px) {
+  #hero-name {
+    font-size: var(--text-4xl);
+  }
+
+  .hero-role {
+    font-size: var(--text-lg);
+  }
+
+  .hero-tagline {
+    font-size: var(--text-base);
+  }
+
+  /* Avatar even smaller on very small screens */
+  .avatar-img {
+    width: 160px;
+    height: 160px;
+  }
+
+  /* Section container tighter on small screens */
+  .section-container {
+    padding: var(--space-16) var(--space-4);
+  }
+
+  /* Modal full-screen on phones */
+  .modal-panel {
+    width: 100vw;
+    max-height: 100dvh;
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    transform: translateY(60px) scale(0.95);
+    margin: 0;
+  }
+
+  .modal.is-open .modal-panel {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Filter tabs horizontal scroll */
+  .filter-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    padding-bottom: var(--space-2);
+  }
+
+  .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* CTA group stacks vertically */
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Role switcher min-width reduced */
+  #role-switcher {
+    min-width: 200px;
+  }
+
+  /* Timeline left padding reduced */
+  .timeline-item {
+    padding-left: 54px;
+  }
+
+  .timeline::before {
+    left: 18px;
+  }
+
+  .timeline-node {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Back to top closer to edge */
+  #back-to-top {
+    bottom: var(--space-5);
+    right: var(--space-4);
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ============================================================
+   6.2 — sm: 640px+ (Tablet Portrait)
+   ============================================================ */
+
+@media (min-width: 640px) {
+
+  /* Hero */
+  #hero-name {
+    font-size: var(--text-6xl);
+  }
+
+  .hero-role {
+    font-size: var(--text-xl);
+  }
+
+  /* Section containers get more breathing room */
+  .section-container {
+    padding: var(--space-20) var(--space-8);
+  }
+
+  /* Stat cards: 2-col on tablet portrait */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Compact projects: 2-col */
+  #compact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer nav inline */
+  .footer-nav {
+    gap: var(--space-3) var(--space-8);
+  }
+
+  /* Social icon size up slightly */
+  .social-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* CTA group row again */
+  .hero-cta-group {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hero-cta-group .btn {
+    width: auto;
+  }
+}
+
+/* ============================================================
+   6.3 — md: 768px+ (Tablet Landscape)
+   ============================================================ */
+
+@media (min-width: 768px) {
+
+  /* ── Show desktop nav, hide hamburger ── */
+  #navbar .nav-links {
+    display: flex;
+  }
+
+  #mobile-menu-btn {
+    display: none;
+  }
+
+  /* ── About grid: avatar (2fr) + text (3fr) ── */
+  .about-grid {
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .about-avatar-col {
+    justify-content: flex-end;
+  }
+
+  /* Avatar larger on tablet+ */
+  .avatar-img {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* Pillar cards row on tablet+ */
+  .pillar-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .pillar-card {
+    flex: 1 1 calc(50% - var(--space-2));
+    min-width: 240px;
+  }
+
+  /* Projects: 2-col grid */
+  #flagship-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Profiles: 2-col */
+  .profiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Skills: 2-col */
+  .skills-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer row on tablet+ */
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  .footer-brand {
+    align-items: flex-start;
+  }
+
+  .footer-tagline {
+    text-align: left;
+  }
+
+  /* Modal back to normal */
+  .modal-panel {
+    width: min(800px, 90vw);
+    max-height: 90vh;
+    border-radius: var(--radius-3xl);
+    top: 50%;
+    left: 50%;
+  }
+
+  .modal.is-open .modal-panel {
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+
+  /* Timeline left padding restored */
+  .timeline-item {
+    padding-left: 72px;
+  }
+
+  .timeline::before {
+    left: 28px;
+  }
+
+  .timeline-node {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ============================================================
+   6.4 — lg: 1024px+ (Desktop)
+   ============================================================ */
+
+@media (min-width: 1024px) {
+
+  /* ── Hero ── */
+  #hero-name {
+    font-size: var(--text-7xl);
+  }
+
+  .hero-content {
+    max-width: 800px;
+  }
+
+  /* ── About ── */
+  .about-grid {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  /* Avatar full size on desktop */
+  .avatar-img {
+    width: 260px;
+    height: 260px;
+  }
+
+  /* Pillar cards: one per row works well due to icon+text horizontal */
+  .pillar-cards {
+    flex-direction: column;
+  }
+
+  .pillar-card {
+    flex: none;
+  }
+
+  /* Stats: 4-col on desktop */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* ── Projects ── */
+  #flagship-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #compact-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* ── Skills ── */
+  .skills-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ── Profiles ── */
+  .profiles-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* ── Section container ── */
+  .section-container {
+    padding: var(--space-24) var(--space-8);
+  }
+
+  /* Section heading larger on desktop */
+  .section-heading {
+    font-size: var(--text-5xl);
+  }
+
+  /* Enable custom cursor only on desktop (pointer device) */
+  body.custom-cursor #cursor-dot,
+  body.custom-cursor #cursor-ring {
+    display: block;
+  }
+}
+
+/* ============================================================
+   6.5 — xl: 1280px+ (Wide Desktop)
+   ============================================================ */
+
+@media (min-width: 1280px) {
+
+  /* More generous section padding */
+  .section-container {
+    padding: var(--space-32) var(--space-8);
+  }
+
+  /* Hero at max font size */
+  #hero-name {
+    font-size: var(--text-7xl);
+  }
+
+  /* Wider hero content on XL screens */
+  .hero-content {
+    max-width: 900px;
+  }
+
+  /* Modal a bit wider */
+  .modal-panel {
+    padding: var(--space-10);
+  }
+
+  /* Stats numbers even bigger */
+  .stat-number {
+    font-size: var(--text-5xl);
+  }
+}
+
+/* ============================================================
+   6.6 — TOUCH / NO-HOVER DEVICE — Hide Custom Cursor
+   ============================================================ */
+
+@media (hover: none) or (pointer: coarse) {
+  /* Don't activate custom cursor on touchscreens */
+  body.custom-cursor,
+  body.custom-cursor * {
+    cursor: auto !important;
+  }
+
+  #cursor-dot,
+  #cursor-ring {
+    display: none !important;
+  }
+
+  /* Increase tap target sizes on touch devices */
+  .btn {
+    min-height: 48px;
+  }
+
+  .social-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .filter-tab {
+    min-height: 44px;
+  }
+
+  .nav-link {
+    padding: var(--space-2) 0;
+  }
+
+  .mobile-nav-link {
+    padding: var(--space-4);
+  }
+}
+
+/* ============================================================
+   6.7 — MOBILE-ONLY: .mobile-only / .desktop-only
+   ============================================================ */
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  /* Compact card description 3-line clamp on mobile */
+  .compact-card__description {
+    -webkit-line-clamp: 3;
+  }
+
+  /* Timeline card padding smaller on mobile */
+  .timeline-card {
+    padding: var(--space-4) var(--space-4);
+  }
+
+  /* Footer copyright centered on mobile */
+  .footer-copyright {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Modal panel: reduce padding */
+  .modal-panel {
+    padding: var(--space-5);
+  }
+
+  .modal-cover {
+    height: 180px;
+  }
+
+  .modal-title {
+    font-size: var(--text-2xl);
+  }
+}
