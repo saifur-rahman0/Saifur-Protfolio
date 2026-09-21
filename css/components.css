@@ -901,12 +901,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
 }
 
 .profile-card__icon svg,
 .profile-card__icon img {
   width: 32px;
   height: 32px;
+}
+
+/* Platform-specific icon accent on hover */
+.profile-card--github:hover .profile-card__icon {
+  color: var(--color-github);
+}
+
+.profile-card--linkedin:hover .profile-card__icon {
+  color: var(--color-linkedin);
+}
+
+.profile-card--kaggle:hover .profile-card__icon {
+  color: var(--color-kaggle);
+}
+
+.profile-card--codeforces:hover .profile-card__icon {
+  color: var(--color-codeforces);
 }
 
 .profile-card__platform {

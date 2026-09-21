@@ -130,7 +130,11 @@
         <!-- Hamburger (mobile only) -->
         <button id="mobile-menu-btn" class="mobile-only" aria-label="Open navigation menu" aria-expanded="false"
           aria-controls="mobile-drawer">
-          <img src="assets/icons/menu.svg" alt="" width="20" height="20" id="hamburger-icon" />
+          <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
 
@@ -142,7 +146,10 @@
     <div class="mobile-drawer__header">
       <span class="nav-logo gradient-text" aria-hidden="true">SR</span>
       <button class="mobile-drawer__close" id="drawer-close" aria-label="Close navigation menu">
-        <img src="assets/icons/close.svg" alt="" width="18" height="18" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
       </button>
     </div>
     <nav aria-label="Mobile navigation">
@@ -226,7 +233,10 @@
       <a href="#about" class="scroll-indicator hero-animate-6" aria-label="Scroll down to About section">
         <span class="scroll-text">Scroll</span>
         <div class="scroll-line"></div>
-        <img src="assets/icons/arrow-down.svg" alt="" class="scroll-arrow" width="24" height="24" />
+        <svg class="scroll-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
       </a>
     </section>
 
@@ -315,34 +325,37 @@
             <div class="social-links" aria-label="Connect with Saifur">
               <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
                 class="social-icon social-icon--github" aria-label="GitHub profile">
-                <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
               </a>
               <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
                 class="social-icon social-icon--linkedin" aria-label="LinkedIn profile">
-                <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="20" height="20" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
               </a>
               <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
                 class="social-icon social-icon--kaggle" aria-label="Kaggle profile">
-                <img src="assets/icons/kaggle.svg" alt="Kaggle" width="20" height="20" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M18.825 23.859c-.022.091-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.187c0 .149-.047.271-.141.365-.094.094-.216.141-.365.141H5.158c-.149 0-.271-.047-.365-.141-.094-.094-.141-.216-.141-.365V.505c0-.149.047-.271.141-.365C4.887.047 5.009 0 5.158 0h2.623c.149 0 .271.047.365.141.094.094.141.216.141.365v14.494l6.397-6.289c.164-.164.339-.246.527-.246h3.292c.164 0 .264.053.3.158.047.117.029.217-.053.299l-6.844 6.554 7.158 8.088c.07.094.094.194.07.295z"/>
+                </svg>
               </a>
               <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
                 class="social-icon social-icon--codeforces" aria-label="Codeforces profile">
-                <img src="assets/icons/codeforces.svg" alt="Codeforces" width="20" height="20" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400"/>
+                  <rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6"/>
+                  <rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919"/>
+                </svg>
               </a>
               <a href="mailto:rahmansaifur064@gmail.com" class="social-icon social-icon--email" aria-label="Send email">
-                <img src="assets/icons/email.svg" alt="Email" width="20" height="20" />
-              </a>
-            </div>
-
-            <!-- About Section CTA -->
-            <div class="about-cta reveal-element stagger-5">
-              <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-primary" id="about-cv-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
-                Download Full CV
               </a>
             </div>
 
@@ -498,7 +511,7 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/Bangla-Sign-Language-Word-Recognition" target="_blank"
                   rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View BdSLW401 on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="bdsl" aria-label="View BdSLW401 case study">
                   Case Study
@@ -532,7 +545,7 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/Sign-Language-App" target="_blank" rel="noopener noreferrer"
                   class="btn btn-ghost btn-sm" aria-label="View Sign Language App on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="signapp"
                   aria-label="View Sign Language App case study">
@@ -567,7 +580,7 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/Guava-Fruit-diseases-using-machine-learning" target="_blank"
                   rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View Guava AI on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="guava" aria-label="View Guava AI case study">
                   Case Study
@@ -600,7 +613,7 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/ShEC-CSE" target="_blank" rel="noopener noreferrer"
                   class="btn btn-ghost btn-sm" aria-label="View ShEC CSE on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="shec" aria-label="View ShEC CSE case study">
                   Case Study
@@ -633,11 +646,11 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/ETC_Apperial_LTD_v2" target="_blank"
                   rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View ETC Apperial on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <a href="https://etc-apperial-ltd-v2.vercel.app" target="_blank" rel="noopener noreferrer"
                   class="btn btn-primary btn-sm" aria-label="View ETC Apperial live demo">
-                  <img src="assets/icons/external-link.svg" alt="" width="16" height="16" /> Live Demo
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Live Demo
                 </a>
               </div>
             </div>
@@ -667,7 +680,7 @@
               <div class="project-card__actions">
                 <a href="https://github.com/saifur-rahman0/University-Management-System" target="_blank"
                   rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View UMS on GitHub">
-                  <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="ums" aria-label="View UMS case study">
                   Case Study
@@ -688,7 +701,7 @@
         <div class="github-cta reveal-element">
           <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"
             id="github-more-btn">
-            <img src="assets/icons/github.svg" alt="" width="20" height="20" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
             View All on GitHub
           </a>
         </div>
@@ -835,7 +848,7 @@
             class="profile-card profile-card--github reveal-element stagger-1"
             aria-label="View GitHub profile of saifur-rahman0">
             <div class="profile-card__icon">
-              <img src="assets/icons/github.svg" alt="GitHub" width="32" height="32" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
             </div>
             <span class="profile-card__platform">GitHub</span>
             <span class="profile-card__username">saifur-rahman0</span>
@@ -847,7 +860,11 @@
             class="profile-card profile-card--codeforces reveal-element stagger-2"
             aria-label="View Codeforces profile of saifur_r">
             <div class="profile-card__icon">
-              <img src="assets/icons/codeforces.svg" alt="Codeforces" width="32" height="32" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+                <rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400"/>
+                <rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6"/>
+                <rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919"/>
+              </svg>
             </div>
             <span class="profile-card__platform">Codeforces</span>
             <span class="profile-card__username">saifur_r</span>
@@ -859,7 +876,9 @@
             class="profile-card profile-card--kaggle reveal-element stagger-3"
             aria-label="View Kaggle profile of saifurrahman19">
             <div class="profile-card__icon">
-              <img src="assets/icons/kaggle.svg" alt="Kaggle" width="32" height="32" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true">
+                <path d="M18.825 23.859c-.022.091-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.187c0 .149-.047.271-.141.365-.094.094-.216.141-.365.141H5.158c-.149 0-.271-.047-.365-.141-.094-.094-.141-.216-.141-.365V.505c0-.149.047-.271.141-.365C4.887.047 5.009 0 5.158 0h2.623c.149 0 .271.047.365.141.094.094.141.216.141.365v14.494l6.397-6.289c.164-.164.339-.246.527-.246h3.292c.164 0 .264.053.3.158.047.117.029.217-.053.299l-6.844 6.554 7.158 8.088c.07.094.094.194.07.295z"/>
+              </svg>
             </div>
             <span class="profile-card__platform">Kaggle</span>
             <span class="profile-card__username">saifurrahman19</span>
@@ -871,7 +890,11 @@
             class="profile-card profile-card--linkedin reveal-element stagger-4"
             aria-label="View LinkedIn profile of Saifur Rahman">
             <div class="profile-card__icon">
-              <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="32" height="32" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
             </div>
             <span class="profile-card__platform">LinkedIn</span>
             <span class="profile-card__username">Saifur Rahman</span>
@@ -901,7 +924,10 @@
 
           <a href="mailto:rahmansaifur064@gmail.com" class="btn btn-primary email-link reveal-element stagger-3"
             id="contact-email-btn">
-            <img src="assets/icons/email.svg" alt="" width="22" height="22" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
             rahmansaifur064@gmail.com
           </a>
 
@@ -910,19 +936,19 @@
           <div class="contact-social reveal-element stagger-5" aria-label="Social media links">
             <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
               class="social-icon social-icon--github" aria-label="GitHub">
-              <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
             </a>
             <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
               class="social-icon social-icon--linkedin" aria-label="LinkedIn">
-              <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="20" height="20" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
             <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
               class="social-icon social-icon--kaggle" aria-label="Kaggle">
-              <img src="assets/icons/kaggle.svg" alt="Kaggle" width="20" height="20" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.825 23.859c-.022.091-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.187c0 .149-.047.271-.141.365-.094.094-.216.141-.365.141H5.158c-.149 0-.271-.047-.365-.141-.094-.094-.141-.216-.141-.365V.505c0-.149.047-.271.141-.365C4.887.047 5.009 0 5.158 0h2.623c.149 0 .271.047.365.141.094.094.141.216.141.365v14.494l6.397-6.289c.164-.164.339-.246.527-.246h3.292c.164 0 .264.053.3.158.047.117.029.217-.053.299l-6.844 6.554 7.158 8.088c.07.094.094.194.07.295z"/></svg>
             </a>
             <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
               class="social-icon social-icon--codeforces" aria-label="Codeforces">
-              <img src="assets/icons/codeforces.svg" alt="Codeforces" width="20" height="20" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400"/><rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6"/><rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919"/></svg>
             </a>
           </div>
 
@@ -960,15 +986,15 @@
       <div class="footer-social" aria-label="Social links">
         <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
           class="social-icon social-icon--github" aria-label="GitHub">
-          <img src="assets/icons/github.svg" alt="GitHub" width="18" height="18" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
         </a>
         <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
           class="social-icon social-icon--linkedin" aria-label="LinkedIn">
-          <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="18" height="18" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
         <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
           class="social-icon social-icon--codeforces" aria-label="Codeforces">
-          <img src="assets/icons/codeforces.svg" alt="Codeforces" width="18" height="18" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400"/><rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6"/><rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919"/></svg>
         </a>
       </div>
 
@@ -991,7 +1017,10 @@
     <div class="modal-overlay" id="modal-overlay"></div>
     <div class="modal-panel" tabindex="-1">
       <button class="modal-close" id="modal-close-btn" aria-label="Close project detail">
-        <img src="assets/icons/close.svg" alt="" width="18" height="18" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
       </button>
       <!-- Content injected by js/projects.js -->
       <div id="modal-body"></div>
@@ -1003,7 +1032,10 @@
        BACK TO TOP
        ══════════════════════════════════════ -->
   <button id="back-to-top" aria-label="Scroll back to top" title="Back to top">
-    <img src="assets/icons/arrow-up.svg" alt="" width="22" height="22" />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
   </button>
 
 
