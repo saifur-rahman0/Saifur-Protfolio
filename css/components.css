@@ -107,6 +107,8 @@
   box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition:
     transform    var(--transition-spring),
     box-shadow   var(--transition-spring),
@@ -117,6 +119,35 @@
   transform: translateY(-8px);
   border-color: var(--border-active);
   box-shadow: var(--shadow-card-hover);
+}
+
+/* Dynamic cursor spotlight reflection overlay (positions via JS or centered fallback) */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 242, 254, 0.08),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity var(--transition-base);
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+[data-theme="light"] .card::after {
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(2, 132, 199, 0.08),
+    transparent 50%
+  );
 }
 
 /* Animated rotating gradient border via pseudo-element (visible on hover) */
@@ -144,12 +175,12 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
   pointer-events: none;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.2s ease;
-  z-index: 1;
+  z-index: 2;
 }
 
 .card:hover .card-shine {
@@ -405,11 +436,18 @@
    ============================================================ */
 
 .filter-tabs {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   margin-bottom: var(--space-10);
   flex-wrap: wrap;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
 }
 
 .filter-tab {
@@ -422,7 +460,7 @@
   font-weight: var(--weight-medium);
   color: var(--text-secondary);
   background: transparent;
-  border: 1px solid var(--border-card);
+  border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   transition:
@@ -430,25 +468,25 @@
     color         var(--transition-base),
     border-color  var(--transition-base),
     box-shadow    var(--transition-base),
-    transform     var(--transition-fast);
+    transform     var(--transition-spring);
 }
 
 .filter-tab:hover {
   color: var(--text-primary);
-  border-color: var(--border-active);
   background: var(--bg-glass);
 }
 
-/* Active tab — gradient fill */
+/* Active tab — gradient fill with glowing spring pill */
 .filter-tab.active,
 .filter-tab[aria-selected="true"] {
   background: var(--gradient-hero);
   background-size: 200% auto;
   color: #ffffff;
   border-color: transparent;
-  box-shadow: var(--shadow-button);
+  box-shadow: var(--shadow-glow-sm), var(--shadow-button);
   font-weight: var(--weight-semibold);
-  animation: gradient-shift 4s ease infinite alternate;
+  transform: scale(1.02);
+  animation: gradient-shift 5s ease-in-out infinite alternate;
 }
 
 .filter-tab:active {
@@ -479,8 +517,8 @@
   position: absolute;
   inset: 0;
   background: var(--bg-overlay);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 /* Modal content panel */
@@ -488,7 +526,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateY(60px) scale(0.95);
+  transform: translate(-50%, -50%) translateY(40px) scale(0.96);
   width: min(800px, 95vw);
   max-height: 90vh;
   overflow-y: auto;
@@ -497,6 +535,8 @@
   border-radius: var(--radius-3xl);
   box-shadow: var(--shadow-modal);
   padding: var(--space-8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   transition:
     transform var(--transition-spring),
     opacity   var(--transition-base);
@@ -509,6 +549,7 @@
 .modal.is-open .modal-panel {
   transform: translate(-50%, -50%) translateY(0) scale(1);
   opacity: 1;
+  animation: modal-lens-open 0.4s var(--ease-spring);
 }
 
 /* Modal close button */
@@ -1256,49 +1297,57 @@ body.custom-cursor * {
 /* Small precise dot — tracks mouse exactly */
 #cursor-dot {
   position: fixed;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: var(--radius-full);
   background: var(--accent-primary);
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
   display: none;
-  box-shadow: var(--shadow-glow-sm);
-  transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 0 10px var(--accent-primary);
+  transition:
+    width 0.2s var(--ease-spring),
+    height 0.2s var(--ease-spring),
+    opacity 0.15s ease,
+    background-color 0.25s ease;
 }
 
-/* Larger ring — follows with a slight lag (lerp in JS) */
+/* Larger ring — follows with a spring lerp */
 #cursor-ring {
   position: fixed;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--radius-full);
-  border: 2px solid var(--accent-primary);
+  border: 1.5px solid var(--accent-primary);
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
   display: none;
-  opacity: 0.6;
+  opacity: 0.65;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
   transition:
-    width   0.2s ease,
-    height  0.2s ease,
+    width   0.25s var(--ease-spring),
+    height  0.25s var(--ease-spring),
     opacity 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.25s ease,
+    background-color 0.25s ease;
 }
 
 /* Expanded ring on interactive elements */
 body.custom-cursor.cursor-hover #cursor-ring {
-  width: 56px;
-  height: 56px;
-  opacity: 0.35;
-  border-color: var(--accent-secondary);
+  width: 62px;
+  height: 62px;
+  opacity: 0.45;
+  border-color: var(--accent-primary);
+  background: rgba(0, 242, 254, 0.08);
+  box-shadow: 0 0 28px rgba(0, 242, 254, 0.4);
 }
 
 body.custom-cursor.cursor-hover #cursor-dot {
-  width: 5px;
-  height: 5px;
-  opacity: 0.8;
+  width: 4px;
+  height: 4px;
+  opacity: 0.9;
 }
 
 /* Show cursors when active */

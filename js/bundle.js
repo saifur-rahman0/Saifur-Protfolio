@@ -67,10 +67,10 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
-     2. NEURAL CANVAS MODULE
+     2. NEURAL CANVAS MODULE (Synapse 2.0)
      ══════════════════════════════════════════════════════════════ */
   function parseColorToRgb(colorStr) {
-    const fallback = { r: 0, g: 212, b: 255 };
+    const fallback = { r: 0, g: 242, b: 254 };
     if (!colorStr) return fallback;
     const trimmed = colorStr.trim();
 
@@ -90,27 +90,72 @@
     return fallback;
   }
 
-  function getAccentRgb() {
+  function getThemePalette() {
     const computed = getComputedStyle(document.documentElement);
-    const colorStr = computed.getPropertyValue('--accent-primary') || '#00d4ff';
-    return parseColorToRgb(colorStr);
+    const primaryStr = computed.getPropertyValue('--accent-primary') || '#00f2fe';
+    const secondaryStr = computed.getPropertyValue('--accent-secondary') || '#7928ca';
+    const successStr = computed.getPropertyValue('--accent-success') || '#00ff88';
+
+    return {
+      primary: parseColorToRgb(primaryStr),
+      secondary: parseColorToRgb(secondaryStr),
+      success: parseColorToRgb(successStr)
+    };
+  }
+
+  class SynapseSpark {
+    constructor(nodeA, nodeB, rgb) {
+      this.nodeA = nodeA;
+      this.nodeB = nodeB;
+      this.rgb = rgb;
+      this.progress = 0;
+      this.speed = 0.015 + Math.random() * 0.025;
+      this.dead = false;
+      this.size = 2.0 + Math.random() * 1.5;
+    }
+
+    update() {
+      this.progress += this.speed;
+      if (this.progress >= 1) {
+        this.dead = true;
+      }
+    }
+
+    draw(ctx) {
+      const x = this.nodeA.x + (this.nodeB.x - this.nodeA.x) * this.progress;
+      const y = this.nodeA.y + (this.nodeB.y - this.nodeA.y) * this.progress;
+      const { r, g, b } = this.rgb;
+
+      ctx.beginPath();
+      ctx.arc(x, y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.95)`;
+      ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
   }
 
   class CanvasNode {
-    constructor(w, h, speedMul = 0.4) {
+    constructor(w, h, speedMul = 0.45) {
       this.x = Math.random() * w;
       this.y = Math.random() * h;
       const angle = Math.random() * Math.PI * 2;
       const speed = (0.2 + Math.random() * 0.8) * speedMul;
       this.vx = Math.cos(angle) * speed;
       this.vy = Math.sin(angle) * speed;
-      this.radius = 1.5 + Math.random() * 2.0;
+      this.radius = 1.5 + Math.random() * 2.2;
       this.baseOpacity = 0.35 + Math.random() * 0.45;
+
+      const rand = Math.random();
+      this.type = rand > 0.4 ? 'primary' : rand > 0.15 ? 'secondary' : 'success';
     }
 
-    update(mx, my, w, h, mRad, mForce) {
+    update(mx, my, mvx, mvy, w, h, mRad) {
       this.x += this.vx;
       this.y += this.vy;
+      this.vx *= 0.99;
+      this.vy *= 0.99;
 
       if (this.x < 0) { this.x = 0; this.vx = Math.abs(this.vx); }
       else if (this.x > w) { this.x = w; this.vx = -Math.abs(this.vx); }
@@ -123,14 +168,22 @@
         const dy = my - this.y;
         const dist = Math.hypot(dx, dy);
         if (dist < mRad && dist > 2) {
-          const pull = (1 - dist / mRad) * mForce;
+          const pull = (1 - dist / mRad) * 0.018;
           this.x += dx * pull;
           this.y += dy * pull;
+
+          const mouseSpeed = Math.hypot(mvx, mvy);
+          if (mouseSpeed > 2) {
+            const pushFactor = (1 - dist / mRad) * 0.08;
+            this.vx += mvx * pushFactor;
+            this.vy += mvy * pushFactor;
+          }
         }
       }
     }
 
-    draw(ctx, rgb) {
+    draw(ctx, palette) {
+      const rgb = palette[this.type] || palette.primary;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${this.baseOpacity})`;
@@ -152,13 +205,18 @@
     let width = 0;
     let height = 0;
     let nodes = [];
+    let sparks = [];
     let animFrameId = null;
-    let currentRgb = getAccentRgb();
+    let palette = getThemePalette();
     let mouseX = -9999;
     let mouseY = -9999;
-    const MOUSE_RADIUS = 180;
-    const MOUSE_FORCE = 0.02;
-    const MAX_LINE_DIST = 140;
+    let prevMouseX = -9999;
+    let prevMouseY = -9999;
+    let mouseVx = 0;
+    let mouseVy = 0;
+    const MOUSE_RADIUS = 190;
+    const MAX_LINE_DIST = 145;
+    const MAX_SPARKS = 14;
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -171,8 +229,9 @@
       ctx.resetTransform?.();
       ctx.scale(dpr, dpr);
 
-      const targetCount = width < 768 ? 45 : 85;
+      const targetCount = width < 768 ? 48 : 90;
       nodes = [];
+      sparks = [];
       for (let i = 0; i < targetCount; i++) {
         nodes.push(new CanvasNode(width, height));
       }
@@ -188,27 +247,42 @@
 
     window.addEventListener('mousemove', (e) => {
       const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
+      const currentX = e.clientX - rect.left;
+      const currentY = e.clientY - rect.top;
+      if (prevMouseX >= 0) {
+        mouseVx = currentX - prevMouseX;
+        mouseVy = currentY - prevMouseY;
+      }
+      prevMouseX = currentX;
+      prevMouseY = currentY;
+      mouseX = currentX;
+      mouseY = currentY;
     });
 
     window.addEventListener('mouseleave', () => {
       mouseX = -9999;
       mouseY = -9999;
+      prevMouseX = -9999;
+      prevMouseY = -9999;
+      mouseVx = 0;
+      mouseVy = 0;
     });
 
     window.addEventListener('themechange', () => {
-      currentRgb = getAccentRgb();
+      palette = getThemePalette();
     });
 
     function loop() {
       ctx.clearRect(0, 0, width, height);
       const count = nodes.length;
-      const { r, g, b } = currentRgb;
+      const { primary, secondary } = palette;
+
+      mouseVx *= 0.9;
+      mouseVy *= 0.9;
 
       for (let i = 0; i < count; i++) {
         const a = nodes[i];
-        a.update(mouseX, mouseY, width, height, MOUSE_RADIUS, MOUSE_FORCE);
+        a.update(mouseX, mouseY, mouseVx, mouseVy, width, height, MOUSE_RADIUS);
 
         for (let j = i + 1; j < count; j++) {
           const bNode = nodes[j];
@@ -218,26 +292,41 @@
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(bNode.x, bNode.y);
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            ctx.strokeStyle = `rgba(${primary.r}, ${primary.g}, ${primary.b}, ${alpha})`;
             ctx.lineWidth = 0.9;
             ctx.stroke();
+
+            if (sparks.length < MAX_SPARKS && Math.random() < 0.0018) {
+              const sparkRgb = Math.random() > 0.5 ? primary : secondary;
+              sparks.push(new SynapseSpark(a, bNode, sparkRgb));
+            }
           }
         }
 
         if (mouseX >= 0 && mouseY >= 0) {
           const mDist = Math.hypot(a.x - mouseX, a.y - mouseY);
           if (mDist < MOUSE_RADIUS) {
-            const mAlpha = (1 - mDist / MOUSE_RADIUS) * 0.35;
+            const mAlpha = (1 - mDist / MOUSE_RADIUS) * 0.38;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(mouseX, mouseY);
-            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${mAlpha})`;
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = `rgba(${primary.r}, ${primary.g}, ${primary.b}, ${mAlpha})`;
+            ctx.lineWidth = 1.1;
             ctx.stroke();
           }
         }
 
-        a.draw(ctx, currentRgb);
+        a.draw(ctx, palette);
+      }
+
+      for (let s = sparks.length - 1; s >= 0; s--) {
+        const spark = sparks[s];
+        spark.update();
+        if (spark.dead) {
+          sparks.splice(s, 1);
+        } else {
+          spark.draw(ctx);
+        }
       }
 
       animFrameId = requestAnimationFrame(loop);
@@ -1010,10 +1099,33 @@
         closeDrawer();
       }
     });
+
+    /* Telemetry HUD Live Dhaka Clock (UTC+6) */
+    const clockEl = document.getElementById('dhaka-clock');
+    if (clockEl) {
+      function updateDhakaClock() {
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Dhaka',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+          clockEl.textContent = `DHAKA (UTC+6) ${formatter.format(now)}`;
+        } catch (e) {
+          const now = new Date();
+          clockEl.textContent = `DHAKA (UTC+6) ${now.toLocaleTimeString()}`;
+        }
+      }
+      updateDhakaClock();
+      setInterval(updateDhakaClock, 1000);
+    }
   }
 
   /* ══════════════════════════════════════════════════════════════
-     6. CUSTOM CURSOR MODULE
+     6. CUSTOM CURSOR MODULE (Magnetic & Spotlight Physics)
      ══════════════════════════════════════════════════════════════ */
   function initCursor() {
     const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -1032,6 +1144,7 @@
     let ringY = mouseY;
     let isVisible = false;
     let animId = null;
+    let activeMagneticEl = null;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -1039,18 +1152,41 @@
       if (!isVisible) {
         isVisible = true;
         cursorDot.style.opacity = '1';
-        cursorRing.style.opacity = '0.6';
+        cursorRing.style.opacity = '0.65';
         ringX = mouseX;
         ringY = mouseY;
       }
       cursorDot.style.left = `${mouseX}px`;
       cursorDot.style.top = `${mouseY}px`;
+
+      // 1. Dynamic 3D Spotlight reflection on hovered cards
+      const card = e.target.closest('.card, .project-card, .pillar-card, .stat-card, .profile-card, .timeline-card');
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      }
+
+      // 2. Magnetic pull on buttons, filter tabs, and social badges
+      const magneticTarget = e.target.closest('.btn, .filter-tab, .social-icon, .nav-logo, #theme-toggle, .tag-pill');
+      if (magneticTarget) {
+        activeMagneticEl = magneticTarget;
+        const rect = magneticTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - centerX) * 0.22;
+        const deltaY = (e.clientY - centerY) * 0.22;
+        magneticTarget.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      } else if (activeMagneticEl) {
+        activeMagneticEl.style.transform = '';
+        activeMagneticEl = null;
+      }
     }, { passive: true });
 
     function renderCursor() {
       if (isVisible) {
-        ringX += (mouseX - ringX) * 0.16;
-        ringY += (mouseY - ringY) * 0.16;
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
         cursorRing.style.left = `${ringX}px`;
         cursorRing.style.top = `${ringY}px`;
       }
@@ -1063,15 +1199,27 @@
       isVisible = false;
       cursorDot.style.opacity = '0';
       cursorRing.style.opacity = '0';
+      if (activeMagneticEl) {
+        activeMagneticEl.style.transform = '';
+        activeMagneticEl = null;
+      }
     });
 
     document.addEventListener('mouseenter', () => {
       isVisible = true;
       cursorDot.style.opacity = '1';
-      cursorRing.style.opacity = '0.6';
+      cursorRing.style.opacity = '0.65';
     });
 
-    const selector = 'a, button, [role="tab"], .project-card, .profile-card, .stat-card, .pillar-card, .tag-pill, input, textarea';
+    document.addEventListener('mousedown', () => {
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    });
+
+    document.addEventListener('mouseup', () => {
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    const selector = 'a, button, [role="tab"], .project-card, .profile-card, .stat-card, .pillar-card, .tag-pill, .timeline-card, input, textarea';
     document.addEventListener('mouseover', (e) => {
       if (e.target.closest(selector)) document.body.classList.add('cursor-hover');
     }, { passive: true });

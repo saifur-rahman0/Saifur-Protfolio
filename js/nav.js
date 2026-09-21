@@ -208,4 +208,29 @@ export function initNav() {
       closeMobileDrawer();
     }
   });
+
+  /* ──────────────────────────────────────────────────────────
+     4. Telemetry HUD Live Dhaka Clock (UTC+6)
+     ────────────────────────────────────────────────────────── */
+  const clockEl = document.getElementById('dhaka-clock');
+  if (clockEl) {
+    function updateDhakaClock() {
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Dhaka',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+        clockEl.textContent = `DHAKA (UTC+6) ${formatter.format(now)}`;
+      } catch (e) {
+        const now = new Date();
+        clockEl.textContent = `DHAKA (UTC+6) ${now.toLocaleTimeString()}`;
+      }
+    }
+    updateDhakaClock();
+    setInterval(updateDhakaClock, 1000);
+  }
 }

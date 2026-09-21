@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ── SEO ── -->
   <title>Saifur Rahman — AI &amp; Computer Vision Engineer | Portfolio</title>
-  <meta name="description" content="Portfolio of Saifur Rahman — AI/Computer Vision researcher, Flutter mobile developer, and systems engineer. Explore the BdSLW401 sign language AI, Guava disease detection, and more." />
-  <meta name="keywords" content="Saifur Rahman, AI Engineer, Computer Vision, Deep Learning, Flutter Developer, BdSLW401, Sign Language Recognition, Bangladesh" />
+  <meta name="description"
+    content="Portfolio of Saifur Rahman — AI/Computer Vision researcher, Flutter mobile developer, and systems engineer. Explore the BdSLW401 sign language AI, Guava disease detection, and more." />
+  <meta name="keywords"
+    content="Saifur Rahman, AI Engineer, Computer Vision, Deep Learning, Flutter Developer, BdSLW401, Sign Language Recognition, Bangladesh" />
   <meta name="author" content="Md. Saifur Rahman" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://saifur-rahman0.github.io/" />
@@ -16,7 +19,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://saifur-rahman0.github.io/" />
   <meta property="og:title" content="Saifur Rahman — AI &amp; Computer Vision Engineer" />
-  <meta property="og:description" content="AI/Computer Vision researcher, Flutter mobile developer, and systems engineer. See BdSLW401, Guava AI, Sign Language App, and more." />
+  <meta property="og:description"
+    content="AI/Computer Vision researcher, Flutter mobile developer, and systems engineer. See BdSLW401, Guava AI, Sign Language App, and more." />
   <meta property="og:image" content="assets/images/og-preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -26,16 +30,19 @@
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Saifur Rahman — AI &amp; Computer Vision Engineer" />
-  <meta name="twitter:description" content="AI/Computer Vision researcher, Flutter mobile developer, and systems engineer." />
+  <meta name="twitter:description"
+    content="AI/Computer Vision researcher, Flutter mobile developer, and systems engineer." />
   <meta name="twitter:image" content="assets/images/og-preview.jpg" />
 
   <!-- ── Favicon (inline SVG data URI) ── -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
   <!-- ── Google Fonts Preconnect ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" />
 
   <!-- ── Stylesheets (dependency order) ── -->
   <link rel="stylesheet" href="css/variables.css" />
@@ -47,16 +54,26 @@
 
   <!-- ── Theme Init — prevents flash of wrong theme ── -->
   <script>
-    try { document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark'; } catch(e) {}
+    try { document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark'; } catch (e) { }
   </script>
 </head>
 
 <body>
 
   <!-- ══════════════════════════════════════════
+       AMBIENT AURORA MESH LIGHTING
+       ══════════════════════════════════════════ -->
+  <div class="ambient-aurora" aria-hidden="true">
+    <div class="aurora-orb aurora-orb--1"></div>
+    <div class="aurora-orb aurora-orb--2"></div>
+    <div class="aurora-orb aurora-orb--3"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
        SCROLL PROGRESS BAR
        ══════════════════════════════════════════ -->
-  <div id="progress-bar" role="progressbar" aria-label="Page scroll progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <div id="progress-bar" role="progressbar" aria-label="Page scroll progress" aria-valuenow="0" aria-valuemin="0"
+    aria-valuemax="100"></div>
 
   <!-- ══════════════════════════════════════════
        CUSTOM CURSOR (Desktop only)
@@ -76,12 +93,12 @@
       <!-- Desktop nav links -->
       <nav aria-label="Primary navigation">
         <ul class="nav-links" role="list">
-          <li><a href="#about"    class="nav-link" id="nav-about">About</a></li>
-          <li><a href="#journey"  class="nav-link" id="nav-journey">Journey</a></li>
+          <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+          <li><a href="#journey" class="nav-link" id="nav-journey">Journey</a></li>
           <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
-          <li><a href="#skills"   class="nav-link" id="nav-skills">Skills</a></li>
+          <li><a href="#skills" class="nav-link" id="nav-skills">Skills</a></li>
           <li><a href="#profiles" class="nav-link" id="nav-profiles">Profiles</a></li>
-          <li><a href="#contact"  class="nav-link" id="nav-contact">Contact</a></li>
+          <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -93,7 +110,8 @@
         </button>
 
         <!-- Hamburger (mobile only) -->
-        <button id="mobile-menu-btn" class="mobile-only" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <button id="mobile-menu-btn" class="mobile-only" aria-label="Open navigation menu" aria-expanded="false"
+          aria-controls="mobile-drawer">
           <img src="assets/icons/menu.svg" alt="" width="20" height="20" id="hamburger-icon" />
         </button>
       </div>
@@ -111,15 +129,16 @@
     </div>
     <nav aria-label="Mobile navigation">
       <ul class="mobile-nav-links" role="list">
-        <li><a href="#about"    class="mobile-nav-link">About</a></li>
-        <li><a href="#journey"  class="mobile-nav-link">Journey</a></li>
+        <li><a href="#about" class="mobile-nav-link">About</a></li>
+        <li><a href="#journey" class="mobile-nav-link">Journey</a></li>
         <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-        <li><a href="#skills"   class="mobile-nav-link">Skills</a></li>
+        <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
         <li><a href="#profiles" class="mobile-nav-link">Profiles</a></li>
-        <li><a href="#contact"  class="mobile-nav-link">Contact</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
       </ul>
     </nav>
-    <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-primary" id="drawer-resume-btn" style="margin-top: auto;">
+    <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-primary" id="drawer-resume-btn"
+      style="margin-top: auto;">
       Download CV
     </a>
   </div>
@@ -140,15 +159,35 @@
       <canvas id="neural-canvas" aria-hidden="true"></canvas>
 
       <div class="hero-content">
+        <!-- Live Telemetry HUD -->
+        <div class="hero-telemetry-hud hero-animate-1">
+          <div class="telemetry-pill">
+            <span class="radar-dot" aria-hidden="true"></span>
+            <span class="telemetry-status">AVAILABLE FOR ROLES</span>
+          </div>
+          <div class="telemetry-chip" id="telemetry-clock-chip" title="Current Local Time in Dhaka (UTC+6)">
+            <svg class="telemetry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="dhaka-clock" class="mono-text">DHAKA (UTC+6) --:--:--</span>
+          </div>
+          <div class="telemetry-chip desktop-only">
+            <span class="telemetry-label">CORE:</span>
+            <span class="telemetry-val">PyTorch &bull; MediaPipe &bull; Flutter</span>
+          </div>
+        </div>
+
         <!-- Eyebrow -->
-        <p class="eyebrow-label hero-animate-1">Hello, World! 👋</p>
+        <p class="eyebrow-label hero-animate-1">// AI &amp; COMPUTER VISION LAB</p>
 
         <!-- Name — only <h1> on page -->
         <h1 id="hero-name" class="gradient-text hero-animate-2">Saifur Rahman</h1>
 
         <!-- Role switcher -->
         <p class="hero-role hero-animate-3">
-          I am a&nbsp;<span id="role-switcher" aria-live="polite" aria-atomic="true">AI &amp; Computer Vision Engineer</span>
+          I am a&nbsp;<span id="role-switcher" aria-live="polite" aria-atomic="true">AI &amp; Computer Vision
+            Engineer</span>
         </p>
 
         <!-- Tagline -->
@@ -190,14 +229,8 @@
           <!-- Avatar column -->
           <div class="about-avatar-col reveal-left">
             <div class="avatar-wrapper">
-              <img
-                src="assets/images/profile.jpg"
-                alt="Portrait of Saifur Rahman"
-                class="avatar-img"
-                width="220"
-                height="220"
-                loading="lazy"
-              />
+              <img src="assets/images/profile.jpg" alt="Portrait of Saifur Rahman" class="avatar-img" width="220"
+                height="220" loading="lazy" />
             </div>
           </div>
 
@@ -206,8 +239,10 @@
             <p class="about-bio">
               I'm <strong>Md. Saifur Rahman</strong>, a Computer Science &amp; Engineering student at
               <strong>Shyamoli Engineering College (ShEC)</strong>, a constituent of the University of Dhaka.
-              My work sits at the intersection of <strong>AI research</strong> and <strong>production engineering</strong>
-              — from building 401-class sign language recognition systems to deploying full-stack enterprise applications.
+              My work sits at the intersection of <strong>AI research</strong> and <strong>production
+                engineering</strong>
+              — from building 401-class sign language recognition systems to deploying full-stack enterprise
+              applications.
               <br /><br />
               I worked as a <strong>Junior AI Developer at Betopia Group</strong>, engineering ML pipelines and
               REST APIs for production digital marketing workflows. Currently I serve as
@@ -225,13 +260,9 @@
                 <span class="stat-number gradient-text" data-target="6" data-suffix="+">0</span>
                 <span class="stat-label">Projects Built</span>
               </div>
-              <div class="stat-card reveal-scale stagger-3">
-                <span class="stat-number gradient-text" data-target="401" data-suffix="">0</span>
-                <span class="stat-label">Sign Classes</span>
-              </div>
               <div class="stat-card reveal-scale stagger-4">
                 <span class="stat-number gradient-text" data-target="1080" data-suffix="">0</span>
-                <span class="stat-label">CF Rating</span>
+                <span class="stat-label">Codeforces Rating</span>
               </div>
             </div>
 
@@ -241,37 +272,44 @@
                 <div class="pillar-card__icon" aria-hidden="true">🧠</div>
                 <div class="pillar-card__content">
                   <h3 class="pillar-card__title">AI &amp; Computer Vision</h3>
-                  <p class="pillar-card__desc">PyTorch, TensorFlow, MediaPipe, OpenCV — building explainable, production-ready deep learning systems.</p>
+                  <p class="pillar-card__desc">PyTorch, TensorFlow, MediaPipe, OpenCV — building explainable,
+                    production-ready deep learning systems.</p>
                 </div>
               </div>
               <div class="pillar-card reveal-element stagger-2">
                 <div class="pillar-card__icon" aria-hidden="true">📱</div>
                 <div class="pillar-card__content">
                   <h3 class="pillar-card__title">Cross-Platform Mobile</h3>
-                  <p class="pillar-card__desc">Flutter + Dart with on-device ML (ONNX Runtime), real-time video, and production-grade UX.</p>
+                  <p class="pillar-card__desc">Flutter + Dart with on-device ML (ONNX Runtime), real-time video, and
+                    production-grade UX.</p>
                 </div>
               </div>
               <div class="pillar-card reveal-element stagger-3">
                 <div class="pillar-card__icon" aria-hidden="true">⚡</div>
                 <div class="pillar-card__content">
                   <h3 class="pillar-card__title">Backend &amp; Systems</h3>
-                  <p class="pillar-card__desc">FastAPI, Node.js, PostgreSQL — engineering scalable backends and enterprise data pipelines.</p>
+                  <p class="pillar-card__desc">FastAPI, Node.js, PostgreSQL — engineering scalable backends and
+                    enterprise data pipelines.</p>
                 </div>
               </div>
             </div>
 
             <!-- Social icons -->
             <div class="social-links" aria-label="Connect with Saifur">
-              <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--github" aria-label="GitHub profile">
+              <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
+                class="social-icon social-icon--github" aria-label="GitHub profile">
                 <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20" />
               </a>
-              <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--linkedin" aria-label="LinkedIn profile">
+              <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
+                class="social-icon social-icon--linkedin" aria-label="LinkedIn profile">
                 <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="20" height="20" />
               </a>
-              <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--kaggle" aria-label="Kaggle profile">
+              <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
+                class="social-icon social-icon--kaggle" aria-label="Kaggle profile">
                 <img src="assets/icons/kaggle.svg" alt="Kaggle" width="20" height="20" />
               </a>
-              <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--codeforces" aria-label="Codeforces profile">
+              <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
+                class="social-icon social-icon--codeforces" aria-label="Codeforces profile">
                 <img src="assets/icons/codeforces.svg" alt="Codeforces" width="20" height="20" />
               </a>
               <a href="mailto:rahmansaifur064@gmail.com" class="social-icon social-icon--email" aria-label="Send email">
@@ -292,7 +330,8 @@
       <div class="section-container">
         <span class="eyebrow-label reveal-element">// JOURNEY</span>
         <h2 class="section-heading reveal-element stagger-1">Experience &amp; Education</h2>
-        <p class="section-subtitle reveal-element stagger-2">The path that shaped me — from campus halls to production systems.</p>
+        <p class="section-subtitle reveal-element stagger-2">The path that shaped me — from campus halls to production
+          systems.</p>
 
         <div class="timeline" role="list">
 
@@ -304,9 +343,12 @@
               <h3 class="timeline-title">Junior AI Developer</h3>
               <p class="timeline-org">Betopia Group &nbsp;·&nbsp; Dhaka, Bangladesh</p>
               <ul class="timeline-highlights" aria-label="Key contributions">
-                <li>Developed scalable ML-driven backend services and REST APIs in Python to automate digital marketing workflows.</li>
-                <li>Engineered robust data pipelines for large-scale advertising datasets with custom feature extraction &amp; preprocessing.</li>
-                <li>Benchmarked and optimized model scalability, inference latency, and memory footprint for production ML deployments.</li>
+                <li>Developed scalable ML-driven backend services and REST APIs in Python to automate digital marketing
+                  workflows.</li>
+                <li>Engineered robust data pipelines for large-scale advertising datasets with custom feature extraction
+                  &amp; preprocessing.</li>
+                <li>Benchmarked and optimized model scalability, inference latency, and memory footprint for production
+                  ML deployments.</li>
               </ul>
               <div class="timeline-tags">
                 <span class="tag-pill">Python</span>
@@ -322,12 +364,16 @@
           <div class="timeline-item reveal-element stagger-2" role="listitem">
             <div class="timeline-node timeline-node--education" aria-hidden="true"></div>
             <article class="timeline-card" aria-label="B.Sc. CSE at Shyamoli Engineering College">
-              <span class="timeline-period timeline-period--education">2020 – 2026 &nbsp;·&nbsp; Expected Aug 2026</span>
+              <span class="timeline-period timeline-period--education">2020 – 2026 &nbsp;·&nbsp; Expected Aug
+                2026</span>
               <h3 class="timeline-title">B.Sc. in Computer Science &amp; Engineering</h3>
-              <p class="timeline-org">Shyamoli Engineering College (ShEC) &nbsp;·&nbsp; Constituent of University of Dhaka</p>
+              <p class="timeline-org">Shyamoli Engineering College (ShEC) &nbsp;·&nbsp; Constituent of University of
+                Dhaka</p>
               <ul class="timeline-highlights" aria-label="Academic highlights">
-                <li>Final Year Defense Project: <strong>BdSLW401</strong> — Large-Scale Bengali Sign Language Recognition across 401 vocabulary classes using novel RQE-SF algorithm.</li>
-                <li>Studied core CS theory: Algorithms, OS, Computer Architecture, Database Systems, Software Engineering.</li>
+                <li>Final Year Defense Project: <strong>BdSLW401</strong> — Large-Scale Bengali Sign Language
+                  Recognition across 401 vocabulary classes using novel RQE-SF algorithm.</li>
+                <li>Studied core CS theory: Algorithms, OS, Computer Architecture, Database Systems, Software
+                  Engineering.</li>
                 <li>Applied ML, Computer Vision, and NLP through coursework and independent research.</li>
               </ul>
               <div class="timeline-tags">
@@ -347,9 +393,12 @@
               <h3 class="timeline-title">Leadership &amp; Competitive Programming</h3>
               <p class="timeline-org">ShEC Computer Programming Club &nbsp;·&nbsp; ICPC Regional 2023</p>
               <ul class="timeline-highlights" aria-label="Achievements">
-                <li><strong>President</strong> of ShEC CPC — leading algorithmic training, organizing collegiate competitions, mentoring junior students.</li>
-                <li><strong>Former Treasurer</strong> — managed club budgeting, sponsorships, event logistics, and financial reporting.</li>
-                <li><strong>ICPC 2023</strong> contestant — solved complex algorithmic challenges under strict time constraints.</li>
+                <li><strong>President</strong> of ShEC CPC — leading algorithmic training, organizing collegiate
+                  competitions, mentoring junior students.</li>
+                <li><strong>Former Treasurer</strong> — managed club budgeting, sponsorships, event logistics, and
+                  financial reporting.</li>
+                <li><strong>ICPC 2023</strong> contestant — solved complex algorithmic challenges under strict time
+                  constraints.</li>
                 <li><strong>Codeforces</strong> active problem solver (<code>saifur_r</code>) — peak rating 1080.</li>
               </ul>
               <div class="timeline-tags">
@@ -373,23 +422,30 @@
       <div class="section-container">
         <span class="eyebrow-label reveal-element">// PROJECTS</span>
         <h2 class="section-heading reveal-element stagger-1">Things I've Built</h2>
-        <p class="section-subtitle reveal-element stagger-2">From AI research systems to deployed production apps — each project solves a real problem.</p>
+        <p class="section-subtitle reveal-element stagger-2">From AI research systems to deployed production apps — each
+          project solves a real problem.</p>
 
         <!-- Filter tabs -->
         <div class="filter-tabs" role="tablist" aria-label="Filter projects by category">
-          <button class="filter-tab active" role="tab" aria-selected="true"  data-filter="all"        id="tab-all">All</button>
-          <button class="filter-tab"        role="tab" aria-selected="false" data-filter="ai"         id="tab-ai">AI &amp; Vision</button>
-          <button class="filter-tab"        role="tab" aria-selected="false" data-filter="mobile"     id="tab-mobile">Mobile</button>
-          <button class="filter-tab"        role="tab" aria-selected="false" data-filter="fullstack"  id="tab-fullstack">Full-Stack</button>
-          <button class="filter-tab"        role="tab" aria-selected="false" data-filter="systems"    id="tab-systems">Systems</button>
+          <button class="filter-tab active" role="tab" aria-selected="true" data-filter="all" id="tab-all">All</button>
+          <button class="filter-tab" role="tab" aria-selected="false" data-filter="ai" id="tab-ai">AI &amp;
+            Vision</button>
+          <button class="filter-tab" role="tab" aria-selected="false" data-filter="mobile"
+            id="tab-mobile">Mobile</button>
+          <button class="filter-tab" role="tab" aria-selected="false" data-filter="fullstack"
+            id="tab-fullstack">Full-Stack</button>
+          <button class="filter-tab" role="tab" aria-selected="false" data-filter="systems"
+            id="tab-systems">Systems</button>
         </div>
 
         <!-- Flagship project cards (rendered by JS from projects.js data) -->
         <div id="flagship-grid" aria-label="Featured projects" role="list">
           <!-- ── BdSLW401 ── -->
-          <article class="project-card card reveal-element stagger-1" role="listitem" data-category="ai" id="project-bdsl" data-project="bdsl">
+          <article class="project-card card reveal-element stagger-1" role="listitem" data-category="ai"
+            id="project-bdsl" data-project="bdsl">
             <div class="project-card__cover">
-              <img src="assets/images/projects/bdsl-cover.webp" alt="BdSLW401 Bengali Sign Language Recognition system" loading="lazy" />
+              <img src="assets/images/projects/bdsl-cover.webp" alt="BdSLW401 Bengali Sign Language Recognition system"
+                loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--ai">AI Research</span>
@@ -397,7 +453,9 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">BdSLW401 — Sign Language AI</h3>
-              <p class="project-card__description">Large-scale Bengali Sign Language recognition across 401 vocabulary classes. Novel RQE-SF encoding, MediaPipe Holistic keypoints, Transformer &amp; CNN-BiLSTM architectures with Grad-CAM explainability.</p>
+              <p class="project-card__description">Large-scale Bengali Sign Language recognition across 401 vocabulary
+                classes. Novel RQE-SF encoding, MediaPipe Holistic keypoints, Transformer &amp; CNN-BiLSTM architectures
+                with Grad-CAM explainability.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">PyTorch</span>
                 <span class="tag-pill">MediaPipe</span>
@@ -405,7 +463,8 @@
                 <span class="tag-pill">Grad-CAM</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/Bangla-Sign-Language-Word-Recognition" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View BdSLW401 on GitHub">
+                <a href="https://github.com/saifur-rahman0/Bangla-Sign-Language-Word-Recognition" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View BdSLW401 on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="bdsl" aria-label="View BdSLW401 case study">
@@ -416,9 +475,11 @@
           </article>
 
           <!-- ── Sign Language App ── -->
-          <article class="project-card card reveal-element stagger-2" role="listitem" data-category="mobile ai" id="project-signapp" data-project="signapp">
+          <article class="project-card card reveal-element stagger-2" role="listitem" data-category="mobile ai"
+            id="project-signapp" data-project="signapp">
             <div class="project-card__cover">
-              <img src="assets/images/projects/signapp-cover.webp" alt="Sign Language App mobile AI application" loading="lazy" />
+              <img src="assets/images/projects/signapp-cover.webp" alt="Sign Language App mobile AI application"
+                loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--mobile">Mobile AI</span>
@@ -426,7 +487,9 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">BdSL Mobile — Sign Language App</h3>
-              <p class="project-card__description">Real-time on-device Bengali sign language recognition. Flutter + ONNX Runtime inference, Neumorphic UI, Bengali TTS engine — accessible cross-platform mobile AI for the deaf community.</p>
+              <p class="project-card__description">Real-time on-device Bengali sign language recognition. Flutter + ONNX
+                Runtime inference, Neumorphic UI, Bengali TTS engine — accessible cross-platform mobile AI for the deaf
+                community.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">Flutter</span>
                 <span class="tag-pill">ONNX Runtime</span>
@@ -434,10 +497,12 @@
                 <span class="tag-pill">TTS</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/Sign-Language-App" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View Sign Language App on GitHub">
+                <a href="https://github.com/saifur-rahman0/Sign-Language-App" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-ghost btn-sm" aria-label="View Sign Language App on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
-                <button class="btn btn-primary btn-sm" data-modal="signapp" aria-label="View Sign Language App case study">
+                <button class="btn btn-primary btn-sm" data-modal="signapp"
+                  aria-label="View Sign Language App case study">
                   Case Study
                 </button>
               </div>
@@ -445,9 +510,11 @@
           </article>
 
           <!-- ── Guava Disease Detection ── -->
-          <article class="project-card card reveal-element stagger-3" role="listitem" data-category="ai" id="project-guava" data-project="guava">
+          <article class="project-card card reveal-element stagger-3" role="listitem" data-category="ai"
+            id="project-guava" data-project="guava">
             <div class="project-card__cover">
-              <img src="assets/images/projects/guava-cover.webp" alt="Guava fruit disease detection AI system" loading="lazy" />
+              <img src="assets/images/projects/guava-cover.webp" alt="Guava fruit disease detection AI system"
+                loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--ai">Agricultural AI</span>
@@ -455,7 +522,9 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">Guava Disease Detection AI</h3>
-              <p class="project-card__description">Automated fruit and leaf disease detection using multi-architecture benchmark: EfficientNet, MobileNetV2, ViT, MoE. Grad-CAM visualization, FastAPI backend, Flutter mobile client.</p>
+              <p class="project-card__description">Automated fruit and leaf disease detection using multi-architecture
+                benchmark: EfficientNet, MobileNetV2, ViT, MoE. Grad-CAM visualization, FastAPI backend, Flutter mobile
+                client.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">EfficientNet</span>
                 <span class="tag-pill">ViT</span>
@@ -463,7 +532,8 @@
                 <span class="tag-pill">Flutter</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/Guava-Fruit-diseases-using-machine-learning" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View Guava AI on GitHub">
+                <a href="https://github.com/saifur-rahman0/Guava-Fruit-diseases-using-machine-learning" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View Guava AI on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="guava" aria-label="View Guava AI case study">
@@ -474,9 +544,11 @@
           </article>
 
           <!-- ── ShEC CSE App ── -->
-          <article class="project-card card reveal-element stagger-4" role="listitem" data-category="mobile fullstack" id="project-shec" data-project="shec">
+          <article class="project-card card reveal-element stagger-4" role="listitem" data-category="mobile fullstack"
+            id="project-shec" data-project="shec">
             <div class="project-card__cover">
-              <img src="assets/images/projects/shec-cover.webp" alt="ShEC CSE departmental management mobile app" loading="lazy" />
+              <img src="assets/images/projects/shec-cover.webp" alt="ShEC CSE departmental management mobile app"
+                loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--mobile">Enterprise Mobile</span>
@@ -484,7 +556,8 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">ShEC CSE — Departmental App</h3>
-              <p class="project-card__description">Custom departmental management application for ShEC CSE. Supabase PostgreSQL real-time messaging, Firebase authentication, academic and career tracking features.</p>
+              <p class="project-card__description">Custom departmental management application for ShEC CSE. Supabase
+                PostgreSQL real-time messaging, Firebase authentication, academic and career tracking features.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">Flutter</span>
                 <span class="tag-pill">Supabase</span>
@@ -492,7 +565,8 @@
                 <span class="tag-pill">PostgreSQL</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/ShEC-CSE" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View ShEC CSE on GitHub">
+                <a href="https://github.com/saifur-rahman0/ShEC-CSE" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-ghost btn-sm" aria-label="View ShEC CSE on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="shec" aria-label="View ShEC CSE case study">
@@ -503,9 +577,11 @@
           </article>
 
           <!-- ── ETC Apperial ── -->
-          <article class="project-card card reveal-element stagger-5" role="listitem" data-category="fullstack" id="project-etc" data-project="etc">
+          <article class="project-card card reveal-element stagger-5" role="listitem" data-category="fullstack"
+            id="project-etc" data-project="etc">
             <div class="project-card__cover">
-              <img src="assets/images/projects/etc-cover.webp" alt="ETC Apperial enterprise management system" loading="lazy" />
+              <img src="assets/images/projects/etc-cover.webp" alt="ETC Apperial enterprise management system"
+                loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--fullstack">Full-Stack</span>
@@ -513,7 +589,8 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">ETC Apperial Ltd — Enterprise Web</h3>
-              <p class="project-card__description">Deployed apparel enterprise management system with Node.js backend, relational database schema, and live Vercel web deployment. Production-ready full-stack application.</p>
+              <p class="project-card__description">Deployed apparel enterprise management system with Node.js backend,
+                relational database schema, and live Vercel web deployment. Production-ready full-stack application.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">Node.js</span>
                 <span class="tag-pill">MySQL</span>
@@ -521,10 +598,12 @@
                 <span class="tag-pill">Vercel</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/ETC_Apperial_LTD_v2" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View ETC Apperial on GitHub">
+                <a href="https://github.com/saifur-rahman0/ETC_Apperial_LTD_v2" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View ETC Apperial on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
-                <a href="https://etc-apperial-ltd-v2.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" aria-label="View ETC Apperial live demo">
+                <a href="https://etc-apperial-ltd-v2.vercel.app" target="_blank" rel="noopener noreferrer"
+                  class="btn btn-primary btn-sm" aria-label="View ETC Apperial live demo">
                   <img src="assets/icons/external-link.svg" alt="" width="16" height="16" /> Live Demo
                 </a>
               </div>
@@ -532,9 +611,11 @@
           </article>
 
           <!-- ── University Management System ── -->
-          <article class="project-card card reveal-element stagger-6" role="listitem" data-category="systems" id="project-ums" data-project="ums">
+          <article class="project-card card reveal-element stagger-6" role="listitem" data-category="systems"
+            id="project-ums" data-project="ums">
             <div class="project-card__cover">
-              <img src="assets/images/projects/ums-cover.webp" alt="University Management System Java desktop application" loading="lazy" />
+              <img src="assets/images/projects/ums-cover.webp"
+                alt="University Management System Java desktop application" loading="lazy" />
             </div>
             <div class="project-card__meta">
               <span class="badge badge--systems">Systems / Desktop</span>
@@ -542,7 +623,8 @@
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">University Management System</h3>
-              <p class="project-card__description">Multi-role Java Swing/AWT enterprise platform with MySQL integration, attendance logs, course management, and automated PDF marksheet generator. Full OOP architecture.</p>
+              <p class="project-card__description">Multi-role Java Swing/AWT enterprise platform with MySQL integration,
+                attendance logs, course management, and automated PDF marksheet generator. Full OOP architecture.</p>
               <div class="project-card__tags">
                 <span class="tag-pill">Java</span>
                 <span class="tag-pill">Swing/AWT</span>
@@ -550,7 +632,8 @@
                 <span class="tag-pill">iText PDF</span>
               </div>
               <div class="project-card__actions">
-                <a href="https://github.com/saifur-rahman0/University-Management-System" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View UMS on GitHub">
+                <a href="https://github.com/saifur-rahman0/University-Management-System" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View UMS on GitHub">
                   <img src="assets/icons/github.svg" alt="" width="16" height="16" /> GitHub
                 </a>
                 <button class="btn btn-primary btn-sm" data-modal="ums" aria-label="View UMS case study">
@@ -570,7 +653,8 @@
 
         <!-- GitHub CTA -->
         <div class="github-cta reveal-element">
-          <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" id="github-more-btn">
+          <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"
+            id="github-more-btn">
             <img src="assets/icons/github.svg" alt="" width="20" height="20" />
             View All on GitHub
           </a>
@@ -587,7 +671,8 @@
       <div class="section-container">
         <span class="eyebrow-label reveal-element">// SKILLS</span>
         <h2 class="section-heading reveal-element stagger-1">Tech Stack</h2>
-        <p class="section-subtitle reveal-element stagger-2">Technologies I use to build, research, and ship products.</p>
+        <p class="section-subtitle reveal-element stagger-2">Technologies I use to build, research, and ship products.
+        </p>
 
         <div class="skills-categories" aria-label="Skills by category">
 
@@ -651,8 +736,6 @@
               <span class="tag-pill" role="listitem">Python</span>
               <span class="tag-pill" role="listitem">FastAPI</span>
               <span class="tag-pill" role="listitem">Flask</span>
-              <span class="tag-pill" role="listitem">Django</span>
-              <span class="tag-pill" role="listitem">Node.js</span>
               <span class="tag-pill" role="listitem">REST APIs</span>
               <span class="tag-pill" role="listitem">WebSockets</span>
               <span class="tag-pill" role="listitem">PostgreSQL</span>
@@ -705,14 +788,15 @@
       <div class="section-container">
         <span class="eyebrow-label reveal-element">// PROFILES</span>
         <h2 class="section-heading reveal-element stagger-1">Find Me Online</h2>
-        <p class="section-subtitle reveal-element stagger-2">Code, research, competition — see my work across platforms.</p>
+        <p class="section-subtitle reveal-element stagger-2">Code, research, competition — see my work across platforms.
+        </p>
 
         <div class="profiles-grid" aria-label="Platform profiles">
 
           <!-- GitHub -->
           <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
-             class="profile-card profile-card--github reveal-element stagger-1"
-             aria-label="View GitHub profile of saifur-rahman0">
+            class="profile-card profile-card--github reveal-element stagger-1"
+            aria-label="View GitHub profile of saifur-rahman0">
             <div class="profile-card__icon">
               <img src="assets/icons/github.svg" alt="GitHub" width="32" height="32" />
             </div>
@@ -723,8 +807,8 @@
 
           <!-- Codeforces -->
           <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
-             class="profile-card profile-card--codeforces reveal-element stagger-2"
-             aria-label="View Codeforces profile of saifur_r">
+            class="profile-card profile-card--codeforces reveal-element stagger-2"
+            aria-label="View Codeforces profile of saifur_r">
             <div class="profile-card__icon">
               <img src="assets/icons/codeforces.svg" alt="Codeforces" width="32" height="32" />
             </div>
@@ -735,8 +819,8 @@
 
           <!-- Kaggle -->
           <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
-             class="profile-card profile-card--kaggle reveal-element stagger-3"
-             aria-label="View Kaggle profile of saifurrahman19">
+            class="profile-card profile-card--kaggle reveal-element stagger-3"
+            aria-label="View Kaggle profile of saifurrahman19">
             <div class="profile-card__icon">
               <img src="assets/icons/kaggle.svg" alt="Kaggle" width="32" height="32" />
             </div>
@@ -747,8 +831,8 @@
 
           <!-- LinkedIn -->
           <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
-             class="profile-card profile-card--linkedin reveal-element stagger-4"
-             aria-label="View LinkedIn profile of Saifur Rahman">
+            class="profile-card profile-card--linkedin reveal-element stagger-4"
+            aria-label="View LinkedIn profile of Saifur Rahman">
             <div class="profile-card__icon">
               <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="32" height="32" />
             </div>
@@ -771,11 +855,13 @@
           <span class="eyebrow-label reveal-element">// CONTACT</span>
           <h2 class="section-heading reveal-element stagger-1">Let's Work Together</h2>
           <p class="section-subtitle reveal-element stagger-2">
-            Open to all opportunities — research collaborations, AI/ML roles, Flutter projects, and full-stack engineering.
+            Open to all opportunities — research collaborations, AI/ML roles, Flutter projects, and full-stack
+            engineering.
             Based in <strong>Dhaka, Bangladesh</strong>. Remote &amp; on-site welcome.
           </p>
 
-          <a href="mailto:rahmansaifur064@gmail.com" class="btn btn-primary email-link reveal-element stagger-3" id="contact-email-btn">
+          <a href="mailto:rahmansaifur064@gmail.com" class="btn btn-primary email-link reveal-element stagger-3"
+            id="contact-email-btn">
             <img src="assets/icons/email.svg" alt="" width="22" height="22" />
             rahmansaifur064@gmail.com
           </a>
@@ -783,16 +869,20 @@
           <div class="contact-divider reveal-element stagger-4" aria-hidden="true">or connect via</div>
 
           <div class="contact-social reveal-element stagger-5" aria-label="Social media links">
-            <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--github" aria-label="GitHub">
+            <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
+              class="social-icon social-icon--github" aria-label="GitHub">
               <img src="assets/icons/github.svg" alt="GitHub" width="20" height="20" />
             </a>
-            <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--linkedin" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
+              class="social-icon social-icon--linkedin" aria-label="LinkedIn">
               <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="20" height="20" />
             </a>
-            <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--kaggle" aria-label="Kaggle">
+            <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
+              class="social-icon social-icon--kaggle" aria-label="Kaggle">
               <img src="assets/icons/kaggle.svg" alt="Kaggle" width="20" height="20" />
             </a>
-            <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--codeforces" aria-label="Codeforces">
+            <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
+              class="social-icon social-icon--codeforces" aria-label="Codeforces">
               <img src="assets/icons/codeforces.svg" alt="Codeforces" width="20" height="20" />
             </a>
           </div>
@@ -826,13 +916,16 @@
       </nav>
 
       <div class="footer-social" aria-label="Social links">
-        <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--github" aria-label="GitHub">
+        <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
+          class="social-icon social-icon--github" aria-label="GitHub">
           <img src="assets/icons/github.svg" alt="GitHub" width="18" height="18" />
         </a>
-        <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--linkedin" aria-label="LinkedIn">
+        <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
+          class="social-icon social-icon--linkedin" aria-label="LinkedIn">
           <img src="assets/icons/linkedin.svg" alt="LinkedIn" width="18" height="18" />
         </a>
-        <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer" class="social-icon social-icon--codeforces" aria-label="Codeforces">
+        <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
+          class="social-icon social-icon--codeforces" aria-label="Codeforces">
           <img src="assets/icons/codeforces.svg" alt="Codeforces" width="18" height="18" />
         </a>
       </div>
@@ -840,7 +933,8 @@
       <div class="footer-divider"></div>
 
       <p class="footer-copyright">
-        &copy; 2026 <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer">Md. Saifur Rahman</a>.
+        &copy; 2026 <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer">Md. Saifur
+          Rahman</a>.
         Crafted with Vanilla HTML · CSS · JS &nbsp;·&nbsp; Dhaka, Bangladesh 🇧🇩
       </p>
     </div>
@@ -850,7 +944,8 @@
   <!-- ══════════════════════════════════════
        PROJECT DETAIL MODAL
        ══════════════════════════════════════ -->
-  <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" aria-hidden="true">
+  <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text"
+    aria-hidden="true">
     <div class="modal-overlay" id="modal-overlay"></div>
     <div class="modal-panel" tabindex="-1">
       <button class="modal-close" id="modal-close-btn" aria-label="Close project detail">
@@ -876,4 +971,5 @@
   <script src="js/bundle.js" defer></script>
 
 </body>
+
 </html>

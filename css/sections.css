@@ -41,7 +41,7 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: 820px;
   width: 100%;
   padding: 0 var(--space-6);
   margin-top: var(--nav-height);
@@ -49,13 +49,91 @@
   margin-left: max(var(--space-6), calc((100vw - var(--max-width-content)) / 2));
 }
 
+/* Hero Telemetry HUD bar */
+.hero-telemetry-hud {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.12);
+}
+
+[data-theme="light"] .telemetry-pill {
+  background: rgba(5, 150, 105, 0.08);
+  border-color: rgba(5, 150, 105, 0.28);
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.08);
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-success);
+  flex-shrink: 0;
+  animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.telemetry-status {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  color: var(--accent-success);
+  text-transform: uppercase;
+}
+
+.telemetry-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.telemetry-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.telemetry-label {
+  color: var(--accent-primary);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.telemetry-val {
+  color: var(--text-muted);
+}
+
 /* Hero name */
 #hero-name {
   font-family: var(--font-heading);
-  font-size: var(--text-5xl);
+  font-size: clamp(2.75rem, 6vw + 1rem, var(--text-6xl));
   font-weight: var(--weight-extrabold);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin-bottom: var(--space-4);
 }
 
@@ -270,7 +348,7 @@
   gap: 0;
 }
 
-/* Vertical line */
+/* Vertical line — animated circuit trace */
 .timeline::before {
   content: '';
   position: absolute;
@@ -279,13 +357,15 @@
   bottom: 0;
   width: 2px;
   background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--accent-primary),
-    var(--accent-secondary),
-    var(--accent-primary),
-    transparent
+    180deg,
+    transparent 0%,
+    var(--accent-primary) 20%,
+    var(--accent-secondary) 50%,
+    var(--accent-success) 80%,
+    transparent 100%
   );
+  background-size: 100% 200%;
+  animation: circuit-trace 8s linear infinite;
 }
 
 /* Single timeline item */
@@ -293,13 +373,14 @@
   position: relative;
   padding-left: 72px; /* space for node + gap */
   padding-bottom: var(--space-10);
+  transition: transform var(--transition-base);
 }
 
 .timeline-item:last-child {
   padding-bottom: 0;
 }
 
-/* Timeline node — glowing circle */
+/* Timeline node — glowing beacon circle */
 .timeline-node {
   position: absolute;
   left: 0;
@@ -310,10 +391,15 @@
   background: var(--bg-primary);
   border: 2px solid var(--accent-primary);
   z-index: 1;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
   animation: node-pulse 2.5s ease-in-out infinite;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition:
+    transform var(--transition-spring),
+    box-shadow var(--transition-spring),
+    border-color var(--transition-base);
 }
 
 .timeline-node::after {
@@ -322,25 +408,40 @@
   height: 10px;
   border-radius: 50%;
   background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
+  transition: transform var(--transition-spring);
+}
+
+.timeline-item:hover .timeline-node {
+  transform: scale(1.2);
+  box-shadow: 0 0 24px var(--accent-primary);
+}
+
+.timeline-item:hover .timeline-node::after {
+  transform: scale(1.3);
 }
 
 /* Node variants */
 .timeline-node--education {
   border-color: var(--accent-secondary);
+  box-shadow: 0 0 16px rgba(121, 40, 202, 0.4);
   animation-delay: 0.5s;
 }
 
 .timeline-node--education::after {
   background: var(--accent-secondary);
+  box-shadow: 0 0 8px var(--accent-secondary);
 }
 
 .timeline-node--achievement {
   border-color: var(--accent-success);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.4);
   animation-delay: 1s;
 }
 
 .timeline-node--achievement::after {
   background: var(--accent-success);
+  box-shadow: 0 0 8px var(--accent-success);
 }
 
 /* Timeline card */
@@ -350,14 +451,18 @@
   border-radius: var(--radius-xl);
   padding: var(--space-5) var(--space-6);
   box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition:
-    border-color var(--transition-fast),
-    box-shadow   var(--transition-fast);
+    transform var(--transition-spring),
+    box-shadow var(--transition-spring),
+    border-color var(--transition-base);
 }
 
 .timeline-card:hover {
+  transform: translateX(6px);
   border-color: var(--border-active);
-  box-shadow: var(--shadow-glow-sm), var(--shadow-card);
+  box-shadow: var(--shadow-card-hover), var(--shadow-glow-sm);
 }
 
 /* Date / period badge */

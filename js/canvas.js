@@ -1,5 +1,5 @@
 /**
- * canvas.js — Neural Network Background Particle Simulation
+ * canvas.js — Neural Synapse Canvas 2.0 (Kinetic Particle & Action Potential Simulation)
  * Md. Saifur Rahman Portfolio
  */
 
@@ -9,7 +9,7 @@
  * @returns {{r: number, g: number, b: number}}
  */
 function parseColorToRgb(colorStr) {
-  const fallback = { r: 0, g: 212, b: 255 }; // #00d4ff default
+  const fallback = { r: 0, g: 242, b: 254 }; // #00f2fe default
   if (!colorStr) return fallback;
 
   const trimmed = colorStr.trim();
@@ -44,33 +44,87 @@ function parseColorToRgb(colorStr) {
 }
 
 /**
- * Get current primary accent color in RGB based on theme.
+ * Get current theme accent colors in RGB.
  */
-function getAccentRgb() {
+function getThemePalette() {
   const computed = getComputedStyle(document.documentElement);
-  const colorStr = computed.getPropertyValue('--accent-primary') || '#00d4ff';
-  return parseColorToRgb(colorStr);
+  const primaryStr = computed.getPropertyValue('--accent-primary') || '#00f2fe';
+  const secondaryStr = computed.getPropertyValue('--accent-secondary') || '#7928ca';
+  const successStr = computed.getPropertyValue('--accent-success') || '#00ff88';
+
+  return {
+    primary: parseColorToRgb(primaryStr),
+    secondary: parseColorToRgb(secondaryStr),
+    success: parseColorToRgb(successStr)
+  };
+}
+
+/**
+ * Action potential spark traveling along a synaptic connection.
+ */
+class SynapseSpark {
+  constructor(nodeA, nodeB, rgb) {
+    this.nodeA = nodeA;
+    this.nodeB = nodeB;
+    this.rgb = rgb;
+    this.progress = 0;
+    this.speed = 0.015 + Math.random() * 0.025;
+    this.dead = false;
+    this.size = 2.0 + Math.random() * 1.5;
+  }
+
+  update() {
+    this.progress += this.speed;
+    if (this.progress >= 1) {
+      this.dead = true;
+    }
+  }
+
+  draw(ctx) {
+    const x = this.nodeA.x + (this.nodeB.x - this.nodeA.x) * this.progress;
+    const y = this.nodeA.y + (this.nodeB.y - this.nodeA.y) * this.progress;
+    const { r, g, b } = this.rgb;
+
+    // Glowing head
+    ctx.beginPath();
+    ctx.arc(x, y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.95)`;
+    ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+
+    // Reset shadow
+    ctx.shadowBlur = 0;
+  }
 }
 
 /**
  * Node class representing a neural network particle.
  */
 class Node {
-  constructor(canvasWidth, canvasHeight, speedMultiplier = 0.4) {
+  constructor(canvasWidth, canvasHeight, speedMultiplier = 0.45) {
     this.x = Math.random() * canvasWidth;
     this.y = Math.random() * canvasHeight;
     const angle = Math.random() * Math.PI * 2;
     const speed = (0.2 + Math.random() * 0.8) * speedMultiplier;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
-    this.radius = 1.5 + Math.random() * 2.0; // 1.5 - 3.5px
+    this.radius = 1.5 + Math.random() * 2.2; // 1.5 - 3.7px
     this.baseOpacity = 0.35 + Math.random() * 0.45;
+
+    // Chromatic variant
+    const rand = Math.random();
+    this.type = rand > 0.4 ? 'primary' : rand > 0.15 ? 'secondary' : 'success';
   }
 
-  update(mouseX, mouseY, width, height, mouseRadius, mouseForce) {
+  update(mouseX, mouseY, mouseVx, mouseVy, width, height, mouseRadius) {
     // Normal drift
     this.x += this.vx;
     this.y += this.vy;
+
+    // Gentle velocity dampening toward original drift speed
+    this.vx *= 0.99;
+    this.vy *= 0.99;
 
     // Bounce off viewport edges
     if (this.x < 0) {
@@ -89,21 +143,31 @@ class Node {
       this.vy = -Math.abs(this.vy);
     }
 
-    // Subtle magnetic attraction toward cursor
+    // Hydrodynamic cursor interaction
     if (mouseX >= 0 && mouseY >= 0) {
       const dx = mouseX - this.x;
       const dy = mouseY - this.y;
       const dist = Math.hypot(dx, dy);
 
       if (dist < mouseRadius && dist > 2) {
-        const pull = (1 - dist / mouseRadius) * mouseForce;
+        // Soft pull
+        const pull = (1 - dist / mouseRadius) * 0.018;
         this.x += dx * pull;
         this.y += dy * pull;
+
+        // Hydrodynamic velocity push from fast cursor sweeps
+        const mouseSpeed = Math.hypot(mouseVx, mouseVy);
+        if (mouseSpeed > 2) {
+          const pushFactor = (1 - dist / mouseRadius) * 0.08;
+          this.vx += mouseVx * pushFactor;
+          this.vy += mouseVy * pushFactor;
+        }
       }
     }
   }
 
-  draw(ctx, rgb) {
+  draw(ctx, palette) {
+    const rgb = palette[this.type] || palette.primary;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${this.baseOpacity})`;
@@ -130,15 +194,21 @@ export function initCanvas() {
   let width = 0;
   let height = 0;
   let nodes = [];
+  let sparks = [];
   let animFrameId = null;
-  let currentRgb = getAccentRgb();
+  let palette = getThemePalette();
 
   // Mouse interaction state
   let mouseX = -9999;
   let mouseY = -9999;
-  const MOUSE_RADIUS = 180;
-  const MOUSE_FORCE = 0.02;
-  const MAX_LINE_DIST = 140;
+  let prevMouseX = -9999;
+  let prevMouseY = -9999;
+  let mouseVx = 0;
+  let mouseVy = 0;
+
+  const MOUSE_RADIUS = 190;
+  const MAX_LINE_DIST = 145;
+  const MAX_SPARKS = 14;
 
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -153,9 +223,10 @@ export function initCanvas() {
     ctx.resetTransform?.();
     ctx.scale(dpr, dpr);
 
-    // Node count: 45 on small screens, 85 on desktop
-    const targetCount = width < 768 ? 45 : 85;
+    // Node count: 48 on small screens, 90 on desktop
+    const targetCount = width < 768 ? 48 : 90;
     nodes = [];
+    sparks = [];
     for (let i = 0; i < targetCount; i++) {
       nodes.push(new Node(width, height));
     }
@@ -172,21 +243,35 @@ export function initCanvas() {
     }, 150);
   });
 
-  // Track mouse coordinates over window
+  // Track mouse coordinates & velocity
   window.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
+    const currentX = e.clientX - rect.left;
+    const currentY = e.clientY - rect.top;
+
+    if (prevMouseX >= 0) {
+      mouseVx = currentX - prevMouseX;
+      mouseVy = currentY - prevMouseY;
+    }
+
+    prevMouseX = currentX;
+    prevMouseY = currentY;
+    mouseX = currentX;
+    mouseY = currentY;
   });
 
   window.addEventListener('mouseleave', () => {
     mouseX = -9999;
     mouseY = -9999;
+    prevMouseX = -9999;
+    prevMouseY = -9999;
+    mouseVx = 0;
+    mouseVy = 0;
   });
 
   // Update particle colors when theme changes
   window.addEventListener('themechange', () => {
-    currentRgb = getAccentRgb();
+    palette = getThemePalette();
   });
 
   // Render loop
@@ -194,12 +279,16 @@ export function initCanvas() {
     ctx.clearRect(0, 0, width, height);
 
     const nodeCount = nodes.length;
-    const { r, g, b } = currentRgb;
+    const { primary, secondary } = palette;
+
+    // Decay mouse velocity
+    mouseVx *= 0.9;
+    mouseVy *= 0.9;
 
     // 1. Update and connect nodes
     for (let i = 0; i < nodeCount; i++) {
       const nodeA = nodes[i];
-      nodeA.update(mouseX, mouseY, width, height, MOUSE_RADIUS, MOUSE_FORCE);
+      nodeA.update(mouseX, mouseY, mouseVx, mouseVy, width, height, MOUSE_RADIUS);
 
       // Connect to subsequent nodes
       for (let j = i + 1; j < nodeCount; j++) {
@@ -213,9 +302,17 @@ export function initCanvas() {
           ctx.beginPath();
           ctx.moveTo(nodeA.x, nodeA.y);
           ctx.lineTo(nodeB.x, nodeB.y);
-          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+
+          // Subtle gradient or primary color for line
+          ctx.strokeStyle = `rgba(${primary.r}, ${primary.g}, ${primary.b}, ${alpha})`;
           ctx.lineWidth = 0.9;
           ctx.stroke();
+
+          // Chance to trigger an Action Potential Spark between active synapses
+          if (sparks.length < MAX_SPARKS && Math.random() < 0.0018) {
+            const sparkRgb = Math.random() > 0.5 ? primary : secondary;
+            sparks.push(new SynapseSpark(nodeA, nodeB, sparkRgb));
+          }
         }
       }
 
@@ -223,18 +320,29 @@ export function initCanvas() {
       if (mouseX >= 0 && mouseY >= 0) {
         const mDist = Math.hypot(nodeA.x - mouseX, nodeA.y - mouseY);
         if (mDist < MOUSE_RADIUS) {
-          const mAlpha = (1 - mDist / MOUSE_RADIUS) * 0.35;
+          const mAlpha = (1 - mDist / MOUSE_RADIUS) * 0.38;
           ctx.beginPath();
           ctx.moveTo(nodeA.x, nodeA.y);
           ctx.lineTo(mouseX, mouseY);
-          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${mAlpha})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(${primary.r}, ${primary.g}, ${primary.b}, ${mAlpha})`;
+          ctx.lineWidth = 1.1;
           ctx.stroke();
         }
       }
 
       // Draw node circle
-      nodeA.draw(ctx, currentRgb);
+      nodeA.draw(ctx, palette);
+    }
+
+    // 2. Update and render Action Potential Sparks
+    for (let s = sparks.length - 1; s >= 0; s--) {
+      const spark = sparks[s];
+      spark.update();
+      if (spark.dead) {
+        sparks.splice(s, 1);
+      } else {
+        spark.draw(ctx);
+      }
     }
 
     animFrameId = requestAnimationFrame(render);

@@ -8,6 +8,81 @@
    @KEYFRAMES DEFINITIONS
    ============================================================ */
 
+/* Aurora mesh organic drifts */
+@keyframes aurora-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(10vw, 6vh) scale(1.15); }
+  100% { transform: translate(-6vw, 12vh) scale(0.92); }
+}
+
+@keyframes aurora-drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-8vw, -10vh) scale(1.12); }
+  100% { transform: translate(6vw, -5vh) scale(0.95); }
+}
+
+@keyframes aurora-drift-3 {
+  0%   { transform: translate(0, 0) scale(0.92); }
+  50%  { transform: translate(12vw, -8vh) scale(1.16); }
+  100% { transform: translate(-10vw, 6vh) scale(1); }
+}
+
+/* Radar ping for live telemetry availability indicator */
+@keyframes radar-ping {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 9px rgba(0, 255, 136, 0);
+  }
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+  }
+}
+
+/* Shimmer sheen for text and card borders */
+@keyframes shimmer-sheen {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Synaptic glow bloom */
+@keyframes synapse-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(0, 242, 254, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.85));
+  }
+}
+
+/* Circuit trace electrical flow on journey timeline */
+@keyframes circuit-trace {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+/* Modal lens zoom opening */
+@keyframes modal-lens-open {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 /* Gradient text shift — for hero name, stat numbers, gradient-text class */
 @keyframes gradient-shift {
   from { background-position: 0% 50%; }
