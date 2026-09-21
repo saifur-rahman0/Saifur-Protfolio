@@ -197,7 +197,7 @@ export function initScrollIndicatorFade() {
             indicator.style.opacity = '0';
             indicator.style.pointerEvents = 'none';
           } else {
-            indicator.style.opacity = '1';
+            indicator.style.opacity = '';
             indicator.style.pointerEvents = '';
           }
           ticking = false;

@@ -104,9 +104,27 @@
 
       <!-- Right-side actions -->
       <div class="nav-actions">
-        <!-- Theme toggle -->
+        <!-- Persistent Download CV CTA -->
+        <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-sm btn-ghost nav-cv-btn desktop-only" id="nav-cv-btn">
+          Download CV
+        </a>
+
+        <!-- Theme toggle (high-contrast inline SVGs) -->
         <button id="theme-toggle" aria-label="Toggle dark / light theme" title="Toggle theme">
-          <img src="assets/icons/sun.svg" alt="" width="18" height="18" id="theme-icon" />
+          <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
 
         <!-- Hamburger (mobile only) -->
@@ -161,12 +179,9 @@
       <div class="hero-content">
         <!-- Live Telemetry HUD -->
         <div class="hero-telemetry-hud hero-animate-1">
-          <div class="telemetry-pill">
-            <span class="radar-dot" aria-hidden="true"></span>
-            <span class="telemetry-status">AVAILABLE FOR ROLES</span>
-          </div>
           <div class="telemetry-chip" id="telemetry-clock-chip" title="Current Local Time in Dhaka (UTC+6)">
-            <svg class="telemetry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="telemetry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
@@ -201,18 +216,18 @@
           <a href="#projects" class="btn btn-primary" id="hero-projects-btn">
             View Projects
           </a>
-          <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-ghost" id="hero-cv-btn">
-            Download CV
+          <a href="#contact" class="btn btn-ghost" id="hero-contact-btn">
+            Get In Touch
           </a>
         </div>
+      </div><!-- /.hero-content -->
 
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator hero-animate-6" aria-hidden="true">
-          <span class="scroll-text">Scroll</span>
-          <div class="scroll-line"></div>
-          <img src="assets/icons/arrow-down.svg" alt="" class="scroll-arrow" width="24" height="24" />
-        </div>
-      </div>
+      <!-- Scroll indicator — centered at true bottom of full viewport hero section -->
+      <a href="#about" class="scroll-indicator hero-animate-6" aria-label="Scroll down to About section">
+        <span class="scroll-text">Scroll</span>
+        <div class="scroll-line"></div>
+        <img src="assets/icons/arrow-down.svg" alt="" class="scroll-arrow" width="24" height="24" />
+      </a>
     </section>
 
     <!-- ── Section Divider ── -->
@@ -316,6 +331,18 @@
               </a>
               <a href="mailto:rahmansaifur064@gmail.com" class="social-icon social-icon--email" aria-label="Send email">
                 <img src="assets/icons/email.svg" alt="Email" width="20" height="20" />
+              </a>
+            </div>
+
+            <!-- About Section CTA -->
+            <div class="about-cta reveal-element stagger-5">
+              <a href="assets/resume.pdf" download="Saifur_Rahman_Resume.pdf" class="btn btn-primary" id="about-cv-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download Full CV
               </a>
             </div>
 

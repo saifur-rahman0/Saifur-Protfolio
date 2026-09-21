@@ -89,10 +89,30 @@
   to   { background-position: 100% 50%; }
 }
 
-/* Avatar glow ring rotation — conic-gradient border spin */
-@keyframes spin-ring {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+/* Avatar breathing chromatic resonance aura (replaces spinning ring) */
+@keyframes avatar-breathe-glow {
+  0% {
+    transform: scale(0.98);
+    background-position: 0% 50%;
+    box-shadow:
+      0 0 20px rgba(0, 242, 254, 0.4),
+      0 0 45px rgba(121, 40, 202, 0.25);
+  }
+  50% {
+    transform: scale(1.025);
+    background-position: 100% 50%;
+    box-shadow:
+      0 0 35px rgba(0, 242, 254, 0.7),
+      0 0 65px rgba(121, 40, 202, 0.45),
+      0 0 85px rgba(0, 255, 136, 0.2);
+  }
+  100% {
+    transform: scale(0.98);
+    background-position: 0% 50%;
+    box-shadow:
+      0 0 20px rgba(0, 242, 254, 0.4),
+      0 0 45px rgba(121, 40, 202, 0.25);
+  }
 }
 
 /* Pulsing glow — for back-to-top button, floating elements */
