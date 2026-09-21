@@ -21,7 +21,7 @@
     return THEME_DARK;
   }
 
-  function applyTheme(theme) {
+  function applyTheme(theme, isUserToggle = false) {
     document.documentElement.dataset.theme = theme;
     const toggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
@@ -42,11 +42,30 @@
       toggleBtn.setAttribute('title', label);
     }
 
+    if (isUserToggle) {
+      // Light ripple flare animation
+      const ripple = document.getElementById('theme-light-ripple');
+      if (ripple) {
+        ripple.classList.remove('ripple-to-light', 'ripple-to-dark');
+        void ripple.offsetWidth;
+        ripple.classList.add(theme === THEME_LIGHT ? 'ripple-to-light' : 'ripple-to-dark');
+      }
+
+      // Smooth transition across all ambient lights, backgrounds, borders & cards
+      document.documentElement.classList.add('theme-transitioning');
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+        if (ripple) {
+          ripple.classList.remove('ripple-to-light', 'ripple-to-dark');
+        }
+      }, 750);
+    }
+
     window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
   }
 
   function initTheme() {
-    applyTheme(getSavedTheme());
+    applyTheme(getSavedTheme(), false);
     const toggleBtn = document.getElementById('theme-toggle');
     if (!toggleBtn) return;
 
@@ -59,7 +78,7 @@
       toggleBtn.classList.add('rotating');
       setTimeout(() => toggleBtn.classList.remove('rotating'), 450);
 
-      applyTheme(next);
+      applyTheme(next, true);
       try {
         localStorage.setItem(STORAGE_KEY, next);
       } catch (e) {}
@@ -1386,6 +1405,72 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
+     7. CONTACT FORM MODULE
+     ══════════════════════════════════════════════════════════════ */
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('contact-submit-btn');
+    const statusEl = document.getElementById('contact-status');
+    if (!form || !submitBtn) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('contact-name');
+      const emailInput = document.getElementById('contact-email');
+      const messageInput = document.getElementById('contact-message');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const message = messageInput ? messageInput.value.trim() : '';
+
+      if (!name || !email || !message) {
+        if (statusEl) {
+          statusEl.textContent = 'Please fill in your name, email, and message.';
+          statusEl.className = 'contact-status is-error';
+        }
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        if (statusEl) {
+          statusEl.textContent = 'Please provide a valid email address.';
+          statusEl.className = 'contact-status is-error';
+        }
+        return;
+      }
+
+      submitBtn.disabled = true;
+      const btnText = submitBtn.querySelector('.btn-text');
+      const originalText = btnText ? btnText.textContent : 'Send Message';
+      if (btnText) btnText.textContent = 'Opening Mail Client...';
+
+      if (statusEl) {
+        statusEl.textContent = 'Preparing your message...';
+        statusEl.className = 'contact-status is-pending';
+      }
+
+      setTimeout(() => {
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+        const body = encodeURIComponent(
+          `Hi Saifur,\n\n${message}\n\n---\nSender: ${name}\nReply Email: ${email}`
+        );
+        window.location.href = `mailto:rahmansaifur064@gmail.com?subject=${subject}&body=${body}`;
+
+        if (statusEl) {
+          statusEl.textContent = '✓ Message prepared! Your email client has been launched. Thank you!';
+          statusEl.className = 'contact-status is-success';
+        }
+
+        submitBtn.disabled = false;
+        if (btnText) btnText.textContent = originalText;
+        form.reset();
+      }, 500);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
      BOOTSTRAP ENTRY POINT
      ══════════════════════════════════════════════════════════════ */
   function start() {
@@ -1395,6 +1480,7 @@
     initAnimations();
     initNav();
     initCursor();
+    initContactForm();
 
     console.info(
       '%c⚡ Saifur Rahman Portfolio active. Built with Vanilla Web Standards.',

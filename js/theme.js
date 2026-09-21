@@ -28,7 +28,7 @@ function getSavedTheme() {
  * Apply theme to document element and update UI toggle icon.
  * @param {string} theme - 'dark' | 'light'
  */
-export function applyTheme(theme) {
+export function applyTheme(theme, isUserToggle = false) {
   document.documentElement.dataset.theme = theme;
 
   const toggleBtn = document.getElementById('theme-toggle');
@@ -55,6 +55,23 @@ export function applyTheme(theme) {
     );
   }
 
+  if (isUserToggle) {
+    const ripple = document.getElementById('theme-light-ripple');
+    if (ripple) {
+      ripple.classList.remove('ripple-to-light', 'ripple-to-dark');
+      void ripple.offsetWidth;
+      ripple.classList.add(theme === THEME_LIGHT ? 'ripple-to-light' : 'ripple-to-dark');
+    }
+
+    document.documentElement.classList.add('theme-transitioning');
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+      if (ripple) {
+        ripple.classList.remove('ripple-to-light', 'ripple-to-dark');
+      }
+    }, 750);
+  }
+
   // Notify other modules (e.g. neural canvas) about theme change
   window.dispatchEvent(
     new CustomEvent('themechange', { detail: { theme } })
@@ -66,7 +83,7 @@ export function applyTheme(theme) {
  */
 export function initTheme() {
   const currentTheme = getSavedTheme();
-  applyTheme(currentTheme);
+  applyTheme(currentTheme, false);
 
   const toggleBtn = document.getElementById('theme-toggle');
   if (!toggleBtn) return;
@@ -83,7 +100,7 @@ export function initTheme() {
       toggleBtn.classList.remove('rotating');
     }, 450);
 
-    applyTheme(newTheme);
+    applyTheme(newTheme, true);
 
     try {
       localStorage.setItem(STORAGE_KEY, newTheme);

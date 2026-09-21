@@ -1121,14 +1121,46 @@
   gap: var(--space-8);
 }
 
-/* Logo */
+/* Logo (Profile Picture Avatar) */
 .nav-logo {
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  /* gradient-text class applied in HTML */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   text-decoration: none;
   flex-shrink: 0;
+  transition: transform var(--transition-spring);
+}
+
+.nav-logo-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 242, 254, 0.65);
+  box-shadow: 0 0 14px rgba(0, 242, 254, 0.35);
+  transition:
+    transform var(--transition-spring),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  display: block;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .nav-logo-img {
+  border-color: rgba(2, 132, 199, 0.65);
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.25);
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.1);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 22px var(--accent-primary), 0 0 35px rgba(121, 40, 202, 0.4);
+}
+
+.nav-logo-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
 }
 

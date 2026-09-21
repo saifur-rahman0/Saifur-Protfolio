@@ -53,6 +53,7 @@ body {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .aurora-orb {
@@ -62,6 +63,10 @@ body {
   transform: translateZ(0);
   will-change: transform;
   filter: blur(40px);
+  transition:
+    background 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .aurora-orb--1 {
@@ -106,6 +111,77 @@ body {
   right: 18vw;
   background: radial-gradient(circle, rgba(0, 212, 255, 0.10) 0%, rgba(121, 40, 202, 0.05) 40%, transparent 70%);
   animation: aurora-drift-1 42s ease-in-out infinite alternate-reverse;
+}
+
+/* Light mode aurora lighting tuning */
+[data-theme="light"] .aurora-orb--1 {
+  background: radial-gradient(circle, var(--aurora-cyan) 0%, rgba(2, 132, 199, 0.06) 40%, transparent 70%);
+}
+
+[data-theme="light"] .aurora-orb--2 {
+  background: radial-gradient(circle, var(--aurora-violet) 0%, rgba(99, 102, 241, 0.06) 40%, transparent 70%);
+}
+
+[data-theme="light"] .aurora-orb--3 {
+  background: radial-gradient(circle, var(--aurora-emerald) 0%, rgba(5, 150, 105, 0.05) 40%, transparent 70%);
+}
+
+[data-theme="light"] .aurora-orb--4 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.07) 0%, rgba(99, 102, 241, 0.035) 40%, transparent 70%);
+}
+
+/* ── Theme Changing Lights Transition & Bloom ─────────────── */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    fill 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    stroke 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Radiant viewport light flare when toggling theme */
+.theme-light-ripple {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+}
+
+.theme-light-ripple.ripple-to-light {
+  background: radial-gradient(circle at 92% 35px, rgba(2, 132, 199, 0.24) 0%, rgba(255, 255, 255, 0.45) 30%, transparent 70%);
+  animation: theme-light-bloom 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.theme-light-ripple.ripple-to-dark {
+  background: radial-gradient(circle at 92% 35px, rgba(0, 242, 254, 0.28) 0%, rgba(121, 40, 202, 0.22) 32%, transparent 72%);
+  animation: theme-light-bloom 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes theme-light-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+    filter: blur(14px);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.02);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(8px);
+  }
 }
 
 /* ── Lists ── */
