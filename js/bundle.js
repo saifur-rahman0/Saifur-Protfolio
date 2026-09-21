@@ -677,7 +677,7 @@
         <div class="compact-card__footer">
           <span class="lang-badge">${project.language}</span>
           <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" aria-label="View ${project.title} repository on GitHub">
-            <img src="assets/icons/github.svg" alt="" width="14" height="14" /> Code
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> Code
           </a>
         </div>
       </article>
@@ -787,8 +787,8 @@
         </div>
 
         <div class="modal-actions">
-          ${p.githubUrl ? `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><img src="assets/icons/github.svg" alt="" width="18" height="18" /> View Repository</a>` : ''}
-          ${p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><img src="assets/icons/external-link.svg" alt="" width="18" height="18" /> Open Live Demo</a>` : ''}
+          ${p.githubUrl ? `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> View Repository</a>` : ''}
+          ${p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Open Live Demo</a>` : ''}
         </div>
       `;
 
@@ -1004,12 +1004,71 @@
     }, { passive: true });
   }
 
+  function initSectionTransitions() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sections = document.querySelectorAll('section:not(#hero)');
+    if (sections.length === 0) return;
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      sections.forEach((s) => s.classList.add('section-in-view'));
+      return;
+    }
+
+    const obs = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Small stagger so children can cascade after section enters
+          const delay = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
+          setTimeout(() => {
+            entry.target.classList.add('section-in-view');
+          }, delay * 1000 * 0.1); // gentle push, CSS handles the rest
+          entry.target.classList.add('section-in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      // Fire when 8% of the section is visible — early enough for smooth feel
+      rootMargin: '0px 0px -6% 0px',
+      threshold: 0.08
+    });
+
+    sections.forEach((s) => obs.observe(s));
+  }
+
+  function initAuroraParallax() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    const root = document.documentElement;
+    let ticking = false;
+
+    function updateParallax() {
+      const sy = window.scrollY || window.pageYOffset;
+      // Whole aurora layer drifts upward gently as user scrolls — depth parallax
+      // Individual orb aurora-drift-* animations remain unaffected (different element)
+      root.style.setProperty('--parallax-bg', `${sy * -0.06}px`);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateParallax();
+  }
+
   function initAnimations() {
     initScrollReveal();
     initCounters();
     initTypewriter();
     initScrollIndicatorFade();
+    initSectionTransitions();
+    initAuroraParallax();
   }
+
 
   /* ══════════════════════════════════════════════════════════════
      5. NAVIGATION MODULE
