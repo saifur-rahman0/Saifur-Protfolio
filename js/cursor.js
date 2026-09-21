@@ -1,6 +1,6 @@
 /**
- * cursor.js — Custom Fluid Cursor with Magnetic Lerp & Card Spotlight Physics
- * (Desktop pointer devices only)
+ * cursor.js — Ultra-High Performance Fluid Cursor (GPU-Accelerated)
+ * Zero DOM Invalidation · Compositor Transforms · rAF Spotlight Physics
  * Md. Saifur Rahman Portfolio
  */
 
@@ -21,18 +21,25 @@ export function initCursor() {
 
   if (!cursorDot || !cursorRing) return;
 
-  // Activate custom cursor styling on body
+  // Activate custom cursor styling on body (initializes display: block without layout recalc)
   document.body.classList.add('custom-cursor');
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX = mouseX;
-  let ringY = mouseY;
+  let mouseX = -100;
+  let mouseY = -100;
+  let ringX = -100;
+  let ringY = -100;
   let isVisible = false;
+  let isMouseDown = false;
   let animId = null;
 
-  // Track active magnetic element
+  // Pending physics targets for rAF update (avoids layout thrashing in raw mousemove)
+  let pendingCard = null;
+  let pendingCardClientX = 0;
+  let pendingCardClientY = 0;
+
   let activeMagneticEl = null;
+  let pendingMagClientX = 0;
+  let pendingMagClientY = 0;
 
   // Track mouse coordinates
   window.addEventListener(
@@ -49,29 +56,26 @@ export function initCursor() {
         ringY = mouseY;
       }
 
-      // Immediate position update for center dot
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-
-      // 1. Dynamic 3D Spotlight reflection on hovered cards
-      const card = e.target.closest('.card, .project-card, .pillar-card, .stat-card, .profile-card, .timeline-card');
+      // 1. Stage card spotlight for rAF tick
+      const card = e.target.closest(
+        '.card, .project-card, .pillar-card, .stat-card, .profile-card, .timeline-card'
+      );
       if (card) {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        pendingCard = card;
+        pendingCardClientX = e.clientX;
+        pendingCardClientY = e.clientY;
+      } else {
+        pendingCard = null;
       }
 
-      // 2. Magnetic pull on buttons, filter tabs, and social badges
-      const magneticTarget = e.target.closest('.btn, .filter-tab, .social-icon, .nav-logo, #theme-toggle, .tag-pill');
+      // 2. Stage magnetic pull for rAF tick
+      const magneticTarget = e.target.closest(
+        '.btn, .filter-tab, .social-icon, .nav-logo, #theme-toggle, .tag-pill'
+      );
       if (magneticTarget) {
         activeMagneticEl = magneticTarget;
-        const rect = magneticTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const deltaX = (e.clientX - centerX) * 0.22;
-        const deltaY = (e.clientY - centerY) * 0.22;
-
-        magneticTarget.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        pendingMagClientX = e.clientX;
+        pendingMagClientY = e.clientY;
       } else if (activeMagneticEl) {
         activeMagneticEl.style.transform = '';
         activeMagneticEl = null;
@@ -80,7 +84,7 @@ export function initCursor() {
     { passive: true }
   );
 
-  // Smooth spring lerp loop for the outer trailing ring
+  // Smooth GPU spring lerp loop
   const LERP_FACTOR = 0.18;
 
   function renderCursor() {
@@ -88,8 +92,28 @@ export function initCursor() {
       ringX += (mouseX - ringX) * LERP_FACTOR;
       ringY += (mouseY - ringY) * LERP_FACTOR;
 
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
+      const scale = isMouseDown ? ' scale(0.8)' : '';
+
+      // Pure GPU compositor translate — no top/left reflow
+      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${scale}`;
+
+      // Update card spotlight on animation frame (smooth 60fps, zero thrash)
+      if (pendingCard) {
+        const rect = pendingCard.getBoundingClientRect();
+        pendingCard.style.setProperty('--mouse-x', `${pendingCardClientX - rect.left}px`);
+        pendingCard.style.setProperty('--mouse-y', `${pendingCardClientY - rect.top}px`);
+      }
+
+      // Update magnetic spring on animation frame
+      if (activeMagneticEl) {
+        const rect = activeMagneticEl.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (pendingMagClientX - centerX) * 0.22;
+        const deltaY = (pendingMagClientY - centerY) * 0.22;
+        activeMagneticEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      }
     }
 
     animId = requestAnimationFrame(renderCursor);
@@ -116,14 +140,15 @@ export function initCursor() {
 
   // Mouse press effect
   document.addEventListener('mousedown', () => {
-    cursorRing.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    isMouseDown = true;
   });
 
   document.addEventListener('mouseup', () => {
-    cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+    isMouseDown = false;
   });
 
-  // Interactive element hover states via event delegation
+  // Interactive element hover states — targets ONLY the cursor elements directly.
+  // NEVER modifies document.body.classList to prevent full-DOM style invalidations (fixes 240ms INP).
   const interactiveSelector =
     'a, button, [role="tab"], .project-card, .profile-card, .stat-card, .pillar-card, .tag-pill, .timeline-card, input, textarea';
 
@@ -131,7 +156,8 @@ export function initCursor() {
     'mouseover',
     (e) => {
       if (e.target.closest(interactiveSelector)) {
-        document.body.classList.add('cursor-hover');
+        cursorRing.classList.add('cursor-hover');
+        cursorDot.classList.add('cursor-hover');
       }
     },
     { passive: true }
@@ -141,8 +167,28 @@ export function initCursor() {
     'mouseout',
     (e) => {
       if (e.target.closest(interactiveSelector)) {
-        document.body.classList.remove('cursor-hover');
+        cursorRing.classList.remove('cursor-hover');
+        cursorDot.classList.remove('cursor-hover');
       }
+    },
+    { passive: true }
+  );
+
+  // Clean keyboard navigation (tabbing) without body recalcs
+  document.addEventListener(
+    'focusin',
+    (e) => {
+      if (e.target.closest && e.target.closest(interactiveSelector)) {
+        cursorRing.classList.add('cursor-hover');
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    'focusout',
+    () => {
+      cursorRing.classList.remove('cursor-hover');
     },
     { passive: true }
   );

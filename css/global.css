@@ -58,43 +58,42 @@ body {
 .aurora-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.85;
   pointer-events: none;
+  transform: translateZ(0);
   will-change: transform;
 }
 
 .aurora-orb--1 {
-  width: 55vw;
-  height: 55vw;
-  max-width: 750px;
-  max-height: 750px;
-  top: -15vw;
+  width: 50vw;
+  height: 50vw;
+  max-width: 650px;
+  max-height: 650px;
+  top: -10vw;
   left: -10vw;
-  background: radial-gradient(circle, var(--aurora-cyan) 0%, transparent 70%);
-  animation: aurora-drift-1 22s ease-in-out infinite alternate;
+  background: radial-gradient(circle, var(--aurora-cyan) 0%, rgba(0, 242, 254, 0.08) 35%, transparent 70%);
+  animation: aurora-drift-1 30s ease-in-out infinite alternate;
 }
 
 .aurora-orb--2 {
-  width: 60vw;
-  height: 60vw;
-  max-width: 800px;
-  max-height: 800px;
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
   bottom: 5vh;
-  right: -15vw;
-  background: radial-gradient(circle, var(--aurora-violet) 0%, transparent 70%);
-  animation: aurora-drift-2 28s ease-in-out infinite alternate;
+  right: -10vw;
+  background: radial-gradient(circle, var(--aurora-violet) 0%, rgba(121, 40, 202, 0.08) 35%, transparent 70%);
+  animation: aurora-drift-2 36s ease-in-out infinite alternate;
 }
 
 .aurora-orb--3 {
-  width: 45vw;
-  height: 45vw;
-  max-width: 600px;
-  max-height: 600px;
+  width: 40vw;
+  height: 40vw;
+  max-width: 550px;
+  max-height: 550px;
   top: 40vh;
   left: 20vw;
-  background: radial-gradient(circle, var(--aurora-emerald) 0%, transparent 70%);
-  animation: aurora-drift-3 25s ease-in-out infinite alternate;
+  background: radial-gradient(circle, var(--aurora-emerald) 0%, rgba(0, 255, 136, 0.06) 35%, transparent 70%);
+  animation: aurora-drift-3 32s ease-in-out infinite alternate;
 }
 
 /* ── Lists ── */

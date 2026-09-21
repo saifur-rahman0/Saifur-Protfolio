@@ -1288,22 +1288,34 @@
    4.13 — CUSTOM CURSOR (Desktop Only)
    ============================================================ */
 
-/* Hide native cursor when custom is active */
-body.custom-cursor,
-body.custom-cursor * {
-  cursor: none !important;
+/* Hide native cursor cleanly on pointer devices without expensive * universal selector */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor {
+    cursor: none;
+  }
+  body.custom-cursor a,
+  body.custom-cursor button,
+  body.custom-cursor input,
+  body.custom-cursor textarea,
+  body.custom-cursor select,
+  body.custom-cursor [role="tab"] {
+    cursor: none;
+  }
 }
 
-/* Small precise dot — tracks mouse exactly */
+/* Small precise dot — tracks mouse exactly via GPU compositor */
 #cursor-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 7px;
   height: 7px;
   border-radius: var(--radius-full);
   background: var(--accent-primary);
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
   display: none;
   box-shadow: 0 0 10px var(--accent-primary);
   transition:
@@ -1313,16 +1325,19 @@ body.custom-cursor * {
     background-color 0.25s ease;
 }
 
-/* Larger ring — follows with a spring lerp */
+/* Larger ring — follows with a spring lerp via GPU compositor */
 #cursor-ring {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 38px;
   height: 38px;
   border-radius: var(--radius-full);
   border: 1.5px solid var(--accent-primary);
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform;
   display: none;
   opacity: 0.65;
   box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
@@ -1334,17 +1349,17 @@ body.custom-cursor * {
     background-color 0.25s ease;
 }
 
-/* Expanded ring on interactive elements */
-body.custom-cursor.cursor-hover #cursor-ring {
-  width: 62px;
-  height: 62px;
+/* Expanded ring on interactive elements — targets ring directly without body invalidation */
+#cursor-ring.cursor-hover {
+  width: 58px;
+  height: 58px;
   opacity: 0.45;
   border-color: var(--accent-primary);
   background: rgba(0, 242, 254, 0.08);
-  box-shadow: 0 0 28px rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 24px rgba(0, 242, 254, 0.35);
 }
 
-body.custom-cursor.cursor-hover #cursor-dot {
+#cursor-dot.cursor-hover {
   width: 4px;
   height: 4px;
   opacity: 0.9;
