@@ -168,10 +168,11 @@
   to   { background-position: 200% 0; }
 }
 
-/* Rotate gradient border — animated card border on hover */
-@keyframes rotate-border {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+/* Card gradient background flow — smooth ambient shift on hover */
+@keyframes card-gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Progress bar entrance — top scroll progress bar */
