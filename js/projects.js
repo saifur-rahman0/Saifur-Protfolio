@@ -139,13 +139,13 @@ export const FLAGSHIP_PROJECTS = [
       'A deployed full-stack web application designed for apparel manufacturing enterprise management. Features a client-server architecture with Node.js REST API backend, relational MySQL database schema, order lifecycle management, and a responsive web client for tracking inventory, production lots, and factory workflows.',
     techStack: ['Node.js', 'Express', 'MySQL', 'JavaScript', 'HTML5/CSS3', 'Vercel'],
     highlights: [
-      'Live production deployment hosted on Vercel at etc-apperial-ltd-v2.vercel.app',
+      'Live production deployment hosted on Vercel at etc-apperial-ltd-client.vercel.app',
       'Dedicated client-server architecture with modular REST API endpoints',
       'Relational schema handling purchase orders, styles, fabrics, and shipment logs',
       'Responsive enterprise UI with desktop and mobile tablet support'
     ],
     githubUrl: 'https://github.com/saifur-rahman0/ETC_Apperial_LTD_v2',
-    liveUrl: 'https://etc-apperial-ltd-v2.vercel.app',
+    liveUrl: 'https://etc-apperial-ltd-client.vercel.app/',
     badge: 'Full-Stack',
     badgeClass: 'badge--fullstack',
     language: 'JavaScript'
