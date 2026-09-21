@@ -279,6 +279,44 @@ pre {
 }
 
 /* ============================================================
+   SECTION PARTITION DIVIDER (Chromatic Gradient Beam)
+   ============================================================ */
+.section-divider {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 242, 254, 0.04) 10%,
+    rgba(0, 242, 254, 0.5) 30%,
+    rgba(121, 40, 202, 0.75) 50%,
+    rgba(0, 255, 136, 0.5) 70%,
+    rgba(0, 242, 254, 0.04) 90%,
+    transparent 100%
+  );
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(2, 132, 199, 0.04) 10%,
+    rgba(2, 132, 199, 0.4) 30%,
+    rgba(99, 102, 241, 0.5) 50%,
+    rgba(5, 150, 105, 0.4) 70%,
+    rgba(2, 132, 199, 0.04) 90%,
+    transparent 100%
+  );
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.2);
+}
+
+/* ============================================================
    ACCESSIBILITY UTILITIES
    ============================================================ */
 
