@@ -1,152 +1,211 @@
 /* ============================================================
    SECTION-TRANSITIONS.CSS
-   Webflow-style cinematic section entrance animations.
-   JS IntersectionObserver adds .section-in-view to trigger each.
-   GPU-safe: only opacity, transform, filter animated.
+   Cinematic Webflow-Style Section Scroll Entrance Transitions.
+   - Continuous full-page background (zero black gaps/voids).
+   - Animates section content (.section-container) with spring physics.
+   - Cascading reveals for eyebrow labels, headings, and subtitles.
+   - Tailored 3D perspective card lifts and component waterfalls.
+   - GPU-accelerated: opacity, transform, filter with zero layout shifts.
    ============================================================ */
 
-/* ── Base: every section except hero starts invisible ─────── */
+/* ── Section Container: Webflow Signature Entrance ────────── */
+/* Base section stays transparent and opacity:1 for seamless background continuity */
 section:not(#hero) {
-  opacity: 0;
-  will-change: opacity, transform, filter;
-  transition:
-    opacity   0.9s  cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s  cubic-bezier(0.22, 1, 0.36, 1),
-    filter    0.75s ease;
-}
-
-/* Revealed state — applied by JS */
-section:not(#hero).section-in-view {
   opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-/* ── Per-section entrance direction + personality ─────────── */
-
-/* About: sweeps in from left with soft blur */
-#about {
-  transform: translateX(-55px) scale(0.975);
-  filter: blur(5px);
-  transition-duration: 0.95s;
-}
-
-/* Journey: rises from depth below */
-#journey {
-  transform: translateY(75px) scale(0.965);
-  filter: blur(5px);
-  transition-duration: 0.9s;
-  transition-delay: 0.04s;
-}
-
-/* Projects: lifts up cleanly */
-#projects {
-  transform: translateY(65px);
-  filter: blur(4px);
-  transition-duration: 0.9s;
-}
-
-/* Skills: rises with slight scale breathe */
-#skills {
-  transform: translateY(55px) scale(0.97);
-  filter: blur(4px);
-  transition-duration: 0.85s;
-}
-
-/* Profiles: drops from above with elastic overshoot */
-#profiles {
-  transform: translateY(-50px) scale(0.96);
-  filter: blur(6px);
-  transition-duration: 1.0s;
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Contact: rises with slow luxurious ease */
-#contact {
-  transform: translateY(65px) scale(0.975);
-  filter: blur(4px);
-  transition-duration: 0.95s;
-  transition-delay: 0.04s;
-}
-
-/* ── Section container: ambient glow bloom on reveal ─────── */
-.section-container {
+  background: transparent !important;
   position: relative;
 }
 
-section:not(#hero) .section-container::before {
-  content: '';
-  position: absolute;
-  inset: -80px -100px;
-  border-radius: 50%;
+/* Section content starts with depth offset and soft blur */
+section:not(#hero) .section-container {
   opacity: 0;
-  pointer-events: none;
-  z-index: -1;
-  transition: opacity 1.5s ease 0.4s;
+  transform: translateY(55px) scale(0.975);
+  filter: blur(8px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity   0.95s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+    filter    0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-section:not(#hero).section-in-view .section-container::before {
+/* Revealed state — triggered early by IntersectionObserver */
+section:not(#hero).section-in-view .section-container {
   opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
-/* Per-section unique ambient glow colors */
-#about.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 70% 50% at 15% 50%, rgba(0, 242, 254, 0.045) 0%, transparent 70%);
+/* ── Cascading Webflow Typography Stagger ──────────────────── */
+section:not(#hero) .eyebrow-label {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity   0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
 }
 
-#journey.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(121, 40, 202, 0.05) 0%, transparent 70%);
+section:not(#hero) .section-heading {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
 }
 
-#projects.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 80% 55% at 50% 65%, rgba(0, 255, 136, 0.04) 0%, transparent 70%);
+section:not(#hero) .section-subtitle {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.20s,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.20s;
 }
 
-#skills.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 70% 50% at 85% 40%, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+section:not(#hero).section-in-view .eyebrow-label,
+section:not(#hero).section-in-view .section-heading,
+section:not(#hero).section-in-view .section-subtitle {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-#profiles.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 75% 55% at 50% 25%, rgba(121, 40, 202, 0.045) 0%, transparent 70%);
+/* ── Tailored Section Signatures ───────────────────────────── */
+
+/* 1. About: Left avatar and right bio glide in with magnetic balance */
+#about:not(.section-in-view) .about-avatar-col {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.96);
+}
+#about:not(.section-in-view) .about-text-col {
+  opacity: 0;
+  transform: translateX(40px);
+}
+#about.section-in-view .about-avatar-col {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+#about.section-in-view .about-text-col {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s;
 }
 
-#contact.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(0, 242, 254, 0.065) 0%, transparent 70%);
+/* 2. Journey: Timeline cascade with circuit pulse */
+#journey:not(.section-in-view) .timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+}
+#journey.section-in-view .timeline-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#journey.section-in-view .timeline-item:nth-child(1) { transition-delay: 0.18s; }
+#journey.section-in-view .timeline-item:nth-child(2) { transition-delay: 0.28s; }
+#journey.section-in-view .timeline-item:nth-child(3) { transition-delay: 0.38s; }
+#journey.section-in-view .timeline-item:nth-child(4) { transition-delay: 0.48s; }
+
+/* 3. Projects: Webflow 3D Perspective Card Lift */
+#projects .section-container {
+  perspective: 1200px;
+}
+#projects:not(.section-in-view) .filter-tabs {
+  opacity: 0;
+  transform: translateY(20px);
+}
+#projects.section-in-view .filter-tabs {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+#projects:not(.section-in-view) #flagship-grid .project-card {
+  opacity: 0;
+  transform: translateY(50px) rotateX(4deg) scale(0.96);
+}
+#projects.section-in-view #flagship-grid .project-card {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#projects.section-in-view #flagship-grid .project-card:nth-child(1) { transition-delay: 0.24s; }
+#projects.section-in-view #flagship-grid .project-card:nth-child(2) { transition-delay: 0.36s; }
+#projects.section-in-view #flagship-grid .project-card:nth-child(3) { transition-delay: 0.48s; }
+#projects.section-in-view #flagship-grid .project-card:nth-child(4) { transition-delay: 0.60s; }
+
+/* 4. Skills: Category cards elastic rise */
+#skills:not(.section-in-view) .skill-category {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+}
+#skills.section-in-view .skill-category {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#skills.section-in-view .skill-category:nth-child(1) { transition-delay: 0.24s; }
+#skills.section-in-view .skill-category:nth-child(2) { transition-delay: 0.38s; }
+
+/* 5. Profiles: Staggered floating glass elevation */
+#profiles:not(.section-in-view) .profile-card {
+  opacity: 0;
+  transform: translateY(45px) scale(0.96);
+}
+#profiles.section-in-view .profile-card {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#profiles.section-in-view .profile-card:nth-child(1) { transition-delay: 0.20s; }
+#profiles.section-in-view .profile-card:nth-child(2) { transition-delay: 0.32s; }
+#profiles.section-in-view .profile-card:nth-child(3) { transition-delay: 0.44s; }
+
+/* 6. Contact: Terminal halo elevation */
+#contact:not(.section-in-view) .contact-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.97);
+}
+#contact.section-in-view .contact-card {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
 }
 
-/* ── Light mode overrides ─────────────────────────────────── */
-[data-theme="light"] #about.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 70% 50% at 15% 50%, rgba(2, 132, 199, 0.04) 0%, transparent 70%);
-}
-[data-theme="light"] #journey.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(99, 102, 241, 0.04) 0%, transparent 70%);
-}
-[data-theme="light"] #projects.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 80% 55% at 50% 65%, rgba(5, 150, 105, 0.035) 0%, transparent 70%);
-}
-[data-theme="light"] #skills.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 70% 50% at 85% 40%, rgba(2, 132, 199, 0.035) 0%, transparent 70%);
-}
-[data-theme="light"] #profiles.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 75% 55% at 50% 25%, rgba(99, 102, 241, 0.04) 0%, transparent 70%);
-}
-[data-theme="light"] #contact.section-in-view .section-container::before {
-  background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(2, 132, 199, 0.055) 0%, transparent 70%);
-}
-
-/* ── Aurora parallax: driven by JS scroll handler ─────────── */
-/* JS sets --parallax-1/2/3 on :root; applied to the ambient aurora container */
-/* Each aurora-orb has its own drift animation (aurora-drift-*) on the element,  */
-/* so we apply the parallax on a CSS-only safe channel: the parent .ambient-aurora */
-/* shifts slightly based on scroll, keeping individual orb animations intact.     */
+/* ── Aurora Parallax: Smooth, Bounded Depth Float ─────────── */
 .ambient-aurora {
-  transform: translateY(var(--parallax-bg, 0px)) translateZ(0);
-  transition: none; /* instant, driven by JS rAF */
+  transform: translate3d(0, var(--parallax-bg, 0px), 0);
+  transition: none;
+  will-change: transform;
 }
 
-/* ── Reduced motion override ─────────────────────────────── */
+/* ── Reduced Motion Accessibility Override ────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  section:not(#hero) {
+  section:not(#hero) .section-container,
+  section:not(#hero) .eyebrow-label,
+  section:not(#hero) .section-heading,
+  section:not(#hero) .section-subtitle,
+  #about .about-avatar-col,
+  #about .about-text-col,
+  #journey .timeline-item,
+  #projects .filter-tabs,
+  #projects #flagship-grid .project-card,
+  #skills .skill-category,
+  #profiles .profile-card,
+  #contact .contact-card {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;

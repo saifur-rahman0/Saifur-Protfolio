@@ -49,7 +49,7 @@ body {
 /* ── Ambient Aurora Mesh Lighting ── */
 .ambient-aurora {
   position: fixed;
-  inset: 0;
+  inset: -25vh -20vw;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
@@ -61,39 +61,51 @@ body {
   pointer-events: none;
   transform: translateZ(0);
   will-change: transform;
+  filter: blur(40px);
 }
 
 .aurora-orb--1 {
-  width: 50vw;
-  height: 50vw;
-  max-width: 650px;
-  max-height: 650px;
-  top: -10vw;
-  left: -10vw;
-  background: radial-gradient(circle, var(--aurora-cyan) 0%, rgba(0, 242, 254, 0.08) 35%, transparent 70%);
-  animation: aurora-drift-1 30s ease-in-out infinite alternate;
+  width: 55vw;
+  height: 55vw;
+  max-width: 750px;
+  max-height: 750px;
+  top: 5vh;
+  left: 2vw;
+  background: radial-gradient(circle, var(--aurora-cyan) 0%, rgba(0, 242, 254, 0.08) 40%, transparent 70%);
+  animation: aurora-drift-1 32s ease-in-out infinite alternate;
 }
 
 .aurora-orb--2 {
-  width: 55vw;
-  height: 55vw;
-  max-width: 700px;
-  max-height: 700px;
-  bottom: 5vh;
-  right: -10vw;
-  background: radial-gradient(circle, var(--aurora-violet) 0%, rgba(121, 40, 202, 0.08) 35%, transparent 70%);
-  animation: aurora-drift-2 36s ease-in-out infinite alternate;
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  bottom: 8vh;
+  right: 2vw;
+  background: radial-gradient(circle, var(--aurora-violet) 0%, rgba(121, 40, 202, 0.08) 40%, transparent 70%);
+  animation: aurora-drift-2 38s ease-in-out infinite alternate;
 }
 
 .aurora-orb--3 {
-  width: 40vw;
-  height: 40vw;
-  max-width: 550px;
-  max-height: 550px;
-  top: 40vh;
-  left: 20vw;
-  background: radial-gradient(circle, var(--aurora-emerald) 0%, rgba(0, 255, 136, 0.06) 35%, transparent 70%);
-  animation: aurora-drift-3 32s ease-in-out infinite alternate;
+  width: 48vw;
+  height: 48vw;
+  max-width: 620px;
+  max-height: 620px;
+  top: 45vh;
+  left: 28vw;
+  background: radial-gradient(circle, var(--aurora-emerald) 0%, rgba(0, 255, 136, 0.06) 40%, transparent 70%);
+  animation: aurora-drift-3 34s ease-in-out infinite alternate;
+}
+
+.aurora-orb--4 {
+  width: 45vw;
+  height: 45vw;
+  max-width: 600px;
+  max-height: 600px;
+  top: 20vh;
+  right: 18vw;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.10) 0%, rgba(121, 40, 202, 0.05) 40%, transparent 70%);
+  animation: aurora-drift-1 42s ease-in-out infinite alternate-reverse;
 }
 
 /* ── Lists ── */

@@ -249,26 +249,12 @@
    ============================================================ */
 
 #about {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(7, 14, 32, 0.7) 12%,
-    rgba(7, 14, 32, 0.88) 50%,
-    rgba(7, 14, 32, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
   position: relative;
 }
 
 [data-theme="light"] #about {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(241, 245, 249, 0.7) 12%,
-    rgba(241, 245, 249, 0.9) 50%,
-    rgba(241, 245, 249, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
 }
 
 /* Two-column grid: avatar (left) + text (right) */
@@ -657,26 +643,12 @@
    ============================================================ */
 
 #skills {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(7, 14, 32, 0.7) 12%,
-    rgba(7, 14, 32, 0.88) 50%,
-    rgba(7, 14, 32, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
   position: relative;
 }
 
 [data-theme="light"] #skills {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(241, 245, 249, 0.7) 12%,
-    rgba(241, 245, 249, 0.9) 50%,
-    rgba(241, 245, 249, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
 }
 
 /* 2-column grid of skill categories */
@@ -723,27 +695,13 @@
    ============================================================ */
 
 #contact {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(7, 14, 32, 0.7) 12%,
-    rgba(7, 14, 32, 0.88) 50%,
-    rgba(7, 14, 32, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
   position: relative;
   text-align: center;
 }
 
 [data-theme="light"] #contact {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(241, 245, 249, 0.7) 12%,
-    rgba(241, 245, 249, 0.9) 50%,
-    rgba(241, 245, 249, 0.7) 88%,
-    transparent 100%
-  );
+  background: transparent;
 }
 
 /* Centered content stack */

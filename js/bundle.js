@@ -1017,19 +1017,19 @@
     const obs = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Small stagger so children can cascade after section enters
-          const delay = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
-          setTimeout(() => {
-            entry.target.classList.add('section-in-view');
-          }, delay * 1000 * 0.1); // gentle push, CSS handles the rest
           entry.target.classList.add('section-in-view');
+          // Clean up will-change after transition completes to preserve GPU memory
+          setTimeout(() => {
+            const container = entry.target.querySelector('.section-container');
+            if (container) container.style.willChange = 'auto';
+          }, 1200);
           observer.unobserve(entry.target);
         }
       });
     }, {
-      // Fire when 8% of the section is visible — early enough for smooth feel
-      rootMargin: '0px 0px -6% 0px',
-      threshold: 0.08
+      // Fire 80px before section enters viewport bottom — starts transition early for fluid feel
+      rootMargin: '0px 0px 80px 0px',
+      threshold: 0.04
     });
 
     sections.forEach((s) => obs.observe(s));
@@ -1044,9 +1044,9 @@
 
     function updateParallax() {
       const sy = window.scrollY || window.pageYOffset;
-      // Whole aurora layer drifts upward gently as user scrolls — depth parallax
-      // Individual orb aurora-drift-* animations remain unaffected (different element)
-      root.style.setProperty('--parallax-bg', `${sy * -0.06}px`);
+      // Gentle, bounded depth parallax — shifts gracefully without any clipping
+      const offset = Math.min(140, sy * 0.04);
+      root.style.setProperty('--parallax-bg', `${-offset}px`);
       ticking = false;
     }
 
