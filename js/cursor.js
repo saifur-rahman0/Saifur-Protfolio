@@ -31,15 +31,34 @@ export function initCursor() {
   let isVisible = false;
   let isMouseDown = false;
   let animId = null;
+  let isTicking = false;
 
-  // Pending physics targets for rAF update (avoids layout thrashing in raw mousemove)
-  let pendingCard = null;
-  let pendingCardClientX = 0;
-  let pendingCardClientY = 0;
+  const LERP_FACTOR = 0.22;
 
-  let activeMagneticEl = null;
-  let pendingMagClientX = 0;
-  let pendingMagClientY = 0;
+  function renderCursor() {
+    const dx = mouseX - ringX;
+    const dy = mouseY - ringY;
+    ringX += dx * LERP_FACTOR;
+    ringY += dy * LERP_FACTOR;
+
+    const scale = isMouseDown ? ' scale(0.8)' : '';
+    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${scale}`;
+
+    // Only continue rAF while ring is catching up — stops immediately when resting
+    if (Math.abs(dx) > 0.15 || Math.abs(dy) > 0.15) {
+      animId = requestAnimationFrame(renderCursor);
+    } else {
+      isTicking = false;
+      animId = null;
+    }
+  }
+
+  function scheduleRender() {
+    if (!isTicking) {
+      isTicking = true;
+      animId = requestAnimationFrame(renderCursor);
+    }
+  }
 
   // Track mouse coordinates
   window.addEventListener(
@@ -56,96 +75,40 @@ export function initCursor() {
         ringY = mouseY;
       }
 
-      // 1. Stage card spotlight for rAF tick
-      const card = e.target.closest(
-        '.card, .project-card, .pillar-card, .stat-card, .profile-card, .timeline-card'
-      );
-      if (card) {
-        pendingCard = card;
-        pendingCardClientX = e.clientX;
-        pendingCardClientY = e.clientY;
-      } else {
-        pendingCard = null;
-      }
-
-      // 2. Stage magnetic pull for rAF tick
-      const magneticTarget = e.target.closest(
-        '.btn, .filter-tab, .social-icon, .nav-logo, #theme-toggle, .tag-pill'
-      );
-      if (magneticTarget) {
-        activeMagneticEl = magneticTarget;
-        pendingMagClientX = e.clientX;
-        pendingMagClientY = e.clientY;
-      } else if (activeMagneticEl) {
-        activeMagneticEl.style.transform = '';
-        activeMagneticEl = null;
-      }
+      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      scheduleRender();
     },
     { passive: true }
   );
-
-  // Smooth GPU spring lerp loop
-  const LERP_FACTOR = 0.18;
-
-  function renderCursor() {
-    if (isVisible) {
-      ringX += (mouseX - ringX) * LERP_FACTOR;
-      ringY += (mouseY - ringY) * LERP_FACTOR;
-
-      const scale = isMouseDown ? ' scale(0.8)' : '';
-
-      // Pure GPU compositor translate — no top/left reflow
-      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-      cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${scale}`;
-
-      // Update card spotlight on animation frame (smooth 60fps, zero thrash)
-      if (pendingCard) {
-        const rect = pendingCard.getBoundingClientRect();
-        pendingCard.style.setProperty('--mouse-x', `${pendingCardClientX - rect.left}px`);
-        pendingCard.style.setProperty('--mouse-y', `${pendingCardClientY - rect.top}px`);
-      }
-
-      // Update magnetic spring on animation frame
-      if (activeMagneticEl) {
-        const rect = activeMagneticEl.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const deltaX = (pendingMagClientX - centerX) * 0.22;
-        const deltaY = (pendingMagClientY - centerY) * 0.22;
-        activeMagneticEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-      }
-    }
-
-    animId = requestAnimationFrame(renderCursor);
-  }
-
-  animId = requestAnimationFrame(renderCursor);
 
   // Hide cursor when leaving window
   document.addEventListener('mouseleave', () => {
     isVisible = false;
     cursorDot.style.opacity = '0';
     cursorRing.style.opacity = '0';
-    if (activeMagneticEl) {
-      activeMagneticEl.style.transform = '';
-      activeMagneticEl = null;
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+      isTicking = false;
     }
-  });
+  }, { passive: true });
 
   document.addEventListener('mouseenter', () => {
     isVisible = true;
     cursorDot.style.opacity = '1';
     cursorRing.style.opacity = '0.65';
-  });
+  }, { passive: true });
 
   // Mouse press effect
   document.addEventListener('mousedown', () => {
     isMouseDown = true;
-  });
+    scheduleRender();
+  }, { passive: true });
 
   document.addEventListener('mouseup', () => {
     isMouseDown = false;
-  });
+    scheduleRender();
+  }, { passive: true });
 
   // Interactive element hover states — targets ONLY the cursor elements directly.
   // NEVER modifies document.body.classList to prevent full-DOM style invalidations (fixes 240ms INP).

@@ -199,10 +199,7 @@
       ctx.lineWidth = Math.max(8, this.glowWidth * 0.4);
       ctx.stroke();
 
-      // 3. Feathered crest stroke (shadowBlur diffuses line border into soft light plume)
-      ctx.save();
-      ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${this.alpha * 0.9})`;
-      ctx.shadowBlur = 12;
+      // 3. Smooth crest stroke (feathered via gradient, zero shadowBlur CPU stall)
       ctx.beginPath();
       for (let i = 0; i < pts.length; i++) {
         i === 0 ? ctx.moveTo(pts[i].x, pts[i].y) : ctx.lineTo(pts[i].x, pts[i].y);
@@ -210,7 +207,6 @@
       ctx.strokeStyle = gradCore;
       ctx.lineWidth = this.lineWidth;
       ctx.stroke();
-      ctx.restore();
     }
 
     resize(w, h) {
@@ -269,11 +265,11 @@
     }
   }
 
-  /* ── Hex shimmer grid ──────────────────────────────────────── */
+  /* ── Hex shimmer grid (Batched Single-Pass Draw) ───────────── */
   class HexShimmerGrid {
     constructor(w, h) {
       this.W = w; this.H = h;
-      this.cellSize = 68;
+      this.cellSize = 72;
       this.cells = [];
       this._build(w, h);
     }
@@ -299,23 +295,21 @@
     draw(ctx, time, palette) {
       const { r, g, b } = palette.primary;
       const cs = this.cellSize * 0.5;
+      ctx.beginPath();
       for (let i = 0; i < this.cells.length; i++) {
         const cell = this.cells[i];
-        const bri = smoothstepCanvas(0, 1, (Math.sin(time * cell.speed + cell.phase) + 1) * 0.5);
-        const alpha = bri * 0.045;
-        if (alpha < 0.003) continue;
-        ctx.beginPath();
+        const bri = (Math.sin(time * cell.speed + cell.phase) + 1) * 0.5;
+        if (bri < 0.28) continue;
         for (let k = 0; k < 6; k++) {
           const angle = (Math.PI / 3) * k - Math.PI / 6;
           const px = cell.x + Math.cos(angle) * cs;
           const py = cell.y + Math.sin(angle) * cs;
           k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
         }
-        ctx.closePath();
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        ctx.lineWidth = 0.6;
-        ctx.stroke();
       }
+      ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.032)`;
+      ctx.lineWidth = 0.6;
+      ctx.stroke(); // Single draw call for the entire hex grid!
     }
 
     resize(w, h) { this.W = w; this.H = h; this._build(w, h); }
@@ -339,8 +333,8 @@
     let mouseX = -1, mouseY = -1;
 
     const isMobile = () => W < 768;
-    const RIBBON_COUNT = () => isMobile() ? 4 : 7;
-    const ORB_COUNT    = () => isMobile() ? 3 : 5;
+    const RIBBON_COUNT = () => isMobile() ? 3 : 6;
+    const ORB_COUNT    = () => isMobile() ? 2 : 4;
 
     function build(w, h) {
       ribbons = []; orbs = [];
@@ -352,7 +346,7 @@
     }
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const el = canvas.parentElement || document.body;
       const nW = el.offsetWidth  || window.innerWidth;
       const nH = el.offsetHeight || window.innerHeight;
@@ -380,15 +374,14 @@
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 120);
-    });
+      resizeTimer = setTimeout(resize, 150);
+    }, { passive: true });
 
-    window.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    });
-    window.addEventListener('mouseleave', () => { mouseX = -1; mouseY = -1; });
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+    window.addEventListener('mouseleave', () => { mouseX = -1; mouseY = -1; }, { passive: true });
 
     window.addEventListener('themechange', () => { palette = getThemePalette(); });
 
@@ -1094,14 +1087,14 @@
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
 
-    const root = document.documentElement;
+    const auroraEl = document.querySelector('.ambient-aurora');
+    if (!auroraEl) return;
     let ticking = false;
 
     function updateParallax() {
       const sy = window.scrollY || window.pageYOffset;
-      // Gentle, bounded depth parallax — shifts gracefully without any clipping
       const offset = Math.min(140, sy * 0.04);
-      root.style.setProperty('--parallax-bg', `${-offset}px`);
+      auroraEl.style.transform = `translate3d(0, ${-offset}px, 0)`;
       ticking = false;
     }
 
@@ -1302,18 +1295,40 @@
     let isVisible = false;
     let isMouseDown = false;
     let animId = null;
+    let isTicking = false;
 
-    let pendingCard = null;
-    let pendingCardClientX = 0;
-    let pendingCardClientY = 0;
+    const LERP_FACTOR = 0.22;
 
-    let activeMagneticEl = null;
-    let pendingMagClientX = 0;
-    let pendingMagClientY = 0;
+    function renderCursor() {
+      const dx = mouseX - ringX;
+      const dy = mouseY - ringY;
+      ringX += dx * LERP_FACTOR;
+      ringY += dy * LERP_FACTOR;
+
+      const scale = isMouseDown ? ' scale(0.8)' : '';
+      cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${scale}`;
+
+      // Only schedule next frame if ring has NOT yet converged on mouse position
+      // When at rest, rAF stops completely to give 100% main thread to user interactions!
+      if (Math.abs(dx) > 0.15 || Math.abs(dy) > 0.15) {
+        animId = requestAnimationFrame(renderCursor);
+      } else {
+        isTicking = false;
+        animId = null;
+      }
+    }
+
+    function scheduleRender() {
+      if (!isTicking) {
+        isTicking = true;
+        animId = requestAnimationFrame(renderCursor);
+      }
+    }
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+
       if (!isVisible) {
         isVisible = true;
         cursorDot.style.opacity = '1';
@@ -1322,106 +1337,55 @@
         ringY = mouseY;
       }
 
-      // 1. Stage card spotlight for rAF tick (avoids forced layout reflows)
-      const card = e.target.closest('.card, .project-card, .pillar-card, .stat-card, .profile-card, .timeline-card');
-      if (card) {
-        pendingCard = card;
-        pendingCardClientX = e.clientX;
-        pendingCardClientY = e.clientY;
-      } else {
-        pendingCard = null;
-      }
-
-      // 2. Stage magnetic pull for rAF tick
-      const magneticTarget = e.target.closest('.btn, .filter-tab, .social-icon, .nav-logo, #theme-toggle, .tag-pill');
-      if (magneticTarget) {
-        activeMagneticEl = magneticTarget;
-        pendingMagClientX = e.clientX;
-        pendingMagClientY = e.clientY;
-      } else if (activeMagneticEl) {
-        activeMagneticEl.style.transform = '';
-        activeMagneticEl = null;
-      }
+      // Hardware compositor position update (0 reflows)
+      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      scheduleRender();
     }, { passive: true });
-
-    const LERP_FACTOR = 0.18;
-
-    function renderCursor() {
-      if (isVisible) {
-        ringX += (mouseX - ringX) * LERP_FACTOR;
-        ringY += (mouseY - ringY) * LERP_FACTOR;
-
-        const scale = isMouseDown ? ' scale(0.8)' : '';
-
-        // Pure GPU compositor translate — zero layout recalculation
-        cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-        cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)${scale}`;
-
-        // Update card spotlight on animation frame
-        if (pendingCard) {
-          const rect = pendingCard.getBoundingClientRect();
-          pendingCard.style.setProperty('--mouse-x', `${pendingCardClientX - rect.left}px`);
-          pendingCard.style.setProperty('--mouse-y', `${pendingCardClientY - rect.top}px`);
-        }
-
-        // Update magnetic spring on animation frame
-        if (activeMagneticEl) {
-          const rect = activeMagneticEl.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
-          const deltaX = (pendingMagClientX - centerX) * 0.22;
-          const deltaY = (pendingMagClientY - centerY) * 0.22;
-          activeMagneticEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-        }
-      }
-
-      animId = requestAnimationFrame(renderCursor);
-    }
-
-    animId = requestAnimationFrame(renderCursor);
 
     document.addEventListener('mouseleave', () => {
       isVisible = false;
       cursorDot.style.opacity = '0';
       cursorRing.style.opacity = '0';
-      if (activeMagneticEl) {
-        activeMagneticEl.style.transform = '';
-        activeMagneticEl = null;
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+        isTicking = false;
       }
-    });
+    }, { passive: true });
 
     document.addEventListener('mouseenter', () => {
       isVisible = true;
       cursorDot.style.opacity = '1';
       cursorRing.style.opacity = '0.65';
-    });
+    }, { passive: true });
 
     document.addEventListener('mousedown', () => {
       isMouseDown = true;
-    });
+      scheduleRender();
+    }, { passive: true });
 
     document.addEventListener('mouseup', () => {
       isMouseDown = false;
-    });
+      scheduleRender();
+    }, { passive: true });
 
-    // Targets ONLY cursor elements directly — NEVER touches document.body.classList to prevent whole-tree recalcs
     const selector = 'a, button, [role="tab"], .project-card, .profile-card, .stat-card, .pillar-card, .tag-pill, .timeline-card, input, textarea';
     document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(selector)) {
+      if (e.target && e.target.closest && e.target.closest(selector)) {
         cursorRing.classList.add('cursor-hover');
         cursorDot.classList.add('cursor-hover');
       }
     }, { passive: true });
 
     document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(selector)) {
+      if (e.target && e.target.closest && e.target.closest(selector)) {
         cursorRing.classList.remove('cursor-hover');
         cursorDot.classList.remove('cursor-hover');
       }
     }, { passive: true });
 
     document.addEventListener('focusin', (e) => {
-      if (e.target.closest && e.target.closest(selector)) {
+      if (e.target && e.target.closest && e.target.closest(selector)) {
         cursorRing.classList.add('cursor-hover');
       }
     }, { passive: true });
@@ -1434,14 +1398,13 @@
       if (document.hidden && animId) {
         cancelAnimationFrame(animId);
         animId = null;
-      } else if (!document.hidden && !animId) {
-        animId = requestAnimationFrame(renderCursor);
+        isTicking = false;
       }
     });
   }
 
   /* ══════════════════════════════════════════════════════════════
-     7. CONTACT FORM MODULE
+     7. CONTACT FORM MODULE (Direct Send via FormSubmit AJAX)
      ══════════════════════════════════════════════════════════════ */
   function initContactForm() {
     const form = document.getElementById('contact-form');
@@ -1449,7 +1412,7 @@
     const statusEl = document.getElementById('contact-status');
     if (!form || !submitBtn) return;
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const nameInput = document.getElementById('contact-name');
@@ -1480,29 +1443,55 @@
       submitBtn.disabled = true;
       const btnText = submitBtn.querySelector('.btn-text');
       const originalText = btnText ? btnText.textContent : 'Send Message';
-      if (btnText) btnText.textContent = 'Opening Mail Client...';
+      if (btnText) btnText.textContent = 'Sending Message...';
 
       if (statusEl) {
-        statusEl.textContent = 'Preparing your message...';
+        statusEl.textContent = 'Sending your message directly...';
         statusEl.className = 'contact-status is-pending';
       }
 
-      setTimeout(() => {
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/rahmansaifur064@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            _subject: `New Portfolio Message from ${name} (${email})`,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && (data.success === 'true' || data.success === true || response.status === 200)) {
+          if (statusEl) {
+            statusEl.textContent = '✓ Message sent successfully! Thank you, Saifur will get back to you soon.';
+            statusEl.className = 'contact-status is-success';
+          }
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Delivery error');
+        }
+      } catch (err) {
+        console.warn('Direct AJAX submission fallback to mail client:', err);
         const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-        const body = encodeURIComponent(
-          `Hi Saifur,\n\n${message}\n\n---\nSender: ${name}\nReply Email: ${email}`
-        );
+        const body = encodeURIComponent(`Hi Saifur,\n\n${message}\n\n---\nSender: ${name}\nReply Email: ${email}`);
         window.location.href = `mailto:rahmansaifur064@gmail.com?subject=${subject}&body=${body}`;
 
         if (statusEl) {
           statusEl.textContent = '✓ Message prepared! Your email client has been launched. Thank you!';
           statusEl.className = 'contact-status is-success';
         }
-
+      } finally {
         submitBtn.disabled = false;
         if (btnText) btnText.textContent = originalText;
-        form.reset();
-      }, 500);
+      }
     });
   }
 

@@ -142,10 +142,7 @@ class SilkRibbon {
     ctx.lineWidth = Math.max(8, this.glowWidth * 0.4);
     ctx.stroke();
 
-    // 3. Feathered crest stroke (shadowBlur diffuses line border into soft light plume)
-    ctx.save();
-    ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${this.alpha * 0.9})`;
-    ctx.shadowBlur = 12;
+    // 3. Smooth crest stroke (feathered via gradient, zero shadowBlur CPU stall)
     ctx.beginPath();
     for (let i = 0; i < pts.length; i++) {
       i === 0 ? ctx.moveTo(pts[i].x, pts[i].y) : ctx.lineTo(pts[i].x, pts[i].y);
@@ -153,7 +150,6 @@ class SilkRibbon {
     ctx.strokeStyle = gradCore;
     ctx.lineWidth = this.lineWidth;
     ctx.stroke();
-    ctx.restore();
   }
 
   resize(w, h) {
@@ -237,14 +233,13 @@ class AuroraOrb {
 }
 
 /**
- * Subtle animated hexagonal/diamond shimmer grid — ultra-thin, barely-visible.
- * Adds complexity and depth without visual noise.
+ * Subtle animated hexagonal/diamond shimmer grid — batched single-pass draw.
  */
 class HexShimmerGrid {
   constructor(w, h) {
     this.W = w;
     this.H = h;
-    this.cellSize = 68;
+    this.cellSize = 72;
     this.speed = 0.00018;
     this.cells = [];
     this._build(w, h);
@@ -274,27 +269,25 @@ class HexShimmerGrid {
     const { r, g, b } = primary;
     const cs = this.cellSize * 0.5;
 
+    ctx.beginPath();
     for (let i = 0; i < this.cells.length; i++) {
       const cell = this.cells[i];
-      const brightness = smoothstep(0, 1, (Math.sin(time * cell.speed + cell.phase) + 1) * 0.5);
-      const alpha = brightness * 0.045;
-      if (alpha < 0.003) continue;
+      const brightness = (Math.sin(time * cell.speed + cell.phase) + 1) * 0.5;
+      if (brightness < 0.28) continue;
 
       const x = cell.x;
       const y = cell.y;
 
-      ctx.beginPath();
       for (let k = 0; k < 6; k++) {
         const angle = (Math.PI / 3) * k - Math.PI / 6;
         const px = x + Math.cos(angle) * cs;
         const py = y + Math.sin(angle) * cs;
         k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
       }
-      ctx.closePath();
-      ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-      ctx.lineWidth = 0.6;
-      ctx.stroke();
     }
+    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.032)`;
+    ctx.lineWidth = 0.6;
+    ctx.stroke(); // Batched single stroke
   }
 
   resize(w, h) {
