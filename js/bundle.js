@@ -1496,56 +1496,92 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
-     ABOUT SECTION DEVELOPER CONSOLE TABS
+     ABOUT SECTION DEVELOPER CONSOLE TABS (Auto-switching + Interactive)
      ══════════════════════════════════════════════════════════════ */
   function initAboutConsoleTabs() {
+    const consoleCard = document.querySelector('.about-card--console');
     const tabs = document.querySelectorAll('.console-tab');
     const panels = document.querySelectorAll('.console-panel');
     if (!tabs.length || !panels.length) return;
 
-    tabs.forEach((tab) => {
+    let currentIndex = 0;
+    let autoTimer = null;
+    const SWITCH_INTERVAL = 3800; // 3.8s per tab
+
+    function activateTab(index) {
+      currentIndex = index;
+      const tab = tabs[index];
+      if (!tab) return;
+      const targetPanelId = tab.getAttribute('aria-controls');
+
+      // Update tabs
+      tabs.forEach((t, i) => {
+        const isActive = i === index;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+
+      // Update panels
+      panels.forEach((panel) => {
+        if (panel.id === targetPanelId) {
+          panel.classList.add('is-active');
+          panel.removeAttribute('hidden');
+        } else {
+          panel.classList.remove('is-active');
+          panel.setAttribute('hidden', '');
+        }
+      });
+    }
+
+    function startAutoSwitch() {
+      stopAutoSwitch();
+      autoTimer = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % tabs.length;
+        activateTab(nextIndex);
+      }, SWITCH_INTERVAL);
+    }
+
+    function stopAutoSwitch() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
-        const targetPanelId = tab.getAttribute('aria-controls');
-
-        // Update tabs
-        tabs.forEach((t) => {
-          const isActive = t === tab;
-          t.classList.toggle('is-active', isActive);
-          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-          t.setAttribute('tabindex', isActive ? '0' : '-1');
-        });
-
-        // Update panels
-        panels.forEach((panel) => {
-          if (panel.id === targetPanelId) {
-            panel.classList.add('is-active');
-            panel.removeAttribute('hidden');
-          } else {
-            panel.classList.remove('is-active');
-            panel.setAttribute('hidden', '');
-          }
-        });
+        activateTab(index);
+        startAutoSwitch();
       });
 
       // Keyboard navigation (ArrowLeft / ArrowRight)
       tab.addEventListener('keydown', (e) => {
-        const tabList = Array.from(tabs);
-        const index = tabList.indexOf(tab);
         let nextIndex = null;
 
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-          nextIndex = (index + 1) % tabList.length;
+          nextIndex = (index + 1) % tabs.length;
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-          nextIndex = (index - 1 + tabList.length) % tabList.length;
+          nextIndex = (index - 1 + tabs.length) % tabs.length;
         }
 
         if (nextIndex !== null) {
           e.preventDefault();
-          tabList[nextIndex].focus();
-          tabList[nextIndex].click();
+          tabs[nextIndex].focus();
+          activateTab(nextIndex);
+          startAutoSwitch();
         }
       });
     });
+
+    // Pause on hover so user can easily read or copy code, resume on mouse leave
+    if (consoleCard) {
+      consoleCard.addEventListener('mouseenter', stopAutoSwitch);
+      consoleCard.addEventListener('mouseleave', startAutoSwitch);
+    }
+
+    // Start auto-switching
+    startAutoSwitch();
   }
 
   /* ══════════════════════════════════════════════════════════════

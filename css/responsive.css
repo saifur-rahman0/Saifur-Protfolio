@@ -181,17 +181,9 @@
     display: none;
   }
 
-  /* ── About Bento Grid (Tablet) ── */
-  .about-bento-grid {
-    gap: var(--space-6);
-  }
-
-  .about-pillars-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .metrics-matrix-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* ── About Grid (Tablet) ── */
+  .about-grid {
+    gap: var(--space-8);
   }
 
   /* Projects: 2-col grid */
@@ -268,26 +260,11 @@
     max-width: 800px;
   }
 
-  /* ── About Bento Grid (Desktop) ── */
-  .about-bento-grid {
-    grid-template-columns: repeat(12, 1fr);
-  }
-
-  .about-card--identity {
-    grid-column: span 7;
-  }
-
-  .about-card--metrics {
-    grid-column: span 5;
-  }
-
-  .about-pillars-container {
-    grid-column: span 12;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .about-card--console {
-    grid-column: span 12;
+  /* ── About Grid (Desktop) ── */
+  .about-grid {
+    grid-template-columns: 260px 1fr;
+    gap: var(--space-16);
+    align-items: start;
   }
 
   /* ── Projects ── */
