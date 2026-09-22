@@ -34,9 +34,11 @@
     content="AI/Computer Vision researcher, Flutter mobile developer, and systems engineer." />
   <meta name="twitter:image" content="assets/images/og-preview.jpg" />
 
-  <!-- ── Favicon (inline SVG data URI) ── -->
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <!-- ── Favicon (Circular Profile Avatar with Glowing Cyan Ring) ── -->
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/images/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
 
   <!-- ── Google Fonts Preconnect ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -222,7 +224,7 @@
         <p class="eyebrow-label hero-animate-1">// AI &amp; COMPUTER VISION LAB</p>
 
         <!-- Name — only <h1> on page -->
-        <h1 id="hero-name" class="gradient-text hero-animate-2">Saifur Rahman</h1>
+        <h1 id="hero-name" class="gradient-text hero-animate-2">Md. Saifur Rahman</h1>
 
         <!-- Role switcher -->
         <p class="hero-role hero-animate-3">
@@ -268,129 +270,254 @@
          ══════════════════════════════════════ -->
     <section id="about" aria-label="About Saifur Rahman">
       <div class="section-container">
-        <span class="eyebrow-label reveal-element">// ABOUT ME</span>
-        <h2 class="section-heading reveal-element stagger-1">Who I Am</h2>
+        <span class="eyebrow-label reveal-element">// 01. ABOUT ME</span>
+        <h2 class="section-heading reveal-element stagger-1">Architecting AI Systems &amp; Scalable Software</h2>
+        <p class="section-subtitle reveal-element stagger-2">A look into my background, research philosophy, engineering pillars, and competitive roots.</p>
 
-        <div class="about-grid">
+        <div class="about-bento-grid">
 
-          <!-- Avatar column -->
-          <div class="about-avatar-col reveal-left">
-            <div class="avatar-wrapper">
-              <img src="assets/images/profile.jpg" alt="Portrait of Saifur Rahman" class="avatar-img" width="220"
-                height="220" loading="lazy" />
+          <!-- ── Card 1: Identity & Bio (Desktop Col Span 7) ── -->
+          <article class="about-bento-card about-card--identity reveal-element stagger-1">
+            <div class="about-card-badge-row">
+              <div class="status-badge" aria-label="Availability Status">
+                <span class="status-ping" aria-hidden="true"></span>
+                <span class="status-text">Available for AI &amp; Engineering Roles</span>
+              </div>
+              <div class="location-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Dhaka, Bangladesh</span>
+              </div>
             </div>
+
+            <div class="about-identity-header">
+              <div class="about-avatar-wrapper">
+                <img src="assets/images/profile.jpg" alt="Portrait of Md. Saifur Rahman" class="about-avatar-img" width="140" height="140" loading="lazy" />
+                <div class="avatar-ring-glow" aria-hidden="true"></div>
+              </div>
+              <div class="about-identity-meta">
+                <h3 class="about-name">Md. Saifur Rahman</h3>
+                <p class="about-headline">AI &amp; Computer Vision Researcher &nbsp;·&nbsp; Flutter Mobile Engineer</p>
+                <div class="about-credential-chips">
+                  <span class="cred-chip">🎓 B.Sc. in CSE, ShEC (Univ. of Dhaka)</span>
+                  <span class="cred-chip">🏢 Ex-Junior AI Dev @ Betopia Group</span>
+                  <span class="cred-chip">🏛️ President @ ShEC CPC</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-bio-content">
+              <p class="about-bio-text">
+                I am a Computer Science &amp; Engineering student at <strong>Shyamoli Engineering College (ShEC)</strong>, a constituent of the <strong>University of Dhaka</strong>. My work bridges empirical machine learning research with real-world production engineering — from building deep learning computer vision systems to architecting on-device mobile applications and scalable backend APIs.
+              </p>
+              <p class="about-bio-text">
+                Previously, I served as a <strong>Junior AI Developer at Betopia Group</strong>, engineering production ML pipelines and REST APIs for digital marketing automation. Today, I lead as <strong>President of the ShEC Computer Programming Club</strong>, mentoring over a hundred students in algorithms and contest programming, and competing as an <strong>ICPC 2023 Regionalist</strong>.
+              </p>
+            </div>
+
+            <div class="about-identity-footer">
+              <div class="about-action-btns">
+                <a href="#contact" class="btn btn--primary btn--sm">Get In Touch</a>
+                <a href="#journey" class="btn btn--outline btn--sm">Explore Journey</a>
+              </div>
+
+              <!-- Social Links -->
+              <div class="social-links" aria-label="Saifur's Social Profiles">
+                <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
+                  class="social-icon social-icon--github" aria-label="GitHub profile" title="GitHub">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                </a>
+                <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
+                  class="social-icon social-icon--linkedin" aria-label="LinkedIn profile" title="LinkedIn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
+                  class="social-icon social-icon--kaggle" aria-label="Kaggle profile" title="Kaggle">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M18.825 23.859c-.022.091-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.187c0 .149-.047.271-.141.365-.094.094-.216.141-.365.141H5.158c-.149 0-.271-.047-.365-.141-.094-.094-.141-.216-.141-.365V.505c0-.149.047-.271.141-.365C4.887.047 5.009 0 5.158 0h2.623c.149 0 .271.047.365.141.094.094.141.216.141.365v14.494l6.397-6.289c.164-.164.339-.246.527-.246h3.292c.164 0 .264.053.3.158.047.117.029.217-.053.299l-6.844 6.554 7.158 8.088c.07.094.094.194.07.295z" />
+                  </svg>
+                </a>
+                <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
+                  class="social-icon social-icon--codeforces" aria-label="Codeforces profile" title="Codeforces">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400" />
+                    <rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6" />
+                    <rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919" />
+                  </svg>
+                </a>
+                <a href="mailto:rahmansaifur064@gmail.com" class="social-icon social-icon--email" aria-label="Send email" title="Email">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── Card 2: Impact Metrics Matrix (Desktop Col Span 5) ── -->
+          <article class="about-bento-card about-card--metrics reveal-element stagger-2" aria-label="Key Achievements">
+            <div class="metrics-card-header">
+              <span class="metrics-tag">// IMPACT MATRIX</span>
+              <span class="metrics-sparkle" aria-hidden="true">✦</span>
+            </div>
+
+            <div class="metrics-matrix-grid">
+              <div class="metric-cell">
+                <div class="metric-val-wrap">
+                  <span class="stat-number gradient-text" data-target="6" data-suffix="mo">0</span>
+                </div>
+                <h4 class="metric-title">Industry AI Exp</h4>
+                <p class="metric-desc">Betopia Group ML Pipelines</p>
+              </div>
+
+              <div class="metric-cell">
+                <div class="metric-val-wrap">
+                  <span class="stat-number gradient-text" data-target="10" data-suffix="+">0</span>
+                </div>
+                <h4 class="metric-title">Projects Built</h4>
+                <p class="metric-desc">Production &amp; Research</p>
+              </div>
+
+              <div class="metric-cell">
+                <div class="metric-val-wrap">
+                  <span class="stat-number gradient-text" data-target="100" data-suffix="+">0</span>
+                </div>
+                <h4 class="metric-title">Juniors Mentored</h4>
+                <p class="metric-desc">ShEC CPC Leadership</p>
+              </div>
+
+              <div class="metric-cell">
+                <div class="metric-val-wrap">
+                  <span class="stat-number gradient-text" data-target="1080" data-suffix="">0</span>
+                </div>
+                <h4 class="metric-title">Codeforces Peak</h4>
+                <p class="metric-desc">ICPC 2023 Regionalist</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── Card 3: Engineering Pillars (Desktop Col Span 12, 3 cols) ── -->
+          <div class="about-pillars-container reveal-element stagger-3" aria-label="Core Engineering Disciplines">
+            <article class="pillar-card">
+              <div class="pillar-card__icon" aria-hidden="true">🧠</div>
+              <div class="pillar-card__content">
+                <h3 class="pillar-card__title">AI &amp; Computer Vision</h3>
+                <p class="pillar-card__desc">Deep neural architectures for image &amp; video understanding, gesture translation, and on-device optimization.</p>
+                <div class="pillar-tags">
+                  <span class="tech-pill">PyTorch</span>
+                  <span class="tech-pill">TensorFlow</span>
+                  <span class="tech-pill">OpenCV</span>
+                  <span class="tech-pill">MediaPipe</span>
+                  <span class="tech-pill">ONNX</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="pillar-card">
+              <div class="pillar-card__icon" aria-hidden="true">📱</div>
+              <div class="pillar-card__content">
+                <h3 class="pillar-card__title">Cross-Platform Mobile</h3>
+                <p class="pillar-card__desc">High-performance Flutter applications with on-device ML execution, camera feeds, and fluid 60fps UX.</p>
+                <div class="pillar-tags">
+                  <span class="tech-pill">Flutter</span>
+                  <span class="tech-pill">Dart</span>
+                  <span class="tech-pill">Riverpod</span>
+                  <span class="tech-pill">On-Device ML</span>
+                  <span class="tech-pill">Native APIs</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="pillar-card">
+              <div class="pillar-card__icon" aria-hidden="true">⚡</div>
+              <div class="pillar-card__content">
+                <h3 class="pillar-card__title">Backend &amp; Scalable Systems</h3>
+                <p class="pillar-card__desc">Engineering high-throughput RESTful services, asynchronous processing queues, and robust data schemas.</p>
+                <div class="pillar-tags">
+                  <span class="tech-pill">FastAPI</span>
+                  <span class="tech-pill">Python</span>
+                  <span class="tech-pill">Node.js</span>
+                  <span class="tech-pill">PostgreSQL</span>
+                  <span class="tech-pill">Docker</span>
+                </div>
+              </div>
+            </article>
           </div>
 
-          <!-- Text column -->
-          <div class="about-text-col reveal-right">
-            <p class="about-bio">
-              I'm <strong>Md. Saifur Rahman</strong>, a Computer Science &amp; Engineering student at
-              <strong>Shyamoli Engineering College (ShEC)</strong>, a constituent of the University of Dhaka.
-              My work sits at the intersection of <strong>AI research</strong> and <strong>production
-                engineering</strong>
-              — from building 401-class sign language recognition systems to deploying full-stack enterprise
-              applications.
-              <br /><br />
-              I worked as a <strong>Junior AI Developer at Betopia Group</strong>, engineering ML pipelines and
-              REST APIs for production digital marketing workflows. Currently I serve as
-              <strong>President of the ShEC Computer Programming Club</strong> and am a competitive
-              programmer with an ICPC 2023 regional appearance.
-            </p>
-
-            <!-- Stat counters -->
-            <div class="stats-grid" aria-label="Achievements at a glance">
-              <div class="stat-card reveal-scale stagger-1">
-                <span class="stat-number gradient-text" data-target="6" data-suffix="mo">0</span>
-                <span class="stat-label">Industry Exp</span>
+          <!-- ── Card 4: Interactive Developer Console (Desktop Col Span 12) ── -->
+          <article class="about-bento-card about-card--console reveal-element stagger-4" aria-label="Interactive Developer Spec">
+            <div class="console-chrome">
+              <div class="console-controls" aria-hidden="true">
+                <span class="console-dot console-dot--red"></span>
+                <span class="console-dot console-dot--yellow"></span>
+                <span class="console-dot console-dot--green"></span>
               </div>
-              <div class="stat-card reveal-scale stagger-2">
-                <span class="stat-number gradient-text" data-target="10" data-suffix="+">0</span>
-                <span class="stat-label">Projects Built</span>
+              <div class="console-tabs" role="tablist" aria-label="Developer Profile Tabs">
+                <button type="button" class="console-tab is-active" role="tab" id="tab-config" aria-selected="true" aria-controls="panel-config" tabindex="0">
+                  <span class="tab-icon">⚙️</span> saifur.config.ts
+                </button>
+                <button type="button" class="console-tab" role="tab" id="tab-leadership" aria-selected="false" aria-controls="panel-leadership" tabindex="-1">
+                  <span class="tab-icon">🏛️</span> leadership.md
+                </button>
+                <button type="button" class="console-tab" role="tab" id="tab-vision" aria-selected="false" aria-controls="panel-vision" tabindex="-1">
+                  <span class="tab-icon">💡</span> philosophy.md
+                </button>
               </div>
-              <div class="stat-card reveal-scale stagger-4">
-                <span class="stat-number gradient-text" data-target="1080" data-suffix="">0</span>
-                <span class="stat-label">Codeforces Rating</span>
-              </div>
+              <span class="console-env-tag">bash &middot; dev@portfolio:~</span>
             </div>
 
-            <!-- What I do — Pillar cards -->
-            <div class="pillar-cards" aria-label="Core expertise areas">
-              <div class="pillar-card reveal-element stagger-1">
-                <div class="pillar-card__icon" aria-hidden="true">🧠</div>
-                <div class="pillar-card__content">
-                  <h3 class="pillar-card__title">AI &amp; Computer Vision</h3>
-                  <p class="pillar-card__desc">PyTorch, TensorFlow, MediaPipe, OpenCV — building explainable,
-                    production-ready deep learning systems.</p>
+            <div class="console-body">
+              <!-- Panel 1: Config -->
+              <div class="console-panel is-active" id="panel-config" role="tabpanel" aria-labelledby="tab-config">
+                <pre class="code-block"><code><span class="token-keyword">export const</span> <span class="token-variable">saifur</span> = {
+  <span class="token-property">name</span>: <span class="token-string">"Md. Saifur Rahman"</span>,
+  <span class="token-property">affiliation</span>: <span class="token-string">"Shyamoli Engineering College (Univ. of Dhaka)"</span>,
+  <span class="token-property">status</span>: <span class="token-string">"Open for AI/CV &amp; Full-Stack Opportunities"</span>,
+  <span class="token-property">coreStack</span>: [<span class="token-string">"Python"</span>, <span class="token-string">"PyTorch"</span>, <span class="token-string">"Flutter"</span>, <span class="token-string">"FastAPI"</span>, <span class="token-string">"PostgreSQL"</span>, <span class="token-string">"C++"</span>],
+  <span class="token-property">researchFocus</span>: [<span class="token-string">"Computer Vision"</span>, <span class="token-string">"Gesture &amp; Sign Translation"</span>, <span class="token-string">"Edge ML"</span>],
+  <span class="token-property">competitive</span>: { <span class="token-property">codeforces</span>: <span class="token-number">1080</span>, <span class="token-property">icpcRegionalist</span>: <span class="token-boolean">true</span> },
+  <span class="token-property">location</span>: <span class="token-string">"Dhaka, Bangladesh"</span>
+};</code></pre>
+              </div>
+
+              <!-- Panel 2: Leadership -->
+              <div class="console-panel" id="panel-leadership" role="tabpanel" aria-labelledby="tab-leadership" hidden>
+                <div class="markdown-preview">
+                  <h4># Leadership &amp; Community Impact</h4>
+                  <ul class="console-list">
+                    <li><strong>President, ShEC Computer Programming Club:</strong> Leading the official campus programming body, driving competitive programming culture, and curating training roadmaps.</li>
+                    <li><strong>100+ Students Mentored:</strong> Conducted weekly problem-solving bootcamps covering C++, algorithmic efficiency, graph theory, and dynamic programming.</li>
+                    <li><strong>ICPC 2023 Regional Contestant:</strong> Represented ShEC at the national collegiate competitive programming level, tackling rigorous algorithmic challenges.</li>
+                    <li><strong>Contest Organizer:</strong> Coordinated campus-wide mock contests, coding marathons, and technical orientation workshops for incoming freshmen.</li>
+                  </ul>
                 </div>
               </div>
-              <div class="pillar-card reveal-element stagger-2">
-                <div class="pillar-card__icon" aria-hidden="true">📱</div>
-                <div class="pillar-card__content">
-                  <h3 class="pillar-card__title">Cross-Platform Mobile</h3>
-                  <p class="pillar-card__desc">Flutter + Dart with on-device ML (ONNX Runtime), real-time video, and
-                    production-grade UX.</p>
-                </div>
-              </div>
-              <div class="pillar-card reveal-element stagger-3">
-                <div class="pillar-card__icon" aria-hidden="true">⚡</div>
-                <div class="pillar-card__content">
-                  <h3 class="pillar-card__title">Backend &amp; Systems</h3>
-                  <p class="pillar-card__desc">FastAPI, Node.js, PostgreSQL — engineering scalable backends and
-                    enterprise data pipelines.</p>
+
+              <!-- Panel 3: Vision -->
+              <div class="console-panel" id="panel-vision" role="tabpanel" aria-labelledby="tab-vision" hidden>
+                <div class="markdown-preview">
+                  <h4># Engineering Philosophy &amp; Research Vision</h4>
+                  <blockquote class="console-quote">
+                    "True engineering impact occurs when advanced deep learning research converges with accessible, production-grade applications that empower real human lives."
+                  </blockquote>
+                  <p class="console-para">
+                    My vision is centered on building <strong>assistive and human-centric technologies</strong>. Whether training deep sequence models to bridge communication barriers for the speech-and-hearing-impaired community, or streamlining enterprise marketing workflows with predictive intelligence, I prioritize building software that is rigorous, explainable, and accessible to everyone.
+                  </p>
                 </div>
               </div>
             </div>
+          </article>
 
-            <!-- Social icons -->
-            <div class="social-links" aria-label="Connect with Saifur">
-              <a href="https://github.com/saifur-rahman0" target="_blank" rel="noopener noreferrer"
-                class="social-icon social-icon--github" aria-label="GitHub profile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  aria-hidden="true">
-                  <path
-                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                  </path>
-                </svg>
-              </a>
-              <a href="https://linkedin.com/in/saifur-rahman-207617304" target="_blank" rel="noopener noreferrer"
-                class="social-icon social-icon--linkedin" aria-label="LinkedIn profile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  aria-hidden="true">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-              <a href="https://kaggle.com/saifurrahman19" target="_blank" rel="noopener noreferrer"
-                class="social-icon social-icon--kaggle" aria-label="Kaggle profile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"
-                  aria-hidden="true">
-                  <path
-                    d="M18.825 23.859c-.022.091-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.187c0 .149-.047.271-.141.365-.094.094-.216.141-.365.141H5.158c-.149 0-.271-.047-.365-.141-.094-.094-.141-.216-.141-.365V.505c0-.149.047-.271.141-.365C4.887.047 5.009 0 5.158 0h2.623c.149 0 .271.047.365.141.094.094.141.216.141.365v14.494l6.397-6.289c.164-.164.339-.246.527-.246h3.292c.164 0 .264.053.3.158.047.117.029.217-.053.299l-6.844 6.554 7.158 8.088c.07.094.094.194.07.295z" />
-                </svg>
-              </a>
-              <a href="https://codeforces.com/profile/saifur_r" target="_blank" rel="noopener noreferrer"
-                class="social-icon social-icon--codeforces" aria-label="Codeforces profile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                  <rect x="1.5" y="9" width="5" height="12" rx="1.5" fill="#FFD400" />
-                  <rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="#1884C6" />
-                  <rect x="17.5" y="6" width="5" height="15" rx="1.5" fill="#C41919" />
-                </svg>
-              </a>
-              <a href="mailto:rahmansaifur064@gmail.com" class="social-icon social-icon--email" aria-label="Send email">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  aria-hidden="true">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </a>
-            </div>
-
-          </div><!-- /.about-text-col -->
-        </div><!-- /.about-grid -->
+        </div><!-- /.about-bento-grid -->
       </div><!-- /.section-container -->
     </section>
 

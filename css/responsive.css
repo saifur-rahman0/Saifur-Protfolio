@@ -181,32 +181,17 @@
     display: none;
   }
 
-  /* ── About grid: avatar (2fr) + text (3fr) ── */
-  .about-grid {
-    grid-template-columns: 2fr 3fr;
-    gap: var(--space-16);
-    align-items: center;
+  /* ── About Bento Grid (Tablet) ── */
+  .about-bento-grid {
+    gap: var(--space-6);
   }
 
-  .about-avatar-col {
-    justify-content: flex-end;
+  .about-pillars-container {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Avatar larger on tablet+ */
-  .avatar-img {
-    width: 220px;
-    height: 220px;
-  }
-
-  /* Pillar cards row on tablet+ */
-  .pillar-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .pillar-card {
-    flex: 1 1 calc(50% - var(--space-2));
-    min-width: 240px;
+  .metrics-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   /* Projects: 2-col grid */
@@ -283,29 +268,26 @@
     max-width: 800px;
   }
 
-  /* ── About ── */
-  .about-grid {
-    grid-template-columns: 2fr 3fr;
+  /* ── About Bento Grid (Desktop) ── */
+  .about-bento-grid {
+    grid-template-columns: repeat(12, 1fr);
   }
 
-  /* Avatar full size on desktop */
-  .avatar-img {
-    width: 260px;
-    height: 260px;
+  .about-card--identity {
+    grid-column: span 7;
   }
 
-  /* Pillar cards: one per row works well due to icon+text horizontal */
-  .pillar-cards {
-    flex-direction: column;
+  .about-card--metrics {
+    grid-column: span 5;
   }
 
-  .pillar-card {
-    flex: none;
+  .about-pillars-container {
+    grid-column: span 12;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Stats: 4-col on desktop */
-  .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .about-card--console {
+    grid-column: span 12;
   }
 
   /* ── Projects ── */

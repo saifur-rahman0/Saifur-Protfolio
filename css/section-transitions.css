@@ -69,28 +69,50 @@ section:not(#hero).section-in-view .section-subtitle {
 
 /* ── Tailored Section Signatures ───────────────────────────── */
 
-/* 1. About: Left avatar and right bio glide in with magnetic balance */
-#about:not(.section-in-view) .about-avatar-col {
+/* 1. About: Bento Cards cascade in with smooth spring entrance */
+#about:not(.section-in-view) .about-card--identity {
   opacity: 0;
-  transform: translateX(-40px) scale(0.96);
+  transform: translateY(28px) scale(0.98);
 }
-#about:not(.section-in-view) .about-text-col {
+#about:not(.section-in-view) .about-card--metrics {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateY(28px) scale(0.98);
 }
-#about.section-in-view .about-avatar-col {
+#about:not(.section-in-view) .about-pillars-container {
+  opacity: 0;
+  transform: translateY(28px);
+}
+#about:not(.section-in-view) .about-card--console {
+  opacity: 0;
+  transform: translateY(28px);
+}
+#about.section-in-view .about-card--identity {
   opacity: 1;
   transform: none;
   transition:
-    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s,
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
-#about.section-in-view .about-text-col {
+#about.section-in-view .about-card--metrics {
   opacity: 1;
   transform: none;
   transition:
-    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s,
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s;
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+#about.section-in-view .about-pillars-container {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+#about.section-in-view .about-card--console {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
 }
 
 /* 2. Journey: Timeline cascade with circuit pulse */
@@ -198,8 +220,8 @@ section:not(#hero).section-in-view .section-subtitle {
   section:not(#hero) .eyebrow-label,
   section:not(#hero) .section-heading,
   section:not(#hero) .section-subtitle,
-  #about .about-avatar-col,
-  #about .about-text-col,
+  #about .about-bento-card,
+  #about .about-pillars-container,
   #journey .timeline-item,
   #projects .filter-tabs,
   #projects #flagship-grid .project-card,

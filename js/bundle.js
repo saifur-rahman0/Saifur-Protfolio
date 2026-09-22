@@ -1496,6 +1496,59 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
+     ABOUT SECTION DEVELOPER CONSOLE TABS
+     ══════════════════════════════════════════════════════════════ */
+  function initAboutConsoleTabs() {
+    const tabs = document.querySelectorAll('.console-tab');
+    const panels = document.querySelectorAll('.console-panel');
+    if (!tabs.length || !panels.length) return;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetPanelId = tab.getAttribute('aria-controls');
+
+        // Update tabs
+        tabs.forEach((t) => {
+          const isActive = t === tab;
+          t.classList.toggle('is-active', isActive);
+          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          t.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+
+        // Update panels
+        panels.forEach((panel) => {
+          if (panel.id === targetPanelId) {
+            panel.classList.add('is-active');
+            panel.removeAttribute('hidden');
+          } else {
+            panel.classList.remove('is-active');
+            panel.setAttribute('hidden', '');
+          }
+        });
+      });
+
+      // Keyboard navigation (ArrowLeft / ArrowRight)
+      tab.addEventListener('keydown', (e) => {
+        const tabList = Array.from(tabs);
+        const index = tabList.indexOf(tab);
+        let nextIndex = null;
+
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          nextIndex = (index + 1) % tabList.length;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          nextIndex = (index - 1 + tabList.length) % tabList.length;
+        }
+
+        if (nextIndex !== null) {
+          e.preventDefault();
+          tabList[nextIndex].focus();
+          tabList[nextIndex].click();
+        }
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
      BOOTSTRAP ENTRY POINT
      ══════════════════════════════════════════════════════════════ */
   function start() {
@@ -1503,6 +1556,7 @@
     initCanvas();
     initProjects();
     initAnimations();
+    initAboutConsoleTabs();
     initNav();
     initCursor();
     initContactForm();

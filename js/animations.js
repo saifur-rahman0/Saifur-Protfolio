@@ -222,6 +222,56 @@ export function initHeroAnimation() {
 }
 
 /**
+ * 6. About Section Developer Console Tabs
+ */
+export function initAboutConsoleTabs() {
+  const tabs = document.querySelectorAll('.console-tab');
+  const panels = document.querySelectorAll('.console-panel');
+  if (!tabs.length || !panels.length) return;
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const targetPanelId = tab.getAttribute('aria-controls');
+
+      tabs.forEach((t) => {
+        const isActive = t === tab;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+
+      panels.forEach((panel) => {
+        if (panel.id === targetPanelId) {
+          panel.classList.add('is-active');
+          panel.removeAttribute('hidden');
+        } else {
+          panel.classList.remove('is-active');
+          panel.setAttribute('hidden', '');
+        }
+      });
+    });
+
+    tab.addEventListener('keydown', (e) => {
+      const tabList = Array.from(tabs);
+      const index = tabList.indexOf(tab);
+      let nextIndex = null;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        nextIndex = (index + 1) % tabList.length;
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        nextIndex = (index - 1 + tabList.length) % tabList.length;
+      }
+
+      if (nextIndex !== null) {
+        e.preventDefault();
+        tabList[nextIndex].focus();
+        tabList[nextIndex].click();
+      }
+    });
+  });
+}
+
+/**
  * Initialize all animation controllers.
  */
 export function initAnimations() {
@@ -230,4 +280,5 @@ export function initAnimations() {
   initCounters();
   initTypewriter();
   initScrollIndicatorFade();
+  initAboutConsoleTabs();
 }
