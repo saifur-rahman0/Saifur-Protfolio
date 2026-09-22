@@ -15,18 +15,18 @@
 
 ---
 
-## 🚀 Overview
+## Overview
 
 A fully hand-crafted, high-performance personal portfolio website built with **pure Vanilla HTML, CSS, and JavaScript** — zero frameworks, zero build tools, zero dependencies.
 
 Showcasing my work in:
-- 🧠 **AI / Deep Learning / Computer Vision**
-- 📱 **Cross-Platform Mobile Apps** (Flutter / Dart)
-- 🌐 **Full-Stack Web Development**
+- **AI / Deep Learning / Computer Vision**
+- **Cross-Platform Mobile Apps** (Flutter / Dart)
+- **Full-Stack Web Development**
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
@@ -43,7 +43,7 @@ Showcasing my work in:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ```
 Frontend   HTML5 · CSS3 (Custom Properties) · Vanilla JavaScript (ES2022)
@@ -54,7 +54,7 @@ Assets     WebP project covers · SVG icons · PDF resume
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 saifur_portfolio/
@@ -86,7 +86,7 @@ saifur_portfolio/
 
 ---
 
-## 🎨 Design System
+## Design System
 
 | Token | Value |
 |---|---|
@@ -101,7 +101,7 @@ saifur_portfolio/
 
 ---
 
-## 📦 Running Locally
+## Running Locally
 
 No build tools required. Simply open `index.html` in your browser:
 
@@ -123,12 +123,12 @@ python -m http.server 8080
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 The site is deployed via **GitHub Pages** with a custom domain.
 
 ```
-Live URL:  https://saifur-rahman0.github.io/
+Live URL:  www.saifur-profolio.com
 Domain:    Configured via CNAME file
 ```
 
@@ -139,20 +139,20 @@ To deploy your own fork:
 
 ---
 
-## 🔗 Featured Projects
+## Featured Projects
 
 | Project | Domain | Status |
 |---|---|---|
-| [BdSLW401 — Sign Language AI](https://github.com/saifur-rahman0/Bangla-Sign-Language-Word-Recognition) | AI / Computer Vision | 🔬 Research |
+| [BdSLW401 Sign Language AI](https://github.com/saifur-rahman0/Bangla-Sign-Language-Word-Recognition) | AI / Computer Vision | 🔬 Research |
 | [BdSL Mobile App](https://github.com/saifur-rahman0/BdSL-App) | Mobile (Flutter) | ✅ Production |
 | [Guava Disease Detection](https://github.com/saifur-rahman0) | AI / Agriculture | ✅ Production |
-| [ETC Apperial Ltd Client](https://etc-apperial-ltd-client.vercel.app/) | Full-Stack Web | ✅ Live |
-| [SHEC Academic Portal](https://github.com/saifur-rahman0) | Web (React/Node) | ✅ Deployed |
+| [ETC Apperial Ltd](https://etc-apperial-ltd-client.vercel.app/) | Full-Stack Web | ✅ Live |
+| [ShEC Academic Portal](https://github.com/saifur-rahman0) | Web (React/Node) | ✅ Deployed |
 | [UMS — University Management](https://github.com/saifur-rahman0) | Web | ✅ Production |
 
 ---
 
-## 📬 Contact
+## Contact
 
 | | |
 |---|---|
@@ -161,10 +161,3 @@ To deploy your own fork:
 | **LinkedIn** | [Md. Saifur Rahman](https://www.linkedin.com/in/saifur-rahman-b8376a268/) |
 | **Location** | Dhaka, Bangladesh 🇧🇩 |
 
----
-
-## 📄 License
-
-This project is open-source for learning and inspiration. Please **do not copy the content verbatim** (bio, project descriptions, or resume). Feel free to reference the code structure.
-
-© 2026 Md. Saifur Rahman. All rights reserved.
