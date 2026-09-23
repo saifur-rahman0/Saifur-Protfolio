@@ -1,52 +1,600 @@
 /* ============================================================
    RESPONSIVE.CSS — Media Queries (Mobile → Desktop)
    Mobile-first: base styles are mobile in sections.css.
-   This file ONLY adds layout changes at larger viewports.
-   Order: sm(640) → md(768) → lg(1024) → xl(1280) → mobile-fixes
+   This file provides full dynamic responsiveness across all devices:
+   - Comprehensive Mobile (< 768px)
+   - Compact Phones (< 480px)
+   - Ultra-compact Phones (< 360px)
+   - Tablet Portrait (640px+)
+   - Tablet Landscape & Desktop (768px+)
+   - Large Desktop (1024px+)
+   - Wide Desktop (1280px+)
+   - Touch & Reduced Motion Utilities
    ============================================================ */
 
 /* ============================================================
-   6.1 — MOBILE BASE (< 640px) — Already defined in sections.css
-   Included here as explicit overrides and fixes.
+   6.1 — MOBILE FULL SYSTEM (< 768px)
+   Comprehensive, dynamic, responsive styling for all phones
    ============================================================ */
+@media (max-width: 767px) {
 
-/* Hero name shrinks on smallest screens */
-@media (max-width: 480px) {
-  #hero-name {
-    font-size: var(--text-4xl);
+  /* ── Visibility Utilities ── */
+  .mobile-only {
+    display: block !important;
   }
 
-  .hero-role {
-    font-size: var(--text-lg);
+  .desktop-only {
+    display: none !important;
   }
 
-  .hero-tagline {
-    font-size: var(--text-base);
+  /* ── Header & Navigation ── */
+  .nav-container {
+    padding: 0 var(--space-4);
+    gap: var(--space-3);
   }
 
-  /* Telemetry HUD compact wrapping on mobile */
-  .hero-telemetry-hud {
+  .nav-logo {
     gap: var(--space-2);
   }
 
-  .telemetry-pill,
-  .telemetry-chip {
-    padding: 4px 10px;
-    font-size: 11px;
+  .nav-logo-name {
+    font-size: 1rem;
+    white-space: nowrap;
   }
 
-  /* Avatar even smaller on very small screens */
-  .avatar-img {
-    width: 160px;
-    height: 160px;
+  #navbar .nav-links {
+    display: none !important;
   }
 
-  /* Section container tighter on small screens */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  #theme-toggle {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    flex-shrink: 0;
+  }
+
+  #mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: var(--radius-md);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  #mobile-menu-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* ── Section Containers & Headings ── */
   .section-container {
-    padding: var(--space-16) var(--space-4);
+    padding: var(--space-14) var(--space-4);
   }
 
-  /* Modal full-screen on phones */
+  .section-heading {
+    font-size: clamp(1.85rem, 7vw, 2.5rem);
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-2);
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  /* ── Hero Section (#hero) — Dynamic & Collision-Free ── */
+  #hero {
+    min-height: 100dvh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: calc(var(--nav-height) + var(--space-4));
+    padding-bottom: var(--space-6);
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding: 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .hero-telemetry-hud {
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .telemetry-chip,
+  .telemetry-pill {
+    padding: 5px 12px;
+    font-size: 11.5px;
+  }
+
+  #hero-name {
+    font-size: clamp(2.2rem, 8.5vw, 3.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-3);
+    word-break: break-word;
+  }
+
+  .hero-role {
+    font-size: clamp(1rem, 4.2vw, 1.25rem);
+    margin: var(--space-2) 0 var(--space-3);
+    gap: 6px;
+  }
+
+  #role-switcher {
+    min-width: 0;
+    display: inline;
+  }
+
+  .hero-tagline {
+    font-size: clamp(0.925rem, 3.6vw, 1.05rem);
+    line-height: 1.58;
+    margin-bottom: var(--space-6);
+    max-width: 100%;
+  }
+
+  /* Hero CTA button group - full-width stacked buttons */
+  .hero-cta-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.05em;
+    padding: 13px 20px;
+  }
+
+  /* CRITICAL: Hero Scroll Indicator on Mobile flows cleanly below buttons */
+  .scroll-indicator {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: var(--space-6);
+    margin-bottom: 0;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+  }
+
+  .scroll-line {
+    height: 24px;
+  }
+
+  .scroll-indicator:hover {
+    transform: translateY(2px);
+  }
+
+  /* ── About Section (#about) ── */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+  }
+
+  .about-avatar-col {
+    justify-content: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .avatar-img {
+    width: clamp(165px, 45vw, 195px);
+    height: clamp(165px, 45vw, 195px);
+  }
+
+  .about-text-col {
+    gap: var(--space-6);
+  }
+
+  .about-bio {
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .stat-card {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .stat-number {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+  }
+
+  .pillar-cards {
+    gap: var(--space-3);
+  }
+
+  .pillar-card {
+    padding: var(--space-4);
+  }
+
+  .pillar-card__desc {
+    font-size: 0.85rem;
+    line-height: 1.48;
+  }
+
+  .about-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .about-action-btns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-3);
+  }
+
+  .about-action-btns .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+    text-align: center;
+  }
+
+  .about-action-row .social-links {
+    justify-content: center;
+    width: 100%;
+    gap: var(--space-3);
+  }
+
+  /* ── Interactive Developer Console ── */
+  .about-card--console {
+    margin-top: var(--space-8);
+    border-radius: var(--radius-xl);
+  }
+
+  .console-chrome {
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .console-chrome::-webkit-scrollbar {
+    display: none;
+  }
+
+  .console-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-shrink: 1;
+  }
+
+  .console-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .console-tab {
+    padding: 6px 10px;
+    font-size: 11.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 36px;
+  }
+
+  .console-env-tag {
+    display: none;
+  }
+
+  .console-body {
+    padding: 12px 14px;
+    min-height: 90px;
+    overflow-x: auto;
+  }
+
+  .code-block {
+    font-size: 11.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* ── Journey / Timeline (#journey) ── */
+  .timeline::before {
+    left: 15px;
+    width: 2px;
+  }
+
+  .timeline-node {
+    width: 24px;
+    height: 24px;
+    left: 4px;
+    top: 2px;
+  }
+
+  .timeline-node::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .timeline-item {
+    padding-left: 46px;
+    padding-bottom: var(--space-8);
+  }
+
+  .timeline-card {
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+
+  .timeline-title {
+    font-size: 1.05rem;
+  }
+
+  .timeline-org {
+    font-size: 0.825rem;
+  }
+
+  .timeline-highlights li {
+    font-size: 0.825rem;
+    line-height: 1.45;
+  }
+
+  /* ── Projects Section (#projects) ── */
+  .filter-tabs {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    padding: 4px;
+    border-radius: var(--radius-xl);
+    gap: 4px;
+    margin-bottom: var(--space-8);
+  }
+
+  .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-tab {
+    padding: 8px 14px;
+    font-size: 12.5px;
+    flex-shrink: 0;
+    min-height: 40px;
+  }
+
+  #flagship-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .project-card__image-wrapper {
+    height: 190px;
+  }
+
+  .project-card__body {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .project-card__title {
+    font-size: 1.25rem;
+  }
+
+  .project-card__desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .project-card__tags {
+    gap: 6px;
+  }
+
+  .project-card__tags .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .project-card__links {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .project-card__links .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  #compact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .compact-card {
+    padding: var(--space-4);
+  }
+
+  .compact-card__description {
+    -webkit-line-clamp: 3;
+  }
+
+  /* ── Skills Section (#skills) ── */
+  .skills-categories {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .skill-category {
+    padding: var(--space-5) var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+
+  .skill-category__title {
+    font-size: 1.1rem;
+  }
+
+  .skill-tags {
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  /* ── Profiles Section (#profiles) ── */
+  .profiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .profile-card {
+    padding: var(--space-4) var(--space-3);
+    border-radius: var(--radius-xl);
+    gap: var(--space-2);
+  }
+
+  .profile-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .profile-name {
+    font-size: 0.95rem;
+  }
+
+  .profile-handle {
+    font-size: 0.75rem;
+  }
+
+  /* ── Contact Section (#contact) ── */
+  .contact-content {
+    max-width: 100%;
+    padding: 0;
+    gap: var(--space-6);
+  }
+
+  .contact-form {
+    padding: var(--space-5) var(--space-4);
+    border-radius: var(--radius-xl);
+    gap: var(--space-4);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 16px; /* Prevents auto-zoom on mobile devices */
+    padding: 12px 14px 12px 40px;
+    min-height: 48px;
+  }
+
+  .form-textarea {
+    padding: 12px 14px;
+    min-height: 110px;
+  }
+
+  .contact-submit-btn {
+    width: 100%;
+    min-height: 50px;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  .contact-direct {
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .contact-email-link {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+    font-size: 0.85rem;
+  }
+
+  .contact-social {
+    gap: var(--space-3);
+  }
+
+  .social-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* ── Footer (#footer) ── */
+  .footer-container {
+    padding: 0 var(--space-4);
+  }
+
+  .footer-minimal {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  .footer-copyright-mini {
+    text-align: center;
+  }
+
+  /* ── Back to Top ── */
+  #back-to-top {
+    bottom: max(var(--space-4), env(safe-area-inset-bottom, 16px));
+    right: var(--space-4);
+    width: 42px;
+    height: 42px;
+  }
+
+  /* ── Project Detail Modal ── */
   .modal-panel {
     width: 100vw;
     max-height: 100dvh;
@@ -55,69 +603,104 @@
     left: 0;
     transform: translateY(60px) scale(0.95);
     margin: 0;
+    padding: var(--space-5);
   }
 
   .modal.is-open .modal-panel {
     transform: translateY(0) scale(1);
   }
 
-  /* Filter tabs horizontal scroll */
-  .filter-tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    padding-bottom: var(--space-2);
+  .modal-cover {
+    height: 180px;
   }
 
-  .filter-tabs::-webkit-scrollbar {
+  .modal-title {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* Landscape / short-height mobile viewport adjustment */
+@media (max-height: 640px) and (max-width: 767px) {
+  .scroll-indicator {
     display: none;
   }
 
-  /* CTA group stacks vertically */
-  .hero-cta-group {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .hero-cta-group .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Role switcher min-width reduced */
-  #role-switcher {
-    min-width: 200px;
-  }
-
-  /* Timeline left padding reduced */
-  .timeline-item {
-    padding-left: 54px;
-  }
-
-  .timeline::before {
-    left: 18px;
-  }
-
-  .timeline-node {
-    width: 22px;
-    height: 22px;
-  }
-
-  /* Back to top closer to edge */
-  #back-to-top {
-    bottom: var(--space-5);
-    right: var(--space-4);
-    width: 44px;
-    height: 44px;
+  #hero {
+    padding-top: calc(var(--nav-height) + var(--space-2));
+    padding-bottom: var(--space-4);
   }
 }
 
 /* ============================================================
-   6.2 — sm: 640px+ (Tablet Portrait)
+   6.2 — COMPACT PHONES (< 480px)
    ============================================================ */
+@media (max-width: 480px) {
+  #hero-name {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
 
+  .avatar-img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .telemetry-chip,
+  .telemetry-pill {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .timeline-item {
+    padding-left: 44px;
+  }
+
+  .profiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .profile-card {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .stat-number {
+    font-size: var(--text-2xl);
+  }
+
+  .stat-label {
+    font-size: 10.5px;
+  }
+}
+
+/* ============================================================
+   6.3 — ULTRA-COMPACT SCREENS (< 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+  #hero-name {
+    font-size: 1.85rem;
+  }
+
+  .avatar-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profiles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-logo-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================================
+   6.4 — sm: 640px+ (Tablet Portrait)
+   ============================================================ */
 @media (min-width: 640px) {
 
   /* Hero */
@@ -155,7 +738,7 @@
     height: 48px;
   }
 
-  /* CTA group row again */
+  /* CTA group row again on tablet */
   .hero-cta-group {
     flex-direction: row;
     align-items: center;
@@ -167,10 +750,17 @@
 }
 
 /* ============================================================
-   6.3 — md: 768px+ (Tablet Landscape)
+   6.5 — md: 768px+ (Tablet Landscape & Desktop)
    ============================================================ */
-
 @media (min-width: 768px) {
+
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: block !important;
+  }
 
   /* ── Show desktop nav, hide hamburger ── */
   #navbar .nav-links {
@@ -178,7 +768,20 @@
   }
 
   #mobile-menu-btn {
-    display: none;
+    display: none !important;
+  }
+
+  /* ── Hero scroll indicator absolute ── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+  }
+
+  .scroll-indicator:hover {
+    transform: translateX(-50%) translateY(3px);
   }
 
   /* ── About Grid (Tablet) ── */
@@ -217,7 +820,7 @@
     text-align: left;
   }
 
-  /* Modal back to normal */
+  /* Modal back to normal desktop dialog */
   .modal-panel {
     width: min(800px, 90vw);
     max-height: 90vh;
@@ -242,13 +845,19 @@
   .timeline-node {
     width: 28px;
     height: 28px;
+    left: 0;
+    top: 4px;
+  }
+
+  .timeline-node::after {
+    width: 10px;
+    height: 10px;
   }
 }
 
 /* ============================================================
-   6.4 — lg: 1024px+ (Desktop)
+   6.6 — lg: 1024px+ (Desktop)
    ============================================================ */
-
 @media (min-width: 1024px) {
 
   /* ── Hero ── */
@@ -304,9 +913,8 @@
 }
 
 /* ============================================================
-   6.5 — xl: 1280px+ (Wide Desktop)
+   6.7 — xl: 1280px+ (Wide Desktop)
    ============================================================ */
-
 @media (min-width: 1280px) {
 
   /* More generous section padding */
@@ -336,9 +944,8 @@
 }
 
 /* ============================================================
-   6.6 — TOUCH / NO-HOVER DEVICE — Hide Custom Cursor
+   6.8 — TOUCH / NO-HOVER DEVICE — Hide Custom Cursor & Tune Tap Targets
    ============================================================ */
-
 @media (hover: none) or (pointer: coarse) {
   /* Don't activate custom cursor on touchscreens */
   body.custom-cursor,
@@ -371,58 +978,5 @@
 
   .mobile-nav-link {
     padding: var(--space-4);
-  }
-}
-
-/* ============================================================
-   6.7 — MOBILE-ONLY: .mobile-only / .desktop-only
-   ============================================================ */
-
-@media (min-width: 768px) {
-  .mobile-only {
-    display: none;
-  }
-
-  .desktop-only {
-    display: block;
-  }
-}
-
-@media (max-width: 767px) {
-  .mobile-only {
-    display: block;
-  }
-
-  .desktop-only {
-    display: none;
-  }
-
-  /* Compact card description 3-line clamp on mobile */
-  .compact-card__description {
-    -webkit-line-clamp: 3;
-  }
-
-  /* Timeline card padding smaller on mobile */
-  .timeline-card {
-    padding: var(--space-4) var(--space-4);
-  }
-
-  /* Footer copyright centered on mobile */
-  .footer-copyright {
-    text-align: center;
-    width: 100%;
-  }
-
-  /* Modal panel: reduce padding */
-  .modal-panel {
-    padding: var(--space-5);
-  }
-
-  .modal-cover {
-    height: 180px;
-  }
-
-  .modal-title {
-    font-size: var(--text-2xl);
   }
 }
