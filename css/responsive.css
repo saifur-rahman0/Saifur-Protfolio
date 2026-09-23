@@ -619,20 +619,42 @@
     height: 42px;
   }
 
-  /* ── Project Detail Modal ── */
+  /* ── Project Detail Modal (Mobile) ── */
   .modal-panel {
     width: 100vw;
+    height: 100dvh;
     max-height: 100dvh;
     border-radius: 0;
     top: 0;
     left: 0;
     transform: translateY(60px) scale(0.95);
     margin: 0;
-    padding: var(--space-5);
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .modal.is-open .modal-panel {
     transform: translateY(0) scale(1);
+  }
+
+  #modal-body {
+    padding: var(--space-5);
+    padding-top: calc(var(--space-4) + 48px); /* Clear clearance below fixed close button */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    max-height: 100dvh;
+  }
+
+  .modal-close {
+    position: fixed;
+    top: max(var(--space-3), env(safe-area-inset-top, 12px));
+    right: max(var(--space-3), env(safe-area-inset-right, 12px));
+    width: 44px;
+    height: 44px;
+    z-index: 100;
   }
 
   .modal-cover {
@@ -852,10 +874,23 @@
     border-radius: var(--radius-3xl);
     top: 50%;
     left: 50%;
+    padding: 0;
+    overflow: hidden;
   }
 
   .modal.is-open .modal-panel {
     transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+
+  #modal-body {
+    padding: var(--space-8);
+    max-height: 90vh;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
   }
 
   /* Timeline left padding restored */
@@ -958,7 +993,7 @@
   }
 
   /* Modal a bit wider */
-  .modal-panel {
+  #modal-body {
     padding: var(--space-10);
   }
 

@@ -437,6 +437,7 @@ export function initModals() {
     if (!project) return;
 
     lastFocusedElement = document.activeElement;
+    modalBody.scrollTop = 0;
 
     // Render modal content
     modalBody.innerHTML = `

@@ -807,6 +807,7 @@
       const p = FLAGSHIP_PROJECTS.find((item) => item.id === id);
       if (!p) return;
       lastFocused = document.activeElement;
+      modalBody.scrollTop = 0;
 
       modalBody.innerHTML = `
         <div class="modal-header">
