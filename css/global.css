@@ -289,6 +289,8 @@ pre {
   max-width: var(--max-width-content);
   margin: 0 auto;
   padding: var(--space-20) var(--space-6);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ============================================================
