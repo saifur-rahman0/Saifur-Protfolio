@@ -29,7 +29,11 @@
 
   /* ── Header & Navigation ── */
   .nav-container {
+<<<<<<< HEAD
     padding: 0 clamp(1.25rem, 5.5vw, 1.75rem);
+=======
+    padding: 0 var(--space-4);
+>>>>>>> c48029413bf7d72927faa379b7a8a6e350723884
     gap: var(--space-3);
   }
 
@@ -80,10 +84,14 @@
 
   /* ── Section Containers & Headings ── */
   .section-container {
+<<<<<<< HEAD
     padding: var(--space-12) clamp(1.25rem, 5.5vw, 1.75rem);
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+=======
+    padding: var(--space-14) var(--space-4);
+>>>>>>> c48029413bf7d72927faa379b7a8a6e350723884
   }
 
   .section-heading {
@@ -118,12 +126,19 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
+<<<<<<< HEAD
     padding: 0 clamp(1.25rem, 5.5vw, 1.75rem);
+=======
+    padding: 0 var(--space-4);
+>>>>>>> c48029413bf7d72927faa379b7a8a6e350723884
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
+<<<<<<< HEAD
     box-sizing: border-box;
+=======
+>>>>>>> c48029413bf7d72927faa379b7a8a6e350723884
   }
 
   .hero-telemetry-hud {
@@ -576,9 +591,13 @@
 
   /* ── Footer (#footer) ── */
   .footer-container {
+<<<<<<< HEAD
     padding: 0 clamp(1.25rem, 5.5vw, 1.75rem);
     width: 100%;
     box-sizing: border-box;
+=======
+    padding: 0 var(--space-4);
+>>>>>>> c48029413bf7d72927faa379b7a8a6e350723884
   }
 
   .footer-minimal {
